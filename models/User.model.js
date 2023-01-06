@@ -16,7 +16,29 @@ const userSchema = new Schema(
       lowercase: true,
       trim: true
     },
-    password: {
+    firstName: {
+      type: String,
+      trim: true,
+      required: true
+    },
+    lastName: {
+      type: String,
+      trim: true,
+      required: true
+    },
+    avatarUrl: {
+      type: String
+    },
+    dateOfBirth: {
+      type: Date
+    },
+    location: {
+      type: String
+    },
+    bio: {
+      type: String
+    },
+    passwordHash: {
       type: String,
       required: true
     }
