@@ -1,33 +1,33 @@
-const { isLoggedIn } = require('../middlewares/routes.guard');
+const { isLoggedIn, isOwnProfile } = require('../middlewares/routes.guard');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const fileUploader = require('../config/cloudinary.config');
 
 const router = require('express').Router();
 
-router.get('/', isLoggedIn, (req, res, next) => {
+router.get('/', isLoggedIn, (req, res, next) => res.redirect(`/profile/${ req.session.user.username }`) );
 
-    User.findById( req.session.user.id )
-        .then(user => res.render('profile/view', { user }))
+router.get('/:username', (req, res, next) => {
+
+    const { username } = req.params;
+    let userOwnProfile;
+
+    if (req.session.user) { 
+        req.session.user.username === username ? userOwnProfile = true : userOwnProfile = false; 
+    }
+    
+    User.findOne({ username })
+        .populate('rooms')
+        .then(user => res.render('profile/view', { user, userOwnProfile }))
         .catch(err => console.log(err));
 
 });
 
-router.get('/:id', (req, res, next) => {
+router.get('/:username/edit', isOwnProfile, (req, res, next) => {
 
-    const { id } = req.params;
+    const { username } = req.params;
 
-    User.findById( id )
-        .then(user => res.render('profile/view', { user }))
-        .catch(err => console.log(err));
-
-});
-
-router.get('/:id/edit', (req, res, next) => {
-
-    const { id } = req.params;
-
-    User.findById( id )
+    User.findOne({ username })
         .then(user => {
             const dateOfBirth = user.dateOfBirth.toISOString().split('T')[0];
             res.render(`profile/edit`, { user, dateOfBirth })
@@ -37,10 +37,10 @@ router.get('/:id/edit', (req, res, next) => {
 
 });
 
-router.post('/:id/edit', fileUploader.single('avatar'), (req, res, next) => {
+router.post('/:username/edit', isOwnProfile, fileUploader.single('avatar'), (req, res, next) => {
     
-    const { id } = req.params;
-    const { firstName, lastName, dateOfBirth, location, username, email, bio} = req.body;
+    const { username } = req.params;
+    const { firstName, lastName, dateOfBirth, location, email, bio} = req.body;
 
     if (req.file) req.body.avatarUrl = req.file.path;
 

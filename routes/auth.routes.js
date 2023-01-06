@@ -3,6 +3,7 @@ const fileUploader = require('../config/cloudinary.config');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const { isLoggedOut, isLoggedIn } = require('../middlewares/routes.guard');
+const Room = require('../models/Room.model');
 
 router.get('/signup', isLoggedOut, (req, res, next) => res.render('auth/signup') );
 
@@ -16,8 +17,18 @@ router.post('/signup', isLoggedOut, fileUploader.single('avatar'), (req, res, ne
 
     bcrypt.hash( password, 10 )
         .then(hash => {
-            User.create({ username, email, firstName, lastName, avatarUrl, dateOfBirth, location, bio, passwordHash: hash })
+            return User.create({ username, email, firstName, lastName, avatarUrl, dateOfBirth, location, bio, passwordHash: hash })
         })
+        .then(user => {
+
+            Room.create({ name: 'Home', ownerId: user._id })
+                .then(room => {
+                    user.rooms.push(room._id);
+                    user.save();
+                })
+                .catch(err => console.log(err))
+
+            })
         .then(() => res.redirect('/auth/login'))
         .catch(err => console.log(err));
 

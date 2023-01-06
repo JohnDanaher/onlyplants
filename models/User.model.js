@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, model, isObjectIdOrHexString } = require("mongoose");
 
 // TODO: Please make sure you edit the User model to whatever makes sense in this case
 const userSchema = new Schema(
@@ -41,7 +41,19 @@ const userSchema = new Schema(
     passwordHash: {
       type: String,
       required: true
-    }
+    },
+    rooms: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Room'
+      }
+    ],
+    plants: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Plant'
+      }
+    ]
   },
   {
     // this second object adds extra properties: `createdAt` and `updatedAt`    

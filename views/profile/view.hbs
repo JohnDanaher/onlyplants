@@ -1,1 +1,25 @@
-test
+<h1>Profile</h1>
+
+<p>{{ user.firstName }}</p>
+<p>{{ user.lastName }}</p>
+<p>{{ user.dateOfBirth }}</p>
+<p>{{ user.email }}</p>
+<p>{{ user.username }}</p>
+<p>{{ user.avatarUrl }}</p>
+<p>{{ user.location }}</p>
+<p>{{ user.bio }}</p>
+
+<h2>My Rooms</h2>
+{{#each user.rooms}}
+    <div class="room">
+        {{ this.name }}
+        {{#if ../userOwnProfile}}
+            <a href="/rooms/{{ this._id }}/edit">Edit room</a>
+            <form action="/rooms/{{ this._id }}/delete" method="POST"><input type="submit" value="Delete room"></form>
+        {{/if}}
+    </div>
+{{/each}}
+
+{{#if errorMessage}}
+    <p>{{ errorMessage }}</p>
+{{/if}}
