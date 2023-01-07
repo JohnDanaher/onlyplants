@@ -1,22 +1,26 @@
-<h1>Profile</h1>
-
-<p>{{ user.firstName }}</p>
+<div class="profile">
+    <img src="{{ user.avatarUrl }}" alt="" class="profile-pic" />
+    <div class="profile-infos">
+        <h1>{{ user.username }}</h1>
+        <p>{{ user.email }}</p>
+        <p><i class="bi bi-geo-alt-fill"></i> {{ user.location }}</p>
+        <p>{{ user.bio }}</p>
+    </div>
+</div>
+{{!-- <p>{{ user.firstName }}</p>
 <p>{{ user.lastName }}</p>
-<p>{{ user.dateOfBirth }}</p>
-<p>{{ user.email }}</p>
-<p>{{ user.username }}</p>
-<p>{{ user.avatarUrl }}</p>
-<p>{{ user.location }}</p>
-<p>{{ user.bio }}</p>
+<p>{{ user.dateOfBirth }}</p> --}}
 
-<h2>My Rooms</h2>
+<div class="room-actions"><h2>My Rooms</h2><a href="/rooms/create"><i class="bi bi-plus-circle"></i></a></div>
 {{#each user.rooms}}
     <div class="room">
         {{ this.name }}
-        {{#if ../userOwnProfile}}
-            <a href="/rooms/{{ this._id }}/edit">Edit room</a>
-            <form action="/rooms/{{ this._id }}/delete" method="POST"><input type="submit" value="Delete room"></form>
-        {{/if}}
+        <div class="room-actions">
+            {{#if ../userOwnProfile}}
+                <a href="/rooms/{{ this._id }}/edit"><i class="bi bi-pencil-square"></i></a>
+                <form action="/rooms/{{ this._id }}/delete" method="POST"><button><i class="bi bi-x-square"></i></button></form>
+            {{/if}}
+        </div>
     </div>
 {{/each}}
 

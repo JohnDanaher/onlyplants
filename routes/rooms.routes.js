@@ -5,13 +5,33 @@ const User = require('../models/User.model');
 const { ObjectId } = require('mongoose').Types;
 
 
-router.get('/create', isLoggedIn, (req, res, next) => res.render('rooms/create') )
+router.get('/create', isLoggedIn, async (req, res, next) => {
+    const users = await User.find( {}, { username: 1, avatarUrl: 1 })
+                            .catch(err => console.log(err));
+    res.render('rooms/create', { users });
+});
 
 router.post('/create', isLoggedIn, async (req, res, next) => {
-    const { name } = req.body;
+    const { name, inviteesList } = req.body;
     let { id } = req.session.user;
+    const inviteesUsernamesArr = inviteesList.split(',');
+    
+    const usernamesIntoIds = inviteesUsernamesArr.map(invitee => {
+        return User.findOne({ username: invitee })
+        .then(user => { if (user) { return user._id } })
+    });
 
-    const room = await Room.create( { name, ownerId:  id });
+    const inviteesIds = await Promise.all(usernamesIntoIds)
+
+    const room = await Room.create( { name, ownerId: id } )
+                        .then(room => {
+                            inviteesIds.forEach(inviteeId => {
+                                room.inviteesId.push(inviteeId);
+                            })
+                            room.save();
+                            return room;
+                        });
+
     await User.findById( id )
             .then(user => {
                 user.rooms.push(room._id);
@@ -32,15 +52,42 @@ router.get('/:roomId', isLoggedIn, (req, res, next) => {
 router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     const { roomId } = req.params;
     const room = await Room.findById( roomId );
+    
+    const idsIntoUsernames = room.inviteesId.map(invitee => {
+        return User.findById( invitee )
+        .then(user => { if(user) { return user.username } })
+    });
 
-    res.render('rooms/edit', { room });
+    const inviteesUsernames = await Promise.all(idsIntoUsernames)
+
+    const users = await User.find( {}, { username: 1, avatarUrl: 1 })
+                            .catch(err => console.log(err));
+
+    res.render('rooms/edit', { room, users, inviteesUsernames });
 });
 
 router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
-    const { name } = req.body;
+    const { name, inviteesList } = req.body;
     const { roomId } = req.params;
+    
+    const inviteesUsernamesArr = inviteesList.split(',');
+    const usernamesIntoIds = inviteesUsernamesArr.map(invitee => {
+        return User.findOne({ username: invitee })
+        .then(user => { if (user) { return user._id } });
+    });
+    
+    const inviteesIds = await Promise.all(usernamesIntoIds)
 
-    await Room.findByIdAndUpdate( roomId, { name })
+    await Room.findByIdAndUpdate( roomId, { name, $set: { inviteesId: [] } })
+        .then(room => {
+            if ( inviteesList !== '' ) {
+                inviteesIds.forEach(inviteeId => {
+                    room.inviteesId.push(inviteeId);
+                });
+                room.save();
+            }
+        })
+
     res.redirect('/');
 });
 

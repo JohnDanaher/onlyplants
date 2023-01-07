@@ -15,11 +15,14 @@ router.get('/:username', (req, res, next) => {
     if (req.session.user) { 
         req.session.user.username === username ? userOwnProfile = true : userOwnProfile = false; 
     }
-    
+
     User.findOne({ username })
         .populate('rooms')
-        .then(user => res.render('profile/view', { user, userOwnProfile }))
-        .catch(err => console.log(err));
+        .then(user => {
+            if ( !user ) { res.redirect('/'); return; }
+            res.render('profile/view', { user, userOwnProfile })
+        })
+        .catch((err => console.log(err)));
 
 });
 

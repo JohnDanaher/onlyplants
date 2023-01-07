@@ -6,7 +6,7 @@
   cursor: default;
 }
 
-a, button, input {
+a, a > *, button, button > *, input, .room-actions > * {
   cursor: pointer;
 }
 
@@ -18,12 +18,12 @@ body {
 h1 {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 20px;
 }
 
 h2 {
   font-size: 1.5rem;
   font-weight: 500;
+  margin-top: 30px;
   margin-bottom: 10px;
 }
 
@@ -36,8 +36,7 @@ h3 {
 
 i {
   display: inline-block;
-  color: #f283b6;
-  font-size: .95rem;
+  color: #F29171;
 }
 
 a {
@@ -79,30 +78,84 @@ a.button:hover, input[type="submit"].button:hover {
   background-color: #b5bfa1;
 }
 
+
+/* PROFILE */
+
+.profile {
+  display: flex;
+}
+
+.profile-infos {
+  padding: 30px;
+}
+
+.profile-pic {
+  width: 180px;
+  height: auto;
+  border-radius: 50%;
+  background-color: white;
+}
+
+/* ROOMS */
+
+#datalist-users-list {
+  background-color: white;
+  margin-top: 0;
+  width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px;
+}
+
+.datalist-user {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+#datalist-users-list .datalist-user-pic {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+}
+
+#datalist-users p + p {
+  margin-left: 10px;
+}
+
+.invitee {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  color: #333;
+  background-color: #b0cec2;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* .invitee::after {
+  content: "\F659";
+  padding-left: 6px;
+} */
+
+.invitee i {
+  display: inline-flex;
+  align-items: center;
+  color: #333;
+  padding: 1px 0 0 4px;
+  margin: 0;
+}
+
 .room {
   background-color: white;
   padding: 30px;
   display: flex;
+  width: 30%;
   border-radius: 4px;
   justify-content: space-between;
   margin-bottom: 20px;
-}
-
-.room img {
-  margin-right: 50px;
-}
-
-.room-infos {
-  display: flex;
-}
-
-.room-text {
-  max-width: 850px;
-}
-
-.room-text h2 a {
-  color: black;
-  text-decoration: none;
 }
 
 .room-actions {
@@ -110,23 +163,27 @@ a.button:hover, input[type="submit"].button:hover {
   align-items: baseline;
 }
 
+.room-actions a, .room-actions button {
+  display: inline-block;
+  padding-top: -10px;
+  margin-top: -30px;
+  border: 0;
+  background-color: transparent;
+  padding-left: 20px;
+}
+
+.room-actions i {
+  font-size: 1.8rem;
+}
+
 .room-actions div + div, .review-actions div + div {
   margin-left: 15px;
 }
 
-.review {
-  background-color: white;
-  border-radius: 4px;
-  padding: 20px;
-  border-left: 4px solid #edbfb7;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
-.review-actions {
-  display: flex;
-  align-items: baseline;
+label {
+  display: block;
+  margin-top: 30px;
+  padding-bottom: 8px;
 }
 
 input[type="text"], input[type="password"], input[type="email"], textarea {
@@ -134,7 +191,6 @@ input[type="text"], input[type="password"], input[type="email"], textarea {
   border: 0;
   min-width: 500px;
   padding: 15px;
-  margin-bottom: 20px;
   border-radius: 4px;
 }
 
