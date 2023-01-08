@@ -101,6 +101,7 @@ router.get('/:roomId', isLoggedIn, (req, res, next) => {
 router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     const { roomId } = req.params;
     const room = await Room.findById( roomId );
+    const userId = req.session.user.id;
     
     const idsIntoUsernames = room.inviteesId.map(invitee => {
         return User.findById( invitee )
@@ -109,12 +110,13 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
 
     const inviteesUsernames = await Promise.all(idsIntoUsernames)
 
-    const users = await User.find( {}, { username: 1, avatarUrl: 1 })
+    const users = await User.find( { '_id' : { '$ne' : userId  } }, { username: 1, avatarUrl: 1 })
                             .catch(err => console.log(err));
                             
     if ( req.session.user.error ) {
         const existingName = req.session.user.error;
         delete req.session.user.error;
+        console.log(users)
         res.render('rooms/edit', { room, users, inviteesUsernames, errorMessage: `You already have a room "${ existingName }". Please choose another name.` });
         return;
     }

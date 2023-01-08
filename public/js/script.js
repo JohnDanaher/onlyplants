@@ -16,6 +16,7 @@ const invitees = [];
 const datalistEl = document.getElementById('datalist-users-list');
 if (datalistEl) {
   const myDatalist = datalistEl.cloneNode(true);
+
   datalistEl.remove();
 
   // create new datalist element
@@ -41,12 +42,14 @@ if (datalistEl) {
 
   const addInvitee = (e) => {
 
-    invitees.push(e.target.innerText.trim());
+    console.log(e)
+    const target = e.target.innerText.trim().replace('.', '-') || e.path[1].innerText.trim().replace('.', '-')
+    invitees.push(target);
 
     // Add user under input field and add a click event
     const newUserEl = document.createElement('p');
-    newUserEl.setAttribute('class', `invitee invitee-${e.target.innerText.trim().replace('.', '-')}`);
-    newUserEl.innerHTML = `${e.target.innerText.trim()} <i class="bi bi-x"></i>`;
+    newUserEl.setAttribute('class', `invitee invitee-${target}`);
+    newUserEl.innerHTML = `${target} <i class="bi bi-x"></i>`;
     newUserEl.addEventListener('click', removeInvitee);
     inviteeLabelEl.after(newUserEl);
 
@@ -57,7 +60,6 @@ if (datalistEl) {
 
   const removeInvitee = (e) => {
 
-    console.log(e)
     // Remove user under input field
     const target = e.target.innerText.trim().replace('.', '-') || e.path[1].innerText.trim().replace('.', '-')
     const userToRemove = document.querySelector(`p.invitee-${target}`);
@@ -86,7 +88,12 @@ if (datalistEl) {
       const usersStartWith = usersArray.filter(el => el.innerText.trim().startsWith(datalistInputEl.value))
 
       for ( i = 0; i < usersStartWith.length ; i++ ) {
-        if ( !invitees.includes(usersStartWith[i].innerText.trim()) ) newDatalistEl.appendChild(usersStartWith[i])
+        if ( !invitees.includes(usersStartWith[i].innerText.trim()) ) {
+          const newUser = document.createElement('div');
+          newUser.setAttribute('class', 'datalist-user');
+          newUser.innerHTML = usersStartWith[i].innerHTML.replace('images/profile', '../../images/profile');
+          newDatalistEl.appendChild(newUser)
+        }
       }
       
       // Add click event listener for each list element

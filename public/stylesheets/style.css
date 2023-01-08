@@ -54,7 +54,7 @@ ul {
 }
 
 nav {
-  margin-bottom: 50px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
 }
@@ -199,6 +199,27 @@ input[type="file"] { display: none; }
   margin-left: 20px;
 } */
 
+.weather-infobox {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  padding: 10px;
+  background-color: ghostwhite;
+}
+
+.weather-infobox img {
+  margin-right: 8px;
+  height: 45px;
+  width: auto;
+}
+
+.weather-infobox p {
+  padding-top: 5px;
+  margin: 0;
+}
+
 /* ROOMS */
 
 #rooms {
@@ -270,6 +291,7 @@ input[type="file"] { display: none; }
   margin-right: 10px;
   width: 40px;
   height: 40px;
+  border-radius: 50%;
 }
 
 #datalist-users p + p {

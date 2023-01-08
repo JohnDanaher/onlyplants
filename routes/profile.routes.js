@@ -3,31 +3,41 @@ const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const fileUploader = require('../config/cloudinary.config');
 const path = require('path');
+const WeatherApi = require('../services/weather.service');
 
 const router = require('express').Router();
 
 router.get('/', isLoggedIn, (req, res, next) => res.redirect(`/profile/${ req.session.user.username }`) );
 
-router.get('/:username', (req, res, next) => {
+router.get('/:username', async (req, res, next) => {
 
     const { username } = req.params;
     let userOwnProfile;
+    const weatherInformations = {};
 
     if (req.session.user) { 
         req.session.user.username === username ? userOwnProfile = true : userOwnProfile = false; 
     }
 
-    User.findOne({ username })
-        .populate('rooms')
-        .then(user => {
-            if ( !user ) { res.redirect('/'); return; }
-            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = `../${user.avatarUrl}`;
-            console.log(user.avatarUrl)
-            user.rooms.length != 1 ? roomsCount = `${user.rooms.length} rooms` : roomsCount = `${user.rooms.length} room`;
-            user.plants.length != 1 ? plantsCount = `${user.plants.length} plants` : plantsCount = `${user.plants.length} plant`;
-            res.render('profile/view', { user, avatarUrl, userOwnProfile, roomsCount, plantsCount })
-        })
-        .catch((err => console.log(err)));
+    const user = await User.findOne({ username })
+                .populate('rooms')
+                .then(user => { if ( !user ) { res.redirect('/'); return; } return user; })
+                .catch((err => console.log(err)));
+    
+    if ( userOwnProfile ) {
+        const weatherApi = new WeatherApi();
+        weatherData = await weatherApi.getWeather(user.location);
+        weatherInformations.location = weatherData.data.location;
+        weatherInformations.weather = weatherData.data.condition.toLowerCase();
+        weatherInformations.iconUrl = weatherData.data.icon_url;
+        weatherInformations.temperature = weatherData.data.feels_like_c;
+    }
+
+    user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = `../${user.avatarUrl}`;
+    user.rooms.length != 1 ? roomsCount = `${user.rooms.length} rooms` : roomsCount = `${user.rooms.length} room`;
+    user.plants.length != 1 ? plantsCount = `${user.plants.length} plants` : plantsCount = `${user.plants.length} plant`;
+    
+    res.render('profile/view', { user, avatarUrl, userOwnProfile, roomsCount, plantsCount, weatherInformations })
 
 });
 
