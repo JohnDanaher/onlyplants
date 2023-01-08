@@ -87,6 +87,7 @@ label i.bi-upload { color: white; padding-right: 12px; }
 input[type="file"] { display: none; }
 
 /* SIGNUP */
+
 .error-message {
   max-width: 500px;
   background-color: #F29171;
@@ -142,7 +143,97 @@ input[type="file"] { display: none; }
   color: white  ;
 }
 
+#filters {
+  display: flex;
+  align-items: baseline;
+  margin: 20px 0;
+  padding: 25px 0;
+}
+
+#filters p {
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+#filters div + div {
+  margin-left: 30px;
+}
+
+#filters .filter-button {
+  padding: 12px 20px;
+  color: #F29171;
+  text-decoration: none;
+  line-height: auto;
+}
+
+#plants {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#plants div {
+  width: 22.8%;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  padding: 0 20px 20px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* #plants div + div {
+  margin-left: 20px;
+} */
+
 /* ROOMS */
+
+#rooms {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#rooms .room {
+  display: flex;
+  justify-content: space-between;
+  /* min-height: 350px; */
+  width: 22.8%;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  padding: 0 30px 30px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+#rooms .room.add-room {
+  background-color: transparent;
+  padding: 0;
+}
+
+#rooms .room.add-room i {
+  font-size: 3rem;
+}
+
+.add-room h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.add-room a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  border: 2px solid #F29171;
+  text-decoration: none;
+  color: #F29171;
+}
+
+.add-room a:hover {}
 
 #datalist-users-list {
   background-color: white;
@@ -194,35 +285,40 @@ input[type="file"] { display: none; }
   margin: 0;
 }
 
-.room {
-  background-color: white;
-  padding: 30px;
-  display: flex;
-  width: 30%;
-  border-radius: 4px;
-  justify-content: space-between;
-  margin-bottom: 20px;
+#card-invitees {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.card-invitee {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin-left: -20px;
 }
 
 .room-actions {
   display: flex;
   align-items: baseline;
+  margin-top: 23px;
 }
 
 .room-actions a, .room-actions button {
   display: inline-block;
-  padding-top: -10px;
-  margin-top: -30px;
   border: 0;
   background-color: transparent;
-  padding-left: 20px;
 }
 
 .room-actions i {
   font-size: 1.8rem;
 }
 
-.room-actions div + div, .review-actions div + div {
+.room-actions * + * {
   margin-left: 15px;
 }
 

@@ -9,7 +9,14 @@ router.get('/', isLoggedIn, async (req, res, next) => {
     const { id } = req.session.user;
 
     User.findById( id )
-        .populate('rooms')
+        .populate({ 
+            path: 'rooms',
+            populate: {
+                path: 'inviteesId',
+                select: [ 'username', 'avatarUrl'],
+                model: 'User'
+            }
+        })
         .then(user => {
             if ( !user ) { res.redirect('/'); return; }
             res.render('rooms/view', { user })

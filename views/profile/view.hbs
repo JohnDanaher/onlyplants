@@ -13,7 +13,24 @@
     </div>
 </div>
 
-<a href="/rooms">My rooms</a>
+<div id="filters">
+    <div><p>Filter by rooms</p></div>
+    {{#each user.rooms}}
+        <div class="filter-button">{{ this.name }}</div>
+    {{/each}}
+    <div>
+        <a href="/rooms" class="button">Manage rooms</a>
+    </div>
+</div>
+
+<div id="plants">
+    <div><h2>Plant one</h2></div>
+    <div><h2>Plant two</h2></div>
+    <div><h2>Plant three</h2></div>
+    <div><h2>Plant four</h2></div>
+    <div><h2>Plant five</h2></div>
+    <div><h2>Plant six</h2></div>
+</div>
 
 {{#if errorMessage}}
     <p class="error-message">{{ errorMessage }}</p>
