@@ -5,9 +5,29 @@ const User = require('../models/User.model');
 const { ObjectId } = require('mongoose').Types;
 
 
+router.get('/', isLoggedIn, async (req, res, next) => {
+    const { id } = req.session.user;
+
+    User.findById( id )
+        .populate('rooms')
+        .then(user => {
+            if ( !user ) { res.redirect('/'); return; }
+            res.render('rooms/view', { user })
+        })
+        .catch((err => console.log(err)));
+});
+
 router.get('/create', isLoggedIn, async (req, res, next) => {
     const users = await User.find( {}, { username: 1, avatarUrl: 1 })
                             .catch(err => console.log(err));
+
+    if ( req.session.user.error ) {
+        const existingName = req.session.user.error;
+        delete req.session.user.error;
+        res.render('rooms/create', { users, errorMessage: `You already have a room "${ existingName }". Please choose another name.` });
+        return;
+    }
+
     res.render('rooms/create', { users });
 });
 
@@ -15,6 +35,26 @@ router.post('/create', isLoggedIn, async (req, res, next) => {
     const { name, inviteesList } = req.body;
     let { id } = req.session.user;
     const inviteesUsernamesArr = inviteesList.split(',');
+    let nameAlreadyTaken = false;
+
+    if ( !name ) { res.render('rooms/create', { errorMessage: `Please fill out all required fields.` }); return; }
+    if ( name.length < 3 ) { res.render('rooms/create', { errorMessage: `The name of the room must contain at least 3 characters.` }); return; }
+
+    const checkRoomName = await User.findById( id )
+            .populate('rooms')
+            .then(user => {
+                for ( i = 0 ; i < user.rooms.length ; i++ ) {
+                    if ( user.rooms[i].name !== name ) continue;
+                    return nameAlreadyTaken = true;
+                }
+            })
+            .catch(err => console.log(err));
+
+    if (nameAlreadyTaken) {
+        req.session.user.error = name;
+        res.redirect('/rooms/create');
+        return;
+    }
     
     const usernamesIntoIds = inviteesUsernamesArr.map(invitee => {
         return User.findOne({ username: invitee })
@@ -25,10 +65,12 @@ router.post('/create', isLoggedIn, async (req, res, next) => {
 
     const room = await Room.create( { name, ownerId: id } )
                         .then(room => {
-                            inviteesIds.forEach(inviteeId => {
-                                room.inviteesId.push(inviteeId);
-                            })
-                            room.save();
+                            if (inviteesList != '') {
+                                inviteesIds.forEach(inviteeId => {
+                                    room.inviteesId.push(inviteeId);
+                                })
+                                room.save();
+                            }
                             return room;
                         });
 
@@ -39,7 +81,7 @@ router.post('/create', isLoggedIn, async (req, res, next) => {
             })
             .catch(err => console.log(err));
 
-    res.redirect('/');
+    res.redirect('/rooms');
 });
 
 router.get('/:roomId', isLoggedIn, (req, res, next) => {
@@ -62,6 +104,13 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
 
     const users = await User.find( {}, { username: 1, avatarUrl: 1 })
                             .catch(err => console.log(err));
+                            
+    if ( req.session.user.error ) {
+        const existingName = req.session.user.error;
+        delete req.session.user.error;
+        res.render('rooms/edit', { room, users, inviteesUsernames, errorMessage: `You already have a room "${ existingName }". Please choose another name.` });
+        return;
+    }
 
     res.render('rooms/edit', { room, users, inviteesUsernames });
 });
@@ -69,6 +118,29 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
 router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     const { name, inviteesList } = req.body;
     const { roomId } = req.params;
+    const { id } = req.session.user;
+    let nameAlreadyTaken = false;
+
+    if ( !name ) { res.render('rooms/edit', { errorMessage: `Please fill out all required fields.` }); return; }
+    if ( name.length < 3 ) { res.render('rooms/edit', { errorMessage: `The name of the room must contain at least 3 characters.` }); return; }
+
+    const checkRoomName = await User.findById( id )
+            .populate('rooms')
+            .then(user => {
+                for ( i = 0 ; i < user.rooms.length ; i++ ) {
+                    if ( user.rooms[i]._id.equals(roomId) ) continue;
+                    if ( user.rooms[i].name !== name ) continue;
+                    nameAlreadyTaken = true;
+                    return;
+                }
+            })
+            .catch(err => console.log(err));
+
+    if (nameAlreadyTaken) { 
+        req.session.user.error = name;
+        res.redirect(`/rooms/${ roomId }/edit`);
+        return;
+     }
     
     const inviteesUsernamesArr = inviteesList.split(',');
     const usernamesIntoIds = inviteesUsernamesArr.map(invitee => {
@@ -88,7 +160,7 @@ router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
             }
         })
 
-    res.redirect('/');
+    res.redirect('/rooms');
 });
 
 router.post('/:roomId/delete', isOwnRoom, async (req, res, next) => {
@@ -101,7 +173,7 @@ router.post('/:roomId/delete', isOwnRoom, async (req, res, next) => {
     await Room.findByIdAndDelete( roomId );
     await User.findByIdAndUpdate( req.session.user.id, { $pull: { rooms: ObjectId(roomId) }});
 
-    res.redirect('/');
+    res.redirect('/rooms');
 
 });
 

@@ -95,7 +95,6 @@ const updateDatalist = () => {
   
 }
 
-
 datalistInputEl.addEventListener('input', () => {
 
   newDatalistEl.innerHTML = '';

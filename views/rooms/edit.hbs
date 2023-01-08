@@ -1,5 +1,9 @@
 <h1>Edit a room</h1>
 
+{{#if errorMessage }}
+    <p class="error-message">{{ errorMessage }}</p>
+{{/if}}
+
 <form action="/rooms/{{ room._id }}/edit" method="POST">
     <label for="name">Name of your room:</label>
     <input type="text" name="name" id="name" value="{{ room.name }}"/>

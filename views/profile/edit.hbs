@@ -1,16 +1,35 @@
 <h1>Edit profile</h1>
 
-<form action="/profile/{{ user.id }}/edit" method="POST" enctype="multipart/form-data">
-    <input type="text" name="firstName" id="firstName" placeholder="First Name" value="{{ user.firstName }}" /><br />
-    <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="{{ user.lastName }}" /><br />
-    <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{ dateOfBirth }}" /><br />
-    <input type="email" name="email" id="email" placeholder="Email" value="{{ user.email }}" /><br />
-    <input type="text" name="location" id="location" placeholder="Location" value="{{ user.location }}" /><br />
-    <input type="file" name="avatar" id="avatar" /><br />
+{{#if errorMessage }}
+    <p class="error-message">{{ errorMessage }}</p>
+{{/if}}
+
+<form action="/profile/{{ user.username }}/edit" method="POST" enctype="multipart/form-data" class="edit-profile-form">
+    
+    <div class="profile">
+        <div class="profile-avatar">
+            <div style="background-image:url('{{ user.avatarUrl }}')" class="profile-pic"></div>
+        </div>
+        <div>
+            <label for="avatar" class="button"><i class="bi bi-upload"></i> Upload a profile picture</label>
+            <input type="file" name="avatar" id="avatar" /><br />
+        </div>
+    </div>
+    
+    <label for="firstName">First Name:</label>
+    <input type="text" name="firstName" id="firstName" placeholder="First Name" value="{{ user.firstName }}" required /><br />
+    
+    <label for="lastName">Last Name:</label>
+    <input type="text" name="lastName" id="lastName" placeholder="Last Name" value="{{ user.lastName }}" required /><br />
+    
+    <label for="dateOfBirth">Date of Birth:</label>
+    <input type="date" name="dateOfBirth" id="dateOfBirth" value="{{ dateOfBirth }}" required /><br />
+    
+    <label for="location">Location:</label>
+    <input type="text" name="location" id="location" placeholder="Location" value="{{ user.location }}" required /><br />
+
+    <label for="bio">Bio:</label>
     <textarea name="bio" id="bio" placeholder="Bio">{{ user.bio }}</textarea /><br />
+
     <input type="submit" value="Edit profile" class="button" />
 </form>
-
-{{#if errorMessage }}
-    <p>{{ errorMessage }}</p>
-{{/if}}

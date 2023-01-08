@@ -1,0 +1,13 @@
+<div class="room-actions"><h1>Manage Rooms</h1>
+    <a href="/rooms/create"><i class="bi bi-plus-circle"></i></a>
+</div>
+
+{{#each user.rooms}}
+    <div class="room">
+        {{ this.name }}
+        <div class="room-actions">
+            <a href="/rooms/{{ this._id }}/edit"><i class="bi bi-pencil-square"></i></a>
+            <form action="/rooms/{{ this._id }}/delete" method="POST"><button><i class="bi bi-x-square"></i></button></form>
+        </div>
+    </div>
+{{/each}}

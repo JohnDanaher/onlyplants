@@ -20,7 +20,9 @@ router.get('/:username', (req, res, next) => {
         .populate('rooms')
         .then(user => {
             if ( !user ) { res.redirect('/'); return; }
-            res.render('profile/view', { user, userOwnProfile })
+            user.rooms.length != 1 ? roomsCount = `${user.rooms.length} rooms` : roomsCount = `${user.rooms.length} room`;
+            user.plants.length != 1 ? plantsCount = `${user.plants.length} plants` : plantsCount = `${user.plants.length} plant`;
+            res.render('profile/view', { user, userOwnProfile, roomsCount, plantsCount })
         })
         .catch((err => console.log(err)));
 
@@ -29,11 +31,17 @@ router.get('/:username', (req, res, next) => {
 router.get('/:username/edit', isOwnProfile, (req, res, next) => {
 
     const { username } = req.params;
+    let errorMessage = false;
+
+    if ( req.session.user.error && req.session.user.error === 'fields') {
+        delete req.session.user.error;  
+        errorMessage = `Please fill out all required fields.`;
+    }
 
     User.findOne({ username })
         .then(user => {
             const dateOfBirth = user.dateOfBirth.toISOString().split('T')[0];
-            res.render(`profile/edit`, { user, dateOfBirth })
+            res.render(`profile/edit`, { user, dateOfBirth, errorMessage })
         })
         .catch(err => console.log(err));
 
@@ -43,12 +51,18 @@ router.get('/:username/edit', isOwnProfile, (req, res, next) => {
 router.post('/:username/edit', isOwnProfile, fileUploader.single('avatar'), (req, res, next) => {
     
     const { username } = req.params;
-    const { firstName, lastName, dateOfBirth, location, email, bio} = req.body;
-
+    const { firstName, lastName, dateOfBirth, location, bio } = req.body;
+    
+    if ( !firstName || !lastName || !dateOfBirth || !location ) {
+        req.session.user.error = 'fields';
+        res.redirect(`/profile/${ username }/edit`);
+        return;
+    } 
+    
     if (req.file) req.body.avatarUrl = req.file.path;
 
-    User.findByIdAndUpdate( id, req.body )
-        .then(() => res.redirect(`/profile/${ id }`))
+    User.findOneAndUpdate( { username }, req.body )
+        .then(() => res.redirect(`/profile/${ username }`))
         .catch(err => console.log(err));
 
 });

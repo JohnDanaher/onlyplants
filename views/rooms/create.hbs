@@ -1,5 +1,9 @@
 <h1>Create a room</h1>
 
+{{#if errorMessage }}
+    <p class="error-message">{{ errorMessage }}</p>
+{{/if}}
+
 <form action="/rooms/create" method="POST">
     <label for="name">Name of the room:</label>
     <input type="text" name="name" id="name" required />
