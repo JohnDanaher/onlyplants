@@ -1,6 +1,6 @@
 <div class="profile">
     <div class="profile-avatar">
-        <div style="background-image:url('{{ avatarUrl }}'); background-color: white;" class="profile-pic"></div>
+        <div style=" background-color: white;background-image:url('{{ avatarUrl }}');" class="profile-pic"></div>
     </div>
     <div class="profile-infos">
         <h1>{{ user.username }}</h1>
@@ -24,6 +24,14 @@
 </div>
 
 <div id="plants">
+    {{#if userOwnProfile}}
+        <div class="plant add-plant">
+            <a href="/plants/create">
+                <i class="bi bi-plus-lg"></i>
+                <h2>Add a Plant</h2>
+            </a>
+        </div>
+    {{/if}}
     <div><h2>Plant one</h2></div>
     <div><h2>Plant two</h2></div>
     <div><h2>Plant three</h2></div>

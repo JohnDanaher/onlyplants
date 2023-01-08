@@ -2,6 +2,7 @@ const { isLoggedIn, isOwnProfile } = require('../middlewares/routes.guard');
 const User = require('../models/User.model');
 const bcrypt = require('bcryptjs');
 const fileUploader = require('../config/cloudinary.config');
+const path = require('path');
 
 const router = require('express').Router();
 
@@ -20,7 +21,8 @@ router.get('/:username', (req, res, next) => {
         .populate('rooms')
         .then(user => {
             if ( !user ) { res.redirect('/'); return; }
-            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = path.join(__dirname, user.avatarUrl);
+            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = `../${user.avatarUrl}`;
+            console.log(user.avatarUrl)
             user.rooms.length != 1 ? roomsCount = `${user.rooms.length} rooms` : roomsCount = `${user.rooms.length} room`;
             user.plants.length != 1 ? plantsCount = `${user.plants.length} plants` : plantsCount = `${user.plants.length} plant`;
             res.render('profile/view', { user, avatarUrl, userOwnProfile, roomsCount, plantsCount })
@@ -41,7 +43,7 @@ router.get('/:username/edit', isOwnProfile, (req, res, next) => {
 
     User.findOne({ username })
         .then(user => {
-            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = path.join(__dirname, user.avatarUrl);
+            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = `../../${user.avatarUrl}`;
             const dateOfBirth = user.dateOfBirth.toISOString().split('T')[0];
             res.render(`profile/edit`, { user, avatarUrl, dateOfBirth, errorMessage })
         })

@@ -139,13 +139,13 @@ input[type="file"] { display: none; }
 
 .profile-pic {
   display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
   width: 180px;
   height: 180px;
   padding: 0;
   margin: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center center;
   border-radius: 50%;
   /* border-radius: 50%; */
   /* background-color: white; */
@@ -206,7 +206,7 @@ input[type="file"] { display: none; }
   flex-wrap: wrap;
 }
 
-#rooms .room {
+#rooms .room, #plants .plant {
   display: flex;
   justify-content: space-between;
   /* min-height: 350px; */
@@ -218,21 +218,21 @@ input[type="file"] { display: none; }
   background-color: white;
 }
 
-#rooms .room.add-room {
+#rooms .room.add-room, #plants .plant.add-plant  {
   background-color: transparent;
   padding: 0;
 }
 
-#rooms .room.add-room i {
+#rooms .room.add-room i, #plants .plant.add-room i  {
   font-size: 3rem;
 }
 
-.add-room h2 {
+.add-room h2, .add-plant h2 {
   padding: 0;
   margin: 0;
 }
 
-.add-room a {
+.add-room a, .add-plant a {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -248,7 +248,7 @@ input[type="file"] { display: none; }
   color: #F29171;
 }
 
-.add-room a:hover {}
+.add-room a:hover, .add-plant a:hover {}
 
 #datalist-users-list {
   background-color: white;
