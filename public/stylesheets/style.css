@@ -13,7 +13,7 @@ a, a > *, button, button > *, input, .room-actions > * {
 
 body {
   padding: 50px;
-  background-color: #f1f1f1;
+  background-color: #fff;
 }
 
 h1 {
@@ -38,15 +38,17 @@ h3 {
 
 i {
   display: inline-block;
-  color: #F29171;
+  color: #f4a698;
 }
 
 a {
-  color: #6e9887;
+  color: #1caa53;
+  text-decoration: none;
 }
 
 a:hover {
-  color: #b5bfa1;
+  color: #3ac084;
+  text-decoration: underline;
 }
 
 ul {
@@ -68,17 +70,19 @@ nav li + li {
 }
 
 .button {
-  background-color: #6e9887;
+  background-color: #1caa53;
   padding: 12px 20px;
   color: white;
   text-decoration: none;
   line-height: auto;
   border: 0;
+  border-radius: 4px;
 }
 
 .button:hover {
   color: white;
-  background-color: #b5bfa1;
+  text-decoration: none;
+  background-color: #3ac084;
   cursor: pointer;
 }
 
@@ -90,7 +94,7 @@ input[type="file"] { display: none; }
 
 .error-message {
   max-width: 500px;
-  background-color: #F29171;
+  background-color: #f4a698;
   padding: 20px;
   border-radius: 4px;
   color: white;
@@ -160,9 +164,19 @@ input[type="file"] { display: none; }
 
 #filters {
   display: flex;
+  justify-content: space-between;
   align-items: baseline;
   margin: 20px 0;
   padding: 25px 0;
+}
+
+.filters-rooms {
+  display: flex;
+  align-items: baseline;
+}
+
+.filters-rooms * + * {
+  margin-left: 30px;
 }
 
 #filters p {
@@ -170,13 +184,13 @@ input[type="file"] { display: none; }
   letter-spacing: .5px;
 }
 
-#filters div + div {
+.filters-rooms * + * {
   margin-left: 30px;
 }
 
 #filters .filter-button {
   padding: 12px 20px;
-  color: #F29171;
+  color: #f4a698;
   text-decoration: none;
   line-height: auto;
 }
@@ -205,13 +219,13 @@ input[type="file"] { display: none; }
   align-content: center;
   margin-bottom: 30px;
   border-radius: 4px;
-  padding: 10px;
-  background-color: ghostwhite;
+  padding: 8px;
+  background-color: #e9f5ef;
 }
 
 .weather-infobox img {
   margin-right: 8px;
-  height: 45px;
+  height: 40px;
   width: auto;
 }
 
@@ -244,8 +258,9 @@ input[type="file"] { display: none; }
   padding: 0;
 }
 
-#rooms .room.add-room i, #plants .plant.add-room i  {
+.add-room i, .add-plant i  {
   font-size: 3rem;
+  color: #333;
 }
 
 .add-room h2, .add-plant h2 {
@@ -264,12 +279,14 @@ input[type="file"] { display: none; }
   padding: 20px;
   border-radius: 4px;
   text-align: center;
-  border: 2px solid #F29171;
   text-decoration: none;
-  color: #F29171;
+  color: #333;
+  background-color: #f3e3d9;
 }
 
-.add-room a:hover, .add-plant a:hover {}
+.add-room a:hover, .add-plant a:hover {
+  background-color: #f7dac7;
+}
 
 #datalist-users-list {
   background-color: white;
@@ -371,6 +388,7 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
   min-width: 500px;
   padding: 15px;
   border-radius: 4px;
+  background-color: #f6f6f6;
 }
 
 textarea {

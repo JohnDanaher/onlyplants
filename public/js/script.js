@@ -122,7 +122,7 @@ window.addEventListener('load', () => {
         button.style.border = '0';
       } else {
         button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`;
-        button.style.border = '1px solid #F29171';
+        button.style.border = '1px solid #e98e5d';
       }
     })
   })

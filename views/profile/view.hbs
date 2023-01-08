@@ -21,10 +21,12 @@
 </div>
 
 <div id="filters">
-    <div><p>Filter by rooms</p></div>
-    {{#each user.rooms}}
-        <div class="filter-button">{{ this.name }}</div>
-    {{/each}}
+    <div class="filters-rooms">
+        <p>Filter by rooms</p>
+        {{#each user.rooms}}
+            <div class="filter-button">{{ this.name }}</div>
+        {{/each}}
+    </div>
     <div>
         <a href="/rooms" class="button">Manage rooms</a>
     </div>
