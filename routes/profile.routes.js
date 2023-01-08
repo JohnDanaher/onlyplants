@@ -20,9 +20,10 @@ router.get('/:username', (req, res, next) => {
         .populate('rooms')
         .then(user => {
             if ( !user ) { res.redirect('/'); return; }
+            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = path.join(__dirname, user.avatarUrl);
             user.rooms.length != 1 ? roomsCount = `${user.rooms.length} rooms` : roomsCount = `${user.rooms.length} room`;
             user.plants.length != 1 ? plantsCount = `${user.plants.length} plants` : plantsCount = `${user.plants.length} plant`;
-            res.render('profile/view', { user, userOwnProfile, roomsCount, plantsCount })
+            res.render('profile/view', { user, avatarUrl, userOwnProfile, roomsCount, plantsCount })
         })
         .catch((err => console.log(err)));
 
@@ -40,8 +41,9 @@ router.get('/:username/edit', isOwnProfile, (req, res, next) => {
 
     User.findOne({ username })
         .then(user => {
+            user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = path.join(__dirname, user.avatarUrl);
             const dateOfBirth = user.dateOfBirth.toISOString().split('T')[0];
-            res.render(`profile/edit`, { user, dateOfBirth, errorMessage })
+            res.render(`profile/edit`, { user, avatarUrl, dateOfBirth, errorMessage })
         })
         .catch(err => console.log(err));
 

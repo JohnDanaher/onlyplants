@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/fannyarles/plant-parenthood#readme",
   "dependencies": {
+    "axios": "^1.2.2",
     "bcryptjs": "^2.4.3",
     "bootstrap": "^5.2.3",
     "cloudinary": "^1.33.0",

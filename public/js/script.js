@@ -121,3 +121,68 @@ window.addEventListener('load', () => {
   })
 
 })
+
+
+/* LOCATION AUTOCOMPLETE */
+
+window.addEventListener('load', () => {
+  const locationInput = document.querySelector('input#location');
+  const autocompleteDiv = document.querySelector('div.autocomplete');
+
+  if ( locationInput ) {
+    
+    autocompleteDiv.style.visibility = 'hidden';
+
+    const baseUrl = 'https://api.geoapify.com/v1/geocode/autocomplete?';
+    const limit = '5';
+    const access_key = '0def530aa20c4bfb82ee58418b3f54da';
+
+    const requestOptions = {
+      method: 'GET',
+    };
+
+    const addToInput = (event) => {
+      locationInput.value = event.target.innerText;
+      autocompleteDiv.style.visibility = 'hidden';
+    }
+
+    locationInput.addEventListener('input', async () => {
+
+      autocompleteDiv.innerHTML = '';
+
+      console.log(locationInput.value)
+      if ( locationInput.value.length > 2 ) {
+
+      autocompleteDiv.innerHTML = '';
+
+        const returnedDataCities = [];
+        autocompleteDiv.style.visibility = 'visible';
+        
+        await fetch(`${ baseUrl}text=${ locationInput.value }&apiKey=${ access_key }&limit=${ limit }`, requestOptions)
+        .then(response => response.json())
+        .then(result => {
+          console.log(result)
+          autocompleteDiv.innerHTML = '';
+          result.features.forEach(result => {
+          data = result.properties;
+            if ( !returnedDataCities.includes(data.city) ) {
+              const foundResult = document.createElement('p');
+              foundResult.setAttribute('class', `${result.properties.city}-${result.properties.country}`);
+              foundResult.addEventListener('click', addToInput);
+              foundResult.innerText = `${result.properties.city}, ${result.properties.country}`;
+              autocompleteDiv.appendChild(foundResult);
+              returnedDataCities.push(data.city);
+            }
+          })
+          
+        })
+        .catch(error => console.log('error', error));
+  
+      } else {
+        autocompleteDiv.style.visibility = 'hidden';
+      }
+  
+    });
+  
+  }
+});
