@@ -44,12 +44,10 @@
             </a>
         </div>
     {{/if}}
-    <div><h2>Plant one</h2></div>
-    <div><h2>Plant two</h2></div>
-    <div><h2>Plant three</h2></div>
-    <div><h2>Plant four</h2></div>
-    <div><h2>Plant five</h2></div>
-    <div><h2>Plant six</h2></div>
+
+    {{#each user.plants}}
+    <div><h2>{{this.nickname}}</h2></div>
+    {{/each}}
 </div>
 
 {{#if errorMessage}}
