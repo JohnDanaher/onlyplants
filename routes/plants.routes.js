@@ -16,17 +16,19 @@ router.get("/plants/create", (req, res) => {
 .catch(err => console.log(err))
 });
 
-router.post("/plants/create", (req, res) => {
+router.post("/plants/create", async (req, res) => {
     const {name, nickname, room} = req.body;
-    apiService
+
+    await apiService
     .findPlant()
-    .then((result) => {
-        for(let i = 0; i < result.data.length; i++){
-            let details = result.data[i];
-        if(details['Common name'][0] == name) {
-                console.log(details['Common name'][0])
-            Plant.create({
-                commonName: details['Common name'],
+    .then(result => {
+        for(i = 0; i < result.data.length; i++){
+            let details = result.data[i]
+            if(details['Common name']){
+                if(details['Common name'].includes(name)){
+                console.log(details['Common name'][0]);
+                Plant.create({
+                commonName: details['Common name'][0],
                 nickname: nickname,
                 room: room,
                 image_url: details.img,
@@ -54,11 +56,15 @@ router.post("/plants/create", (req, res) => {
             })
             })
             .catch(err => console.log(err))
-        }
-    break;
-}          
+            break;
+            }   else {
+                    console.log('wtf')
+            }}
+    }
+    })
     res.redirect(`/plants/create`)
-    })});       
+
+    });       
 
 router.get("/plants/details/:id", (req, res) => {
     const {id} = req.params;
@@ -102,3 +108,46 @@ router.post("/plants/delete/:id", (req, res) => {
 });
 
 module.exports = router;
+
+
+// const {name, nickname, room} = req.body;
+//     apiService
+//     .findPlant()
+//     .then((result) => {
+//         for(let i = 0; i < result.data.length; i++){
+//             let details = result.data[i];
+//         if(details['Common name'][0] == name) {
+//                 console.log(details['Common name'][0])
+//             Plant.create({
+//                 commonName: details['Common name'],
+//                 nickname: nickname,
+//                 room: room,
+//                 image_url: details.img,
+//                 parent: req.session.user.id,
+//                 light: details['Light ideal'],
+//                 waterSchedule: details.Watering,
+//                 minTemp: details['Temperature max'].C,
+//                 maxTemp: details['Temperature min'].C,
+//                 toleratedLight: details['Light tolered'],
+//                 latinName: details['Latin name']
+//             })
+//             .then(newPlant => {
+//                 console.log(newPlant)
+//                 Room.findById(room)
+//                 .then(plantRoom => {
+//                     plantRoom.plants.push(newPlant);
+//                     plantRoom.save()
+//                     .then(() => {
+//                         User.findById(req.session.user.id)
+//                         .then(plantDaddy => {
+//                             plantDaddy.plants.push(newPlant);
+//                             plantDaddy.save()
+//                         })
+//                 })
+//             })
+//             })
+//             .catch(err => console.log(err))
+//         }
+//     break;
+// }          
+//     })
