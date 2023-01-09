@@ -1,0 +1,26 @@
+<h1>Create a room</h1>
+
+{{#if errorMessage }}
+    <p class="error-message">{{ errorMessage }}</p>
+{{/if}}
+
+<form action="/rooms/create" method="POST">
+    <label for="name">Name of the room:</label>
+    <input type="text" name="name" id="name" required />
+
+    <div id="datalist-users">
+    <label for="invitee" class="invitee-label">Invitees:</label>
+        <input type="hidden" id="inviteesList" name="inviteesList">
+        <input type="text" id="invitee" name="invitee">
+        <div id="datalist-users-list">
+                {{#each users}}
+                    <div class="datalist-user">
+                        <div style="background-image:url({{this.avatarUrl}})" class="datalist-user-pic"></div>
+                        {{this.username}}<br/>
+                    </div>
+                {{/each}}
+        </div>
+    </div><br><br>
+
+    <input type="submit" value="Create room" class="button">
+</form>

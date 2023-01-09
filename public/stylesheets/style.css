@@ -1,12 +1,396 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css");
+
+*, html {
+  font-family: "Poppins", Arial, sans-serif;
+  font-size: 14px;
+  cursor: default;
 }
 
-a {
-  color: #00b7ff;
+a, a > *, button, button > *, input, .room-actions > * {
+  cursor: pointer;
+}
+
+body {
+  padding: 50px;
+  background-color: #fff;
 }
 
 h1 {
-  color: 15px;
+  font-size: 2rem;
+  font-weight: 700;
+  padding-bottom: 10px;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 500;
+  margin-top: 30px;
+  margin-bottom: 10px;
+}
+
+h3 {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-top: 30px;
+  margin-bottom: 20px;
+}
+
+i {
+  display: inline-block;
+  color: #f4a698;
+}
+
+a {
+  color: #1caa53;
+  text-decoration: none;
+}
+
+a:hover {
+  color: #3ac084;
+  text-decoration: underline;
+}
+
+ul {
+  padding: 0;
+}
+
+nav {
+  margin-bottom: 30px;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav li {
+ display: inline-block;
+}
+
+nav li + li {
+  padding-left: 15px;
+}
+
+.button {
+  background-color: #1caa53;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  line-height: auto;
+  border: 0;
+  border-radius: 4px;
+}
+
+.button:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #3ac084;
+  cursor: pointer;
+}
+
+label.button { width: fit-content; }
+label i.bi-upload { color: white; padding-right: 12px; }
+input[type="file"] { display: none; }
+
+/* SIGNUP */
+
+.error-message {
+  max-width: 500px;
+  background-color: #f4a698;
+  padding: 20px;
+  border-radius: 4px;
+  color: white;
+  min-width: 500px;
+  margin-top: 20px;
+  margin-bottom: 30px;
+  width: fit-content;
+}
+
+/* PROFILE */
+
+.profile {
+  display: flex;
+  align-items: flex-start;
+}
+
+.profile-infos {
+  width: 100%;
+  padding: 0 30px;
+}
+
+.edit-profile-form .profile-pic {
+  width: 120px;
+  height: 120px;
+  margin-right: 20px;
+}
+
+.edit-profile-form .profile {
+  align-items: center;
+  margin: 10px 0 20px 0;
+}
+
+.autocomplete {
+  padding: 20px 0 20px 20px;
+  position: absolute;
+  display: inline-block;
+  background-color: white;
+  width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px;
+}
+
+.autocomplete p {
+  padding: 0;
+  margin: 0;
+}
+
+.profile-pic {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 180px;
+  height: 180px;
+  padding: 0;
+  margin: 0;
+  border-radius: 50%;
+  /* border-radius: 50%; */
+  /* background-color: white; */
+}
+
+.stats .stats-plants, .stats .stats-rooms {
+  background-color: grey;
+  border-radius: 4px;
+  padding: 4px 8px;
+  color: white  ;
+}
+
+#filters {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin: 20px 0;
+  padding: 25px 0;
+}
+
+.filters-rooms {
+  display: flex;
+  align-items: baseline;
+}
+
+.filters-rooms * + * {
+  margin-left: 30px;
+}
+
+#filters p {
+  text-transform: uppercase;
+  letter-spacing: .5px;
+}
+
+.filters-rooms * + * {
+  margin-left: 30px;
+}
+
+#filters .filter-button {
+  padding: 12px 20px;
+  color: #f4a698;
+  text-decoration: none;
+  line-height: auto;
+}
+
+#plants {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#plants div {
+  width: 22.8%;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  padding: 0 20px 20px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+/* #plants div + div {
+  margin-left: 20px;
+} */
+
+.weather-infobox {
+  display: flex;
+  align-items: center;
+  align-content: center;
+  margin-bottom: 30px;
+  border-radius: 4px;
+  padding: 8px;
+  background-color: #e9f5ef;
+}
+
+.weather-infobox img {
+  margin-right: 8px;
+  height: 40px;
+  width: auto;
+}
+
+.weather-infobox p {
+  padding-top: 5px;
+  margin: 0;
+}
+
+/* ROOMS */
+
+#rooms {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#rooms .room, #plants .plant {
+  display: flex;
+  justify-content: space-between;
+  /* min-height: 350px; */
+  width: 22.8%;
+  margin-right: 2vw;
+  margin-bottom: 2vw;
+  padding: 0 30px 30px;
+  border-radius: 4px;
+  background-color: white;
+}
+
+#rooms .room.add-room, #plants .plant.add-plant  {
+  background-color: transparent;
+  padding: 0;
+}
+
+.add-room i, .add-plant i  {
+  font-size: 3rem;
+  color: #333;
+}
+
+.add-room h2, .add-plant h2 {
+  padding: 0;
+  margin: 0;
+}
+
+.add-room a, .add-plant a {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 100%;
+  height: 100%;
+  padding: 20px;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  color: #333;
+  background-color: #f3e3d9;
+}
+
+.add-room a:hover, .add-plant a:hover {
+  background-color: #f7dac7;
+}
+
+#datalist-users-list {
+  background-color: white;
+  margin-top: 0;
+  width: 500px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px;
+}
+
+.datalist-user {
+  padding: 15px;
+  display: flex;
+  align-items: center;
+}
+
+#datalist-users-list .datalist-user-pic {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin-right: 10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+#datalist-users p + p {
+  margin-left: 10px;
+}
+
+.invitee {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 6px 12px;
+  color: #333;
+  background-color: #b0cec2;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* .invitee::after {
+  content: "\F659";
+  padding-left: 6px;
+} */
+
+.invitee i {
+  display: inline-flex;
+  align-items: center;
+  color: #333;
+  padding: 1px 0 0 4px;
+  margin: 0;
+}
+
+#card-invitees {
+  margin-top: 20px;
+  margin-left: 20px;
+}
+
+.card-invitee {
+  display: inline-block;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  border: 3px solid white;
+  margin-left: -20px;
+}
+
+.room-actions {
+  display: flex;
+  align-items: baseline;
+  margin-top: 23px;
+}
+
+.room-actions a, .room-actions button {
+  display: inline-block;
+  border: 0;
+  background-color: transparent;
+}
+
+.room-actions i {
+  font-size: 1.8rem;
+}
+
+.room-actions * + * {
+  margin-left: 15px;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+  padding-bottom: 8px;
+}
+
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], textarea {
+  display: block;
+  border: 0;
+  min-width: 500px;
+  padding: 15px;
+  border-radius: 4px;
+  background-color: #f6f6f6;
+}
+
+textarea {
+  height: 150px;
 }

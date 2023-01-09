@@ -1,8 +1,6 @@
-const { Schema, model } = require("mongoose");
+const { model, Schema } = require('mongoose');
 
-const roomModel = new Schema(
-{
-
+const roomSchema = new Schema({
     name: {
         type: String
     },
@@ -19,10 +17,8 @@ const roomModel = new Schema(
             ref: 'Plant'
         }
     ]
-},
-{
-  timestamps: true
-}
-);
+});
 
-module.exports = model("Room", roomSchema)
+const Room = model('Room', roomSchema);
+
+module.exports = Room;
