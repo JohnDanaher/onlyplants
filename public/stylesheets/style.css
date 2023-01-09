@@ -104,6 +104,79 @@ input[type="file"] { display: none; }
   width: fit-content;
 }
 
+.signup-form {
+  display: flex;
+}
+.signup-form input {
+  width: 80%;
+}
+
+.signup-part-one, .signup-part-two {
+  width: 50%;
+}
+
+.signup-parent {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 40px;
+}
+
+.signup-parent * + * {
+  margin-left: 30px;
+}
+
+.signup-question {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin: 35px 0 25px 0;
+}
+
+.button-parent {
+  text-align: center;
+  background-color: rgb(255, 180,62);
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-width: 250px;
+  min-height: 220px;
+  padding: 12px 20px;
+  color: white;
+  text-decoration: none;
+  line-height: auto;
+  border: 0;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.button-parent:hover {
+  color: white;
+  text-decoration: none;
+  background-color: #3ac084;
+  cursor: pointer;
+}
+
+.button-parent .parent-picture {
+  height: 120px;
+  width: 120px;
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.button-parent.parent .parent-picture { background-image: url('../images/signup/plant-parent.jpg'); }
+.button-parent.mummy .parent-picture { background-image: url('../images/signup/plant-mum.jpg'); }
+.button-parent.daddy .parent-picture { background-image: url('../images/signup/plant-dad.jpg'); }
+
+.button-parent.selected { background-color: red; }
+
 /* PROFILE */
 
 .profile {
@@ -393,4 +466,5 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
 
 textarea {
   height: 150px;
+  width: 500px;
 }

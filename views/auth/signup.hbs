@@ -4,40 +4,55 @@
     <p class="error-message">{{ errorMessage }}</p>
 {{/if}}
 
-<form action="/auth/signup" method="POST" enctype="multipart/form-data">
+<form action="/auth/signup" method="POST" enctype="multipart/form-data" class="signup-form">
+    
+    <div class="signup-part-one">
+        <p class="signup-question">Fill up your plant-parent profile</p>
+        
+        <input type="hidden" name="gender" id="gender" /><br />
+        <div class="signup-parent">
+            <div class="button-parent parent"><div class="parent-picture"></div>Plant Parent</div>
+            <div class="button-parent mummy"><div class="parent-picture"></div>Plant Mommy</div>
+            <div class="button-parent daddy"><div class="parent-picture"></div>Plant Daddy</div>
+        </div>
 
-    <label for="firstName">First Name</label>
-    <input type="text" name="firstName" id="firstName" required /><br />
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required /><br />
 
-    <label for="lastName">Last Name</label>
-    <input type="text" name="lastName" id="lastName" required /><br />
+        <label for="location">Location:</label>
+        <input type="text" name="location" id="location" autocomplete="off" required />
+        <div class="autocomplete">
+        </div>
+        <br />
 
-    <label for="dateOfBirth">Date of Birth</label>
-    <input type="date" name="dateOfBirth" id="dateOfBirth" required /><br />
+        <label for="avatar" class="button"><i class="bi bi-upload"></i> Upload profile picture</label>
+        <input type="file" name="avatar" id="avatar" /><br />
 
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" required /><br />
-
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required /><br />
-
-    <label for="location">Location:</label>
-    <input type="text" name="location" id="location" autocomplete="off" required />
-    <div class="autocomplete">
+        <label for="bio">Bio</label>
+        <textarea name="bio" id="bio"></textarea /><br />
+        <input type="submit" value="Signup" class="button"/>
     </div>
-    <br />
 
-    <label for="avatar" class="button"><i class="bi bi-upload"></i> Upload profile picture</label>
-    <input type="file" name="avatar" id="avatar" /><br />
+    <div class="signup-part-two">
+        <p class="signup-question">Give us some informations about you</p>
 
-    <label for="bio">Bio</label>
-    <textarea name="bio" id="bio"></textarea /><br />
+        <label for="firstName">First Name</label>
+        <input type="text" name="firstName" id="firstName" required /><br />
 
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required /><br />
+        <label for="lastName">Last Name</label>
+        <input type="text" name="lastName" id="lastName" required /><br />
 
-    <label for="passwordCheck">Repeat password</label>
-    <input type="password" name="passwordCheck" id="passwordCheck" required /><br />
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" required /><br />
 
-    <input type="submit" value="Signup" class="button"/>
+        <label for="dateOfBirth">Date of Birth</label>
+        <input type="date" name="dateOfBirth" id="dateOfBirth" required /><br />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required /><br />
+
+        <label for="passwordCheck">Repeat password</label>
+        <input type="password" name="passwordCheck" id="passwordCheck" required /><br />
+
+    </div>
 </form>
