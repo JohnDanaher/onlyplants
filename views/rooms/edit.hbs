@@ -14,7 +14,7 @@
             <p class="invitee invitee-{{ this }}">{{ this }}<i class="bi bi-x"></i></p>
         {{/each}}
         <input type="hidden" id="inviteesList" name="inviteesList" value="{{ inviteesUsernames }}">
-        <input type="text" id="invitee" name="invitee">
+        <input type="text" id="invitee" name="invitee" autocomplete="off">
         <div id="datalist-users-list">
                 {{#each users}}
                     <div class="datalist-user">
