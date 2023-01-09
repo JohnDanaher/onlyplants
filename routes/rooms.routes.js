@@ -3,7 +3,7 @@ const { isLoggedIn, isOwnRoom } = require('../middlewares/routes.guard');
 const Room = require('../models/Room.model');
 const User = require('../models/User.model');
 const { ObjectId } = require('mongoose').Types;
-
+const { convertUsernamesToIds, convertIdsToUsernames } = require('../utils/convertUsernamesToIds');
 
 router.get('/', isLoggedIn, async (req, res, next) => {
     const { id } = req.session.user;
@@ -41,7 +41,6 @@ router.get('/create', isLoggedIn, async (req, res, next) => {
 router.post('/create', isLoggedIn, async (req, res, next) => {
     const { name, inviteesList } = req.body;
     let { id } = req.session.user;
-    const inviteesUsernamesArr = inviteesList.split(',');
     let nameAlreadyTaken = false;
 
     if ( !name ) { res.render('rooms/create', { errorMessage: `Please fill out all required fields.` }); return; }
@@ -63,12 +62,7 @@ router.post('/create', isLoggedIn, async (req, res, next) => {
         return;
     }
     
-    const usernamesIntoIds = inviteesUsernamesArr.map(invitee => {
-        return User.findOne({ username: invitee })
-        .then(user => { if (user) { return user._id } })
-    });
-
-    const inviteesIds = await Promise.all(usernamesIntoIds)
+    const inviteesIds = await Promise.all(convertUsernamesToIds(inviteesList));
 
     const room = await Room.create( { name, ownerId: id } )
                         .then(room => {
@@ -103,12 +97,7 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     const room = await Room.findById( roomId );
     const userId = req.session.user.id;
     
-    const idsIntoUsernames = room.inviteesId.map(invitee => {
-        return User.findById( invitee )
-        .then(user => { if(user) { return user.username } })
-    });
-
-    const inviteesUsernames = await Promise.all(idsIntoUsernames)
+    const inviteesUsernames = await Promise.all(convertIdsToUsernames(room.inviteesId))
 
     const users = await User.find( { '_id' : { '$ne' : userId  } }, { username: 1, avatarUrl: 1 })
                             .catch(err => console.log(err));
@@ -151,13 +140,7 @@ router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
         return;
      }
     
-    const inviteesUsernamesArr = inviteesList.split(',');
-    const usernamesIntoIds = inviteesUsernamesArr.map(invitee => {
-        return User.findOne({ username: invitee })
-        .then(user => { if (user) { return user._id } });
-    });
-    
-    const inviteesIds = await Promise.all(usernamesIntoIds)
+    const inviteesIds = await Promise.all(convertUsernamesToIds(inviteesList));
 
     await Room.findByIdAndUpdate( roomId, { name, $set: { inviteesId: [] } })
         .then(room => {
@@ -176,8 +159,12 @@ router.post('/:roomId/delete', isOwnRoom, async (req, res, next) => {
 
     const { roomId } = req.params;
 
-    const user = await User.findById( req.session.user.id );
-    // if (user.rooms.length <= 1) { res.redirect('/profile'); return; };
+    const user = await User.findById( req.session.user.id ).populate('rooms').catch(err => console.log(err));
+
+    if (user.rooms.length === 1) { 
+        const room = await Room.findById( roomId ).catch(err => console.log(err));
+        res.render(`rooms/edit`, { room, errorMessage: `You only have one room, you can't delete it.`}); return; 
+    };
 
     await Room.findByIdAndDelete( roomId );
     await User.findByIdAndUpdate( req.session.user.id, { $pull: { rooms: ObjectId(roomId) }});
