@@ -1,14 +1,9 @@
-<div class="room-actions"><h1>Manage Rooms</h1> 
+<div class="rooms-actions">
+    <h1>Manage Rooms</h1> 
+    <a href="/rooms/create" class="secondary-button">Add a room</a>
 </div>
 
 <div id="rooms">
-    <div class="room add-room">
-        <a href="/rooms/create">
-            <i class="bi bi-plus-lg"></i>
-            <h2>Create a room</h2>
-        </a>
-    </div>
-
     {{#each user.rooms}}
         <div class="room">
             <div>

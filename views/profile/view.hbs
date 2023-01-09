@@ -8,56 +8,63 @@
     </div>
 {{/if}}
 
-<div class="profile">
-    <div class="profile-avatar">
-        <div style=" background-color: white;background-image:url('{{ avatarUrl }}');" class="profile-pic"></div>
-    </div>
-    <div class="profile-infos">
-        <h1>{{ user.username }}</h1>
-        <p class="stats">
-            <span class="stats-rooms">{{ roomsCount }}</span>
-            <span class="stats-plants">{{ plantsCount }}</span>
-        </p>
-        <p><i class="bi bi-geo-alt-fill"></i> {{ user.location }}</p>
-        <p>{{ user.bio }}</p>
-    </div>
-</div>
+<div id="profile-page">
 
-<div id="filters">
-    <div class="filters-rooms">
-        <p>Filter by rooms</p>
-        {{#if userOwnProfile}}
-            {{#each user.rooms}}
-                <div class="filter-button">{{ this.name }}</div>
-            {{/each}}
-        {{else}}
-            {{#each sessionSpecificData.allowedRooms }}
-                <div class="filter-button">{{ this.name }}</div>
-            {{/each}}
-        {{/if}}
-    </div>
-    <div>
-        <a href="/rooms" class="button">Manage rooms</a>
-    </div>
-</div>
-
-<div id="plants">
-    {{#if userOwnProfile}}
-        <div class="plant add-plant">
-            <a href="/plants/create">
-                <i class="bi bi-plus-lg"></i>
-                <h2>Add a Plant</h2>
-            </a>
+    <div class="profile">
+        <div class="profile-avatar">
+            <div style=" background-color: white;background-image:url('{{ avatarUrl }}');" class="profile-pic"></div>
         </div>
-    {{/if}}
-    <div><h2>Plant one</h2></div>
-    <div><h2>Plant two</h2></div>
-    <div><h2>Plant three</h2></div>
-    <div><h2>Plant four</h2></div>
-    <div><h2>Plant five</h2></div>
-    <div><h2>Plant six</h2></div>
-</div>
+        <div class="profile-infos">
+            <h1>{{ user.username }}</h1>
+            <p class="stats">
+                <span class="stats-rooms">{{ roomsCount }}</span>
+                <span class="stats-plants">{{ plantsCount }}</span>
+            </p>
+            <p><i class="bi bi-geo-alt-fill"></i> <b>{{ user.location }}</b></p>
+            <p>{{ user.bio }}</p>
+        </div>
+    </div>
 
-{{#if errorMessage}}
-    <p class="error-message">{{ errorMessage }}</p>
-{{/if}}
+    <div class="profile-content">
+
+        <div id="filters">
+            <div class="filters-rooms">
+                <p>Filter by rooms</p>
+                {{#if userOwnProfile}}
+                    {{#each user.rooms}}
+                        <div class="filter-button">{{ this.name }}</div>
+                    {{/each}}
+                {{else}}
+                    {{#each sessionSpecificData.allowedRooms }}
+                        <div class="filter-button">{{ this.name }}</div>
+                    {{/each}}
+                {{/if}}
+            </div>
+            {{#if userOwnProfile}}
+                <div class="profile-actions">
+                    <a href="/plants/create" class="secondary-button">Add a plant</a>
+                    <a href="/rooms" class="secondary-button">Manage rooms</a>
+                </div>
+            {{/if}}
+        </div>
+
+        <div id="plants">
+            {{#if userOwnProfile}}
+                <div class="plant add-plant">
+                    <a href="/plants/create">
+                        <i class="bi bi-plus-lg"></i>
+                        <h2>Add a Plant</h2>
+                    </a>
+                </div>
+            {{/if}}
+            <div><h2>Plant one</h2></div>
+            <div><h2>Plant two</h2></div>
+            <div><h2>Plant three</h2></div>
+            <div><h2>Plant four</h2></div>
+            <div><h2>Plant five</h2></div>
+            <div><h2>Plant six</h2></div>
+        </div>
+
+    </div>
+
+</div>
