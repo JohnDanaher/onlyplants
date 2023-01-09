@@ -13,46 +13,52 @@ router.get("/plants/create", (req, res) => {
     .then(rooms => {
   res.render("plants/create", {rooms});
 })
+.catch(err => console.log(err))
 });
 
 router.post("/plants/create", (req, res) => {
-    const {nickname, room} = req.body;
-    // apiService
-    // .findPlant(req.body.name)
-    // .then((result) => {
-    //     const details = result.data[0];
-        Plant.create({
-            // commonName: details.common[0],
-            nickname: nickname,
-            room: room,
-            parent: req.session.user.id
-            // light: details.ideallight,
-            // waterSchedule: details.watering,
-            // minTemp: details.tempmin.celsius,
-            // maxTemp: details.tempmax.celsius,
-            // toleratedLight: details.toleratedlight,
-            // latinName: details.latin
-        })
-        .then(newPlant => {
-            Room.findById(room)
-            .then(plantRoom => {
-                plantRoom.plants.push(newPlant);
-                plantRoom.save()
-                .then(() => {
-                    User.findById(req.session.user.id)
-                    .then(plantDaddy => {
-                        plantDaddy.plants.push(newPlant);
-                        plantDaddy.save()
-                    })
-                .then(() => res.redirect(`/plants/details/${newPlant._id}`)
-                )
+    const {name, nickname, room} = req.body;
+    apiService
+    .findPlant()
+    .then((result) => {
+        for(let i = 0; i < result.data.length; i++){
+            let details = result.data[i];
+        if(details['Common name'][0] == name) {
+                console.log(details['Common name'][0])
+            Plant.create({
+                commonName: details['Common name'],
+                nickname: nickname,
+                room: room,
+                image_url: details.img,
+                parent: req.session.user.id,
+                light: details['Light ideal'],
+                waterSchedule: details.Watering,
+                minTemp: details['Temperature max'].C,
+                maxTemp: details['Temperature min'].C,
+                toleratedLight: details['Light tolered'],
+                latinName: details['Latin name']
             })
-        })
-    
-        })
-        
-    })
-// });
+            .then(newPlant => {
+                console.log(newPlant)
+                Room.findById(room)
+                .then(plantRoom => {
+                    plantRoom.plants.push(newPlant);
+                    plantRoom.save()
+                    .then(() => {
+                        User.findById(req.session.user.id)
+                        .then(plantDaddy => {
+                            plantDaddy.plants.push(newPlant);
+                            plantDaddy.save()
+                        })
+                })
+            })
+            })
+            .catch(err => console.log(err))
+        }
+    break;
+}          
+    res.redirect(`/plants/create`)
+    })});       
 
 router.get("/plants/details/:id", (req, res) => {
     const {id} = req.params;
@@ -60,7 +66,9 @@ router.get("/plants/details/:id", (req, res) => {
     .then((plant) => {
         console.log(plant);
         res.render("plants/details", {plant})
-    })});
+    })
+    .catch(err => console.log(err))
+});
 
 
 router.get("/plants/edit/:id", (req, res) => {
@@ -72,6 +80,7 @@ router.get("/plants/edit/:id", (req, res) => {
         res.render("plants/edit", {plant, allRooms})
     })
     })
+    .catch(err => console.log(err))
 });
 
 router.post("/plants/edit/:id", (req, res) => {
@@ -82,13 +91,14 @@ router.post("/plants/edit/:id", (req, res) => {
         console.log(updatedPlant);
         res.redirect(`/plants/details/${id}`)
     })
-
+    .catch(err => console.log(err))
 });
 
 router.post("/plants/delete/:id", (req, res) => {
     const {id} = req.params;
     Plant.findByIdAndDelete(id)
     .then(() => res.redirect("/plants/create"))
+    .catch(err => console.log(err))
 });
 
 module.exports = router;
