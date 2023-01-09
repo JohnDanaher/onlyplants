@@ -1,9 +1,9 @@
 
 {{#if userOwnProfile}}
     <div class="weather-infobox">
-        <img src="{{ weatherInformations.iconUrl }}" />
+        <img src="{{ sessionSpecificData.weatherIconUrl }}" />
         <p>
-            Expect {{ weatherInformations.weather }} in {{ weatherInformations.location }} today. The temperature will be {{ weatherInformations.temperature }}°C. Take good care of your plants!
+            Expect {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }} today. The temperature will be {{ sessionSpecificData.weatherTemperature }}°C. Take good care of your plants!
         </p>
     </div>
 {{/if}}
@@ -26,9 +26,15 @@
 <div id="filters">
     <div class="filters-rooms">
         <p>Filter by rooms</p>
-        {{#each user.rooms}}
-            <div class="filter-button">{{ this.name }}</div>
-        {{/each}}
+        {{#if userOwnProfile}}
+            {{#each user.rooms}}
+                <div class="filter-button">{{ this.name }}</div>
+            {{/each}}
+        {{else}}
+            {{#each sessionSpecificData.allowedRooms }}
+                <div class="filter-button">{{ this.name }}</div>
+            {{/each}}
+        {{/if}}
     </div>
     <div>
         <a href="/rooms" class="button">Manage rooms</a>
