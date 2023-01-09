@@ -12,16 +12,13 @@ const plantSchema = new Schema({
         ref: "Room"
     },
     commonName: String, // this and below: pull from api
-    image_url: String,
+    image_url: String, // default?
     light: String,
+    toleratedLight: String,
     waterSchedule: String,
     minTemp: String,
     maxTemp: String,
-    toxicity: String,
-    // latinName: String,
-    // observation: String,
-    // edible: String,
-
+    latinName: String,
 })
 
 
