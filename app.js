@@ -28,6 +28,7 @@ const projectName = "Plant Parenthood";
 // bind user to view - locals
 app.use('/', (req, res, next) => {
     res.locals.loggedin = req.session.user
+    if (req.session.user) res.locals.loggedInUsername = req.session.user.username
     next()
 })
 
