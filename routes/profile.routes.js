@@ -30,7 +30,7 @@ router.get('/:username', async (req, res, next) => {
         const weatherApi = new WeatherApi();
         weatherData = await weatherApi.getWeather(user.location);
         sessionSpecificData.weatherLocation = weatherData.data.location;
-        sessionSpecificData.weatherConditions = weatherData.data.condition.toLowerCase();
+        sessionSpecificData.weatherConditions = weatherData.data.condition;
         sessionSpecificData.weatherIconUrl = weatherData.data.icon_url;
         sessionSpecificData.weatherTemperature = weatherData.data.feels_like_c;
     }
