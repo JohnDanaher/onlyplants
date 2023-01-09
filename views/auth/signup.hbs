@@ -21,8 +21,11 @@
     <label for="email">Email</label>
     <input type="email" name="email" id="email" required /><br />
 
-    <label for="location">Location</label>
-    <input type="text" name="location" id="location" required /><br />
+    <label for="location">Location:</label>
+    <input type="text" name="location" id="location" autocomplete="off" required />
+    <div class="autocomplete">
+    </div>
+    <br />
 
     <label for="avatar" class="button"><i class="bi bi-upload"></i> Upload profile picture</label>
     <input type="file" name="avatar" id="avatar" /><br />

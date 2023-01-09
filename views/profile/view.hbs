@@ -1,9 +1,12 @@
-<div class="weather-infobox">
-    <img src="{{ weatherInformations.iconUrl }}" />
-    <p>
-        Expect {{ weatherInformations.weather }} in {{ weatherInformations.location }} today. The temperature will be {{ weatherInformations.temperature }}°C. Take good care of your plants!
-    </p>
-</div>
+
+{{#if userOwnProfile}}
+    <div class="weather-infobox">
+        <img src="{{ weatherInformations.iconUrl }}" />
+        <p>
+            Expect {{ weatherInformations.weather }} in {{ weatherInformations.location }} today. The temperature will be {{ weatherInformations.temperature }}°C. Take good care of your plants!
+        </p>
+    </div>
+{{/if}}
 
 <div class="profile">
     <div class="profile-avatar">

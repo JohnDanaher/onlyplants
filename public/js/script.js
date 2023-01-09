@@ -158,32 +158,36 @@ window.addEventListener('load', () => {
       autocompleteDiv.innerHTML = '';
 
       console.log(locationInput.value)
-      if ( locationInput.value.length > 2 ) {
+      if ( locationInput.value.length >= 4 ) {
 
       autocompleteDiv.innerHTML = '';
 
-        const returnedDataCities = [];
-        autocompleteDiv.style.visibility = 'visible';
-        
-        await fetch(`${ baseUrl}text=${ locationInput.value }&apiKey=${ access_key }&limit=${ limit }`, requestOptions)
-        .then(response => response.json())
-        .then(result => {
-          console.log(result)
-          autocompleteDiv.innerHTML = '';
-          result.features.forEach(result => {
-          data = result.properties;
-            if ( !returnedDataCities.includes(data.city) ) {
-              const foundResult = document.createElement('p');
-              foundResult.setAttribute('class', `${result.properties.city}-${result.properties.country}`);
-              foundResult.addEventListener('click', addToInput);
-              foundResult.innerText = `${result.properties.city}, ${result.properties.country}`;
-              autocompleteDiv.appendChild(foundResult);
-              returnedDataCities.push(data.city);
-            }
-          })
+        if ( locationInput.value.length % 2 ) {
+
+          const returnedDataCities = [];
+          autocompleteDiv.style.visibility = 'visible';
           
-        })
-        .catch(error => console.log('error', error));
+          await fetch(`${ baseUrl}text=${ locationInput.value }&apiKey=${ access_key }&limit=${ limit }`, requestOptions)
+          .then(response => response.json())
+          .then(result => {
+            console.log(result)
+            autocompleteDiv.innerHTML = '';
+            result.features.forEach(result => {
+            data = result.properties;
+              if ( !returnedDataCities.includes(data.city) ) {
+                const foundResult = document.createElement('p');
+                foundResult.setAttribute('class', `${result.properties.city}-${result.properties.country}`);
+                foundResult.addEventListener('click', addToInput);
+                foundResult.innerText = `${result.properties.city}, ${result.properties.country}`;
+                autocompleteDiv.appendChild(foundResult);
+                returnedDataCities.push(data.city);
+              }
+            })
+            
+          })
+          .catch(error => console.log('error', error));
+
+        }
   
       } else {
         autocompleteDiv.style.visibility = 'hidden';
