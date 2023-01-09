@@ -2,6 +2,7 @@ const router = require('express').Router();
 const { isLoggedIn, isOwnRoom } = require('../middlewares/routes.guard');
 const Room = require('../models/Room.model');
 const User = require('../models/User.model');
+const Plant = require('../models/Plant.model');
 const { ObjectId } = require('mongoose').Types;
 
 
@@ -9,14 +10,16 @@ router.get('/', isLoggedIn, async (req, res, next) => {
     const { id } = req.session.user;
 
     User.findById( id )
+        .populate('plants')
         .populate({ 
             path: 'rooms',
             populate: {
                 path: 'inviteesId',
                 select: [ 'username', 'avatarUrl'],
                 model: 'User'
-            }
+            },
         })
+        
         .then(user => {
             if ( !user ) { res.redirect('/'); return; }
             res.render('rooms/view', { user })

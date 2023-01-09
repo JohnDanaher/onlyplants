@@ -7,8 +7,12 @@
   <label>
    Nickname: <input type="text" name="nickname">
   </label> 
-  <label>
-   DOB: <input type="date" name="dob">
-  </label> 
+  <label for="room"> New plant's home:    
+    </label>
+    <select name="room">
+    {{#each rooms}}
+    <option value="{{id}}">{{name}}</option>
+    {{/each}}
+    </select>
   <button type="submit">Create plant</button>
   </form>
