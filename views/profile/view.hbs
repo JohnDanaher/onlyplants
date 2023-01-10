@@ -1,13 +1,3 @@
-
-{{#if userOwnProfile}}
-    <div class="weather-infobox">
-        <img src="{{ sessionSpecificData.weatherIconUrl }}" />
-        <p>
-            {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }}, today. The temperature is {{ sessionSpecificData.weatherTemperature }}°C. Take good care of your plants!
-        </p>
-    </div>
-{{/if}}
-
 <div id="profile-page">
 
     <div class="profile">
@@ -26,6 +16,15 @@
     </div>
 
     <div class="profile-content">
+
+        {{#if userOwnProfile}}
+            <div class="weather-infobox">
+                <img src="{{ sessionSpecificData.weatherIconUrl }}" />
+                <p>
+                    <b>Hello, {{ loggedInUsername }}!</b> Today, {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }}, today (the temperature is {{ sessionSpecificData.weatherTemperature }}°C). Take good care of your plants! 🌺🌿
+                </p>
+            </div>
+        {{/if}}
 
         <div id="filters">
             <div class="filters-rooms">
@@ -125,9 +124,10 @@
                             </div>
                             <div class="card-title">
                                 <h2>{{this.nickname}}</h2>
-                                <div>
-                                    <span class="plant-room"><img src="{{ this.parent.avatarUrl }}" alt="" class="card-invitee" /> {{ this.parent.username }}</span>
-                                </div>
+                                <span>
+                                    <span class="plant-room">{{ this.parent.username }}</span>
+                                    <img src="{{ this.parent.avatarUrl }}" alt="" class="card-invitee" /> 
+                                </span>
                             </div>
                             <div class="card-content">
                                 <p class="flex-row">
