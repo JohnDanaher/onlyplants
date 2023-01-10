@@ -143,6 +143,7 @@ window.addEventListener('load', () => {
 
   const filterButtons = document.querySelectorAll('.filter-button');
   const plantsSection = document.getElementById('plants');
+  const noPlantsMessage = document.querySelector('.no-plants');
 
   filterButtons.forEach(button => {
 
@@ -159,6 +160,7 @@ window.addEventListener('load', () => {
   const filterPlants = () => {
 
     const selectedFilters = [...document.querySelectorAll('.filter-button.selected')].map(el => el.getAttribute('room-name'));
+
     plantsSection.querySelectorAll('.plant').forEach(plant => {
       const plantRoomSlug = plant.getAttribute('room-name');
       console.log(plant, plantRoomSlug)
@@ -168,6 +170,8 @@ window.addEventListener('load', () => {
         plant.style.display = 'none';
       }
     });
+
+    if ( !selectedFilters.length ) { noPlantsMessage.style.display = 'block'; } else { noPlantsMessage.style.display = 'none'; }
   }
 
   filterPlants();
