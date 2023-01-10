@@ -14,7 +14,7 @@ headers: {
 
 findPlant(){
 return this.api.get();
-}
+};
 
 };
 

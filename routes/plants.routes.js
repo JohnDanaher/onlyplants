@@ -8,15 +8,17 @@ const ApiService = require('../services/api.service');
 const apiService = new ApiService();
 
 
-router.get("/plants/create", (req, res) => {
+router.get("/plants/create/:username", (req, res) => {
+    const {username} = req.session.user;
     Room.find()
     .then(rooms => {
-  res.render("plants/create", {rooms});
+  res.render("plants/create", {rooms, username});
 })
 .catch(err => console.log(err))
 });
 
-router.post("/plants/create", async (req, res) => {
+router.post("/plants/create/:username", async (req, res) => {
+    const {username} = req.params;
     const {name, nickname, room} = req.body;
 
     await apiService
@@ -57,12 +59,10 @@ router.post("/plants/create", async (req, res) => {
             })
             .catch(err => console.log(err))
             break;
-            }   else {
-                    console.log('wtf')
             }}
     }
     })
-    res.redirect(`/plants/create`)
+    res.redirect(`/profile/${username}`)
 
     });       
 
