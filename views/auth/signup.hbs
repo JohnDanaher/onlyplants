@@ -5,39 +5,72 @@
 {{/if}}
 
 <form action="/auth/signup" method="POST" enctype="multipart/form-data">
+    <div class="signup-form">
+        <div class="signup-part-one">
+            <p class="signup-question">About you</p>
 
-    <label for="firstName">First Name</label>
-    <input type="text" name="firstName" id="firstName" required /><br />
+            <div class="flex-row">
+                <div>
+                    <label for="firstName">First Name</label>
+                    <input type="text" name="firstName" id="firstName" required /><br />
+                </div>
+                <div>
+                    <label for="lastName">Last Name</label>
+                    <input type="text" name="lastName" id="lastName" required /><br />
+                </div>
+            </div>
 
-    <label for="lastName">Last Name</label>
-    <input type="text" name="lastName" id="lastName" required /><br />
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" required /><br />
 
-    <label for="dateOfBirth">Date of Birth</label>
-    <input type="date" name="dateOfBirth" id="dateOfBirth" required /><br />
+            <label for="location">Location:</label>
+            <input type="text" name="location" id="location" autocomplete="off" required />
+            <div class="autocomplete">
+            </div>
 
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" required /><br />
+            <label for="dateOfBirth">Date of Birth</label>
+            <input type="date" name="dateOfBirth" id="dateOfBirth" required /><br />
 
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email" required /><br />
+            <div class="flex-row">
+                <div>
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" required /><br />
+                </div>
+                <div>
+                    <label for="passwordCheck">Repeat password</label>
+                    <input type="password" name="passwordCheck" id="passwordCheck" required /><br />
+                </div>
+            </div>
+        </div>
 
-    <label for="location">Location:</label>
-    <input type="text" name="location" id="location" autocomplete="off" required />
-    <div class="autocomplete">
+        <div class="signup-part-two">
+            <p class="signup-question">Your profile</p>
+            
+            <input type="hidden" name="gender" id="gender" />
+            <div class="signup-parent">
+                <div class="button-parent parent"><div class="parent-picture"></div>Plant Parent</div>
+                <div class="button-parent mummy"><div class="parent-picture"></div>Plant Mommy</div>
+                <div class="button-parent daddy"><div class="parent-picture"></div>Plant Daddy</div>
+            </div>
+
+            <div class="flex-row">
+                <div>
+                    <label for="username">Username</label>
+                    <input type="text" name="username" id="username" required /><br />
+                </div>
+                <div>
+                    <label for="avatar">Profile picture</label>
+                    <label for="avatar" class="secondary-button"><i class="bi bi-upload"></i> Upload</label>
+                    <input type="file" name="avatar" id="avatar" /><br />
+                </div>
+            </div>
+
+            <label for="bio">Bio</label>
+            <textarea name="bio" id="bio"></textarea /><br />
+        </div>
     </div>
-    <br />
 
-    <label for="avatar" class="button"><i class="bi bi-upload"></i> Upload profile picture</label>
-    <input type="file" name="avatar" id="avatar" /><br />
-
-    <label for="bio">Bio</label>
-    <textarea name="bio" id="bio"></textarea /><br />
-
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required /><br />
-
-    <label for="passwordCheck">Repeat password</label>
-    <input type="password" name="passwordCheck" id="passwordCheck" required /><br />
-
+        
     <input type="submit" value="Signup" class="button"/>
+
 </form>

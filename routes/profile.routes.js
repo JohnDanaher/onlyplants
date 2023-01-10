@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 const fileUploader = require('../config/cloudinary.config');
 const path = require('path');
 const WeatherApi = require('../services/weather.service');
+const Room = require('../models/Room.model');
 
 const router = require('express').Router();
 
@@ -14,6 +15,7 @@ router.get('/:username', async (req, res, next) => {
     const { username } = req.params;
     let userOwnProfile;
     const weatherInformations = {};
+    const sessionSpecificData = {};
 
     if (req.session.user) { 
         req.session.user.username === username ? userOwnProfile = true : userOwnProfile = false; 
@@ -28,17 +30,24 @@ router.get('/:username', async (req, res, next) => {
     if ( userOwnProfile ) {
         const weatherApi = new WeatherApi();
         weatherData = await weatherApi.getWeather(user.location);
-        weatherInformations.location = weatherData.data.location;
-        weatherInformations.weather = weatherData.data.condition.toLowerCase();
-        weatherInformations.iconUrl = weatherData.data.icon_url;
-        weatherInformations.temperature = weatherData.data.feels_like_c;
+        sessionSpecificData.weatherLocation = weatherData.data.location;
+        sessionSpecificData.weatherConditions = weatherData.data.condition;
+        sessionSpecificData.weatherIconUrl = weatherData.data.icon_url;
+        sessionSpecificData.weatherTemperature = weatherData.data.feels_like_c;
+    }
+    
+    if ( !userOwnProfile ) {
+        console.log(user._id)
+        const roomsIAminvitedIn = await Room.find({ ownerId: user._id , 'inviteesId' : { $in: [req.session.user.id] } }).catch(err => console.log(err));
+        sessionSpecificData.allowedRooms = roomsIAminvitedIn;
+        console.log(sessionSpecificData.allowedRooms)
     }
 
     user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = `../${user.avatarUrl}`;
     user.rooms.length != 1 ? roomsCount = `${user.rooms.length} rooms` : roomsCount = `${user.rooms.length} room`;
     user.plants.length != 1 ? plantsCount = `${user.plants.length} plants` : plantsCount = `${user.plants.length} plant`;
     
-    res.render('profile/view', { user, avatarUrl, userOwnProfile, roomsCount, plantsCount, weatherInformations })
+    res.render('profile/view', { user, avatarUrl, userOwnProfile, roomsCount, plantsCount, sessionSpecificData })
 
 });
 
