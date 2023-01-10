@@ -8,15 +8,17 @@ const ApiService = require('../services/api.service');
 const apiService = new ApiService();
 
 
-router.get("/plants/create", (req, res) => {
+router.get("/plants/create/:username", (req, res) => {
+    const {username} = req.session.user;
     Room.find()
     .then(rooms => {
-  res.render("plants/create", {rooms});
+  res.render("plants/create", {rooms, username});
 })
 .catch(err => console.log(err))
 });
 
-router.post("/plants/create", async (req, res) => {
+router.post("/plants/create/:username", async (req, res) => {
+    const {username} = req.params;
     const {name, nickname, room} = req.body;
 
     await apiService
@@ -57,12 +59,10 @@ router.post("/plants/create", async (req, res) => {
             })
             .catch(err => console.log(err))
             break;
-            }   else {
-                    console.log('wtf')
             }}
     }
     })
-    res.redirect(`/plants/create`)
+    .then(() => res.redirect(`/profile/${username}`))
 
     });       
 
@@ -108,46 +108,3 @@ router.post("/plants/delete/:id", (req, res) => {
 });
 
 module.exports = router;
-
-
-// const {name, nickname, room} = req.body;
-//     apiService
-//     .findPlant()
-//     .then((result) => {
-//         for(let i = 0; i < result.data.length; i++){
-//             let details = result.data[i];
-//         if(details['Common name'][0] == name) {
-//                 console.log(details['Common name'][0])
-//             Plant.create({
-//                 commonName: details['Common name'],
-//                 nickname: nickname,
-//                 room: room,
-//                 image_url: details.img,
-//                 parent: req.session.user.id,
-//                 light: details['Light ideal'],
-//                 waterSchedule: details.Watering,
-//                 minTemp: details['Temperature max'].C,
-//                 maxTemp: details['Temperature min'].C,
-//                 toleratedLight: details['Light tolered'],
-//                 latinName: details['Latin name']
-//             })
-//             .then(newPlant => {
-//                 console.log(newPlant)
-//                 Room.findById(room)
-//                 .then(plantRoom => {
-//                     plantRoom.plants.push(newPlant);
-//                     plantRoom.save()
-//                     .then(() => {
-//                         User.findById(req.session.user.id)
-//                         .then(plantDaddy => {
-//                             plantDaddy.plants.push(newPlant);
-//                             plantDaddy.save()
-//                         })
-//                 })
-//             })
-//             })
-//             .catch(err => console.log(err))
-//         }
-//     break;
-// }          
-//     })

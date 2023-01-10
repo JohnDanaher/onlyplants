@@ -1,6 +1,9 @@
-<h2>Plant Details</h2>
+<h1>Plant Details</h1>
 
-Nickname: {{plant.nickname}}
+<h3>{{plant.nickname}}</h3>
+<img src="{{plant.image_url}}" alt="planty" height="150px" width="150px">
+<br>
+<br>
 <ul>
 <li>Common name: {{plant.commonName}}</li>
 <li>Suggested amounts of light: {{plant.light}}</li>
@@ -8,7 +11,7 @@ Nickname: {{plant.nickname}}
 <li>Watering schedule: {{plant.waterSchedule}}</li>
 <li>Minimum temperature (C): {{plant.minTemp}}</li>
 <li>Maximum temperature (C): {{plant.maxTemp}}</li>
-<li>Latin name: {{plant.latinName}}</li>
+<li style="font-style: italic;">Latin name: {{plant.latinName}}</li>
 </ul>
 
 <a href="/plants/edit/{{plant._id}}"><button>Edit your babyz</button></a>
