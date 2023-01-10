@@ -1,16 +1,20 @@
-<h1>Login</h1>
+<div class="login-form">
 
-{{#if errorMessage}}
-    <p class="error-message">{{ errorMessage }}</p>
-{{/if}}
+    <h1>Login</h1>
 
-<form action="/auth/login" method="POST">
+    {{#if errorMessage}}
+        <p class="error-message">{{ errorMessage }}</p>
+    {{/if}}
 
-    <label for="username">Username</label>
-    <input type="text" name="username" id="username" required /><br />
+    <form action="/auth/login" method="POST">
 
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password" required /><br />
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" required /><br />
+
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" required /><br />
+        
+        <input type="submit" value="Login" class="button"/>
+    </form>
     
-    <input type="submit" value="Login" class="button"/>
-</form>
+</div>

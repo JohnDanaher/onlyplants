@@ -9,9 +9,9 @@ router.get('/signup', isLoggedOut, (req, res, next) => res.render('auth/signup')
 
 router.post('/signup', isLoggedOut, fileUploader.single('avatar'), async (req, res, next) => {
 
-    const { firstName, lastName, dateOfBirth, location, username, email, bio, password, passwordCheck } = req.body;
+    const { firstName, lastName, dateOfBirth, gender, location, username, email, bio, password, passwordCheck } = req.body;
 
-    if ( !firstName || !lastName || !dateOfBirth || !location || !username || !email || !password || !passwordCheck ) { res.render('auth/signup', { errorMessage: `Please fill out all required fields.`})} 
+    if ( !firstName || !lastName || !dateOfBirth || !location || !username || !gender || !email || !password || !passwordCheck ) { res.render('auth/signup', { errorMessage: `Please fill out all required fields.`})} 
     
     await User.findOne({ username })
             .then(user => {
@@ -53,7 +53,7 @@ router.post('/signup', isLoggedOut, fileUploader.single('avatar'), async (req, r
 
     await bcrypt.hash( password, 10 )
         .then(hash => {
-            return User.create({ username, email, firstName, lastName, avatarUrl, dateOfBirth, location, bio, passwordHash: hash })
+            return User.create({ username, email, firstName, lastName, gender, avatarUrl, dateOfBirth, location, bio, passwordHash: hash })
         })
         .then(user => {
 

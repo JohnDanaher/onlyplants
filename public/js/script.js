@@ -3,6 +3,34 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("app JS imported successfully!");
 });
 
+/* SINGUP FORM */
+
+const signupForm = document.querySelector('.signup-form');
+
+if ( signupForm ) {
+
+  const genderInput = document.querySelector('input#gender');
+
+  const plantParentEl = signupForm.querySelector('.button-parent.parent');
+  plantParentEl.param = 'neutral';
+  const plantMumEl = signupForm.querySelector('.button-parent.mummy');
+  plantMumEl.param = 'female';
+  const plantDadEl = signupForm.querySelector('.button-parent.daddy');
+  plantDadEl.param = 'male';
+
+  const selectGender = (gender) => { genderInput.value = gender; }
+  const changeColor = (e) => {
+    plantParentEl.classList.remove('selected');
+    plantMumEl.classList.remove('selected');
+    plantDadEl.classList.remove('selected');
+    e.target.closest('div.button-parent').classList.toggle('selected');
+  }
+
+  plantParentEl.addEventListener('click', (e) => { selectGender('neutral'); changeColor(e); });
+  plantMumEl.addEventListener('click', (e) => { selectGender('female'); changeColor(e); });
+  plantDadEl.addEventListener('click', (e) => { selectGender('male'); changeColor(e); });
+
+}
 
 /* DYNAMIC SEARCH LIST */
 
