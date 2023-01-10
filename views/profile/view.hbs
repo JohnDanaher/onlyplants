@@ -36,7 +36,7 @@
                     <div class="filter-button selected" room-name="friends-rooms">Friends' Rooms</div>
                 {{else}}
                     {{#each sessionSpecificData.allowedRooms }}
-                        <div class="filter-button">{{ this.name }}</div>
+                        <div class="filter-button selected" room-name="{{ this.slug }}">{{ this.name }}</div>
                     {{/each}}
                 {{/if}}
             </div>
@@ -182,62 +182,67 @@
                 {{/each}}
             {{else}}
                 {{#each sessionSpecificData.allowedRooms }}
-                    <div class="plant" room-name="{{ this.room.slug }}">
-                        <div class="card-image" style="background-image:url('{{ this.image_url }}')">
+                    {{#each this.plants }}
+                        <div class="plant" room-name="{{ ../this.slug }}">
+                            <div class="card-image" style="background-image:url('{{ this.image_url }}')">
+                                <div class="plant-actions">
+                                    <a href="/plants/edit/{{ this._id }}"><i class="bi bi-pencil-square"></i></a>
+                                </div>
+                            </div>
+                            <div class="card-title">
+                                <h2>{{this.nickname}}</h2>
+                                <span class="plant-room">{{ ../this.name }}</span>
+                            </div>
+                            <div class="card-content">
+                                <p class="flex-row">
+                                    <span class="card-icon">
+                                        <i class="bi bi-flower1"></i>
+                                    </span>
+                                    <span>
+                                        <span class="card-label">Common / Latin names</span><br/>
+                                        {{ this.commonName }}<br/>
+                                        <i>{{ this.latinName }}</i>
+                                    </span>
+                                </p>
+                                <p class="flex-row">
+                                    <span class="card-icon">
+                                        <i class="bi bi-brightness-high"></i> 
+                                    </span>
+                                    <span>
+                                        <span class="card-label">Ideal Lighting</span><br/>
+                                        {{ this.light }}
+                                    </span>
+                                </p>
+                                <p class="flex-row">
+                                    <span class="card-icon">
+                                        <i class="bi bi-brightness-low"></i>
+                                    </span>
+                                    <span>
+                                        <span class="card-label">Tolerated light</span><br/>
+                                        {{ this.toleratedLight }}
+                                    </span>
+                                </p>
+                                <p class="flex-row">
+                                    <span class="card-icon">
+                                        <i class="bi bi-droplet"></i>
+                                    </span>
+                                    <span>
+                                        <span class="card-label">Water schedule</span><br/>
+                                        {{ this.waterSchedule }}
+                                    </span>
+                                </p>
+                                <p class="flex-row">
+                                    <span class="card-icon">
+                                        <i class="bi bi-thermometer-half"></i>
+                                    </span>
+                                    <span>
+                                        <span class="card-label">Temperature</span><br/>
+                                        {{ this.maxTemp }}°C to {{ this.minTemp }}°C
+                                    </span>
+                                </p>
+                            </div>
                         </div>
-                        <div class="card-title">
-                            <h2>{{this.nickname}}</h2>
-                            <span class="plant-room">{{ this.room.name }}</span>
-                        </div>
-                        <div class="card-content">
-                            <p class="flex-row">
-                                <span class="card-icon">
-                                    <i class="bi bi-flower1"></i>
-                                </span>
-                                <span>
-                                    <span class="card-label">Common / Latin names</span><br/>
-                                    {{ this.commonName }}<br/>
-                                    <i>{{ this.latinName }}</i>
-                                </span>
-                            </p>
-                            <p class="flex-row">
-                                <span class="card-icon">
-                                    <i class="bi bi-brightness-high"></i> 
-                                </span>
-                                <span>
-                                    <span class="card-label">Ideal Lighting</span><br/>
-                                    {{ this.light }}
-                                </span>
-                            </p>
-                            <p class="flex-row">
-                                <span class="card-icon">
-                                    <i class="bi bi-brightness-low"></i>
-                                </span>
-                                <span>
-                                    <span class="card-label">Tolerated light</span><br/>
-                                    {{ this.toleratedLight }}
-                                </span>
-                            </p>
-                            <p class="flex-row">
-                                <span class="card-icon">
-                                    <i class="bi bi-droplet"></i>
-                                </span>
-                                <span>
-                                    <span class="card-label">Water schedule</span><br/>
-                                    {{ this.waterSchedule }}
-                                </span>
-                            </p>
-                            <p class="flex-row">
-                                <span class="card-icon">
-                                    <i class="bi bi-thermometer-half"></i>
-                                </span>
-                                <span>
-                                    <span class="card-label">Temperature</span><br/>
-                                    {{ this.maxTemp }}°C to {{ this.minTemp }}°C
-                                </span>
-                            </p>
-                        </div>
-                    </div>
+                    {{/each}}
                 {{/each}}
             {{/if}}
         </div>

@@ -60,7 +60,7 @@ router.get('/:username', async (req, res, next) => {
     
     if ( !userOwnProfile ) {
         // get user's rooms - based on req params username - and only query rooms the logged in user is invited in
-        const roomsIAminvitedIn = await Room.find({ ownerId: user._id , 'inviteesId' : { $in: [req.session.user.id] } })
+        const roomsIAminvitedIn = await Room.find({ ownerId: user._id , 'inviteesId' : { $in: req.session.user.id } })
                                     .populate('plants')
                                     .catch(err => console.log(err));
         sessionSpecificData.allowedRooms = roomsIAminvitedIn;

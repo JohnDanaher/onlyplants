@@ -32,9 +32,9 @@ router.get('/create', isLoggedIn, async (req, res, next) => {
                             .catch(err => console.log(err));
 
     if ( req.session.user.error ) {
-        const existingName = req.session.user.error;
+        const errorMessage = req.session.user.error;
         delete req.session.user.error;
-        res.render('rooms/create', { users, errorMessage: `You already have a room "${ existingName }". Please choose another name.` });
+        res.render('rooms/create', { users, errorMessage });
         return;
     }
 
@@ -43,12 +43,13 @@ router.get('/create', isLoggedIn, async (req, res, next) => {
 
 router.post('/create', isLoggedIn, async (req, res, next) => {
     const { name, inviteesList } = req.body;
-    const slug = name.replace(/[^\w\s]/gi, '').toLowerCase();
+    const slug = name.replaceAll(/[^\w\s]/gi, '').replaceAll(' ', '-').toLowerCase();
     let { id } = req.session.user;
     let nameAlreadyTaken = false;
 
-    if ( !name ) { res.render('rooms/create', { errorMessage: `Please fill out all required fields.` }); return; }
-    if ( name.length < 3 ) { res.render('rooms/create', { errorMessage: `The name of the room must contain at least 3 characters.` }); return; }
+    if ( !name ) { req.session.user.error = `Please fill out all required fields.`; res.redirect(`/rooms/create`); return; }
+    if ( name.length < 3 ) { req.session.user.error = `The name of the room must contain at least 3 characters.`; res.redirect(`/rooms/create`); return; }
+    else if ( name.length > 15 ) { req.session.user.error = `The name of the room should be 15 character maximum.`; res.redirect(`/rooms/create`); return; }
 
     const checkRoomName = await User.findById( id )
             .populate('rooms')
@@ -107,10 +108,9 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
                             .catch(err => console.log(err));
                             
     if ( req.session.user.error ) {
-        const existingName = req.session.user.error;
+        const errorMessage = req.session.user.error;
         delete req.session.user.error;
-        console.log(users)
-        res.render('rooms/edit', { room, users, inviteesUsernames, errorMessage: `You already have a room "${ existingName }". Please choose another name.` });
+        res.render('rooms/edit', { room, users, inviteesUsernames, errorMessage });
         return;
     }
 
@@ -119,13 +119,14 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
 
 router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     const { name, inviteesList } = req.body;
-    const slug = name.replace(/[^\w\s]/gi, '').toLowerCase();
+    const slug = name.replaceAll(/[^\w\s]/gi, '').replaceAll(' ', '-').toLowerCase();
     const { roomId } = req.params;
     const { id } = req.session.user;
     let nameAlreadyTaken = false;
 
-    if ( !name ) { res.render('rooms/edit', { errorMessage: `Please fill out all required fields.` }); return; }
-    if ( name.length < 3 ) { res.render('rooms/edit', { errorMessage: `The name of the room must contain at least 3 characters.` }); return; }
+    if ( !name ) { req.session.user.error = `Please fill out all required fields.`; res.redirect(`/rooms/${ roomId }/edit`); return; }
+    if ( name.length < 3 ) { req.session.user.error = `The name of the room must contain at least 3 characters.`; res.redirect(`/rooms/${ roomId }/edit`); return; }
+    else if ( name.length > 15 ) { req.session.user.error = `The name of the room should be 15 character maximum.`; res.redirect(`/rooms/${ roomId }/edit`); return; }
 
     const checkRoomName = await User.findById( id )
             .populate('rooms')
@@ -140,7 +141,7 @@ router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
             .catch(err => console.log(err));
 
     if (nameAlreadyTaken) { 
-        req.session.user.error = name;
+        req.session.user.error = `You already have a room "${ existingName }". Please choose another name.`;
         res.redirect(`/rooms/${ roomId }/edit`);
         return;
      }

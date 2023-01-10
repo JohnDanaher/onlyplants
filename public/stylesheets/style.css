@@ -357,6 +357,7 @@ input[type="file"] { display: none; }
   text-transform: uppercase;
   letter-spacing: .8px;
   margin-right: 5px;
+  font-size: .9rem;
 }
 
 .filters-rooms * + * {
@@ -373,7 +374,7 @@ input[type="file"] { display: none; }
   color: #333;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  font-size: .7rem;
+  font-size: .8rem;
   font-weight: 600;
 }
 
