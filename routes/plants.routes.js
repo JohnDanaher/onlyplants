@@ -8,7 +8,7 @@ const ApiService = require('../services/api.service');
 const apiService = new ApiService();
 
 
-router.get("/plants/create/:username", (req, res) => {
+router.get("/plants/create", (req, res) => {
     const {username} = req.session.user;
     Room.find()
     .then(rooms => {
@@ -17,8 +17,8 @@ router.get("/plants/create/:username", (req, res) => {
 .catch(err => console.log(err))
 });
 
-router.post("/plants/create/:username", async (req, res) => {
-    const {username} = req.params;
+router.post("/plants/create", async (req, res) => {
+    const {username} = req.session.user;
     const {name, nickname, room} = req.body;
 
     await apiService
@@ -102,9 +102,18 @@ router.post("/plants/edit/:id", (req, res) => {
 
 router.post("/plants/delete/:id", (req, res) => {
     const {id} = req.params;
+    const {username} = req.session.user;
     Plant.findByIdAndDelete(id)
-    .then(() => res.redirect("/plants/create"))
-    .catch(err => console.log(err))
+    .then((plant) => {
+        Room.findByIdAndUpdate(plant.room._id, {$pull: {plants: { $in: id}}})
+        .then(() => {
+            User.findByIdAndUpdate(plant.parent._id, {$pull: {plants: { $in: id}}})
+            .then(() => {
+                res.redirect(`/profile/${username}`)})
+                 .catch(err => console.log(err))
+            })
+        })
 });
 
 module.exports = router;
+

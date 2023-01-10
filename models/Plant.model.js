@@ -11,7 +11,7 @@ const plantSchema = new Schema({
         ref: 'Room'
     },
     commonName: String, // this and below: pull from api
-    image_url: String, // default?
+    image_url: {type: String, default: "https://www.dictionary.com/e/wp-content/uploads/2018/03/sideshow-bob.jpg"},
     light: String,
     toleratedLight: String,
     waterSchedule: String,
