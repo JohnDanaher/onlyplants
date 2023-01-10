@@ -1,18 +1,24 @@
-<h2>Find plant</h2>
+<div id="create-plant-page">
+  <h1>Find plant</h1>
 
   <form action="/plants/create" method="POST">
-  <label>
-    Name: <input type="text" name="name">
-  </label>
-  <label>
-   Nickname: <input type="text" name="nickname">
-  </label> 
-  <label for="room"> New plant's home:    
+    <label>
+      Name:
+      <input type="text" name="name" />
+    </label>
+    <label>
+      Nickname:
+      <input type="text" name="nickname" />
+    </label>
+    <label for="room">
+      New plant's home:
     </label>
     <select name="room">
-    {{#each rooms}}
-    <option value="{{id}}">{{name}}</option>
-    {{/each}}
-    </select>
-  <button type="submit">Create plant</button>
+      {{#each rooms}}
+        <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select><br/>
+    <button type="submit" class="button">Create plant</button>
   </form>
+
+</div>
