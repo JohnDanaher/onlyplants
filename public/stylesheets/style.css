@@ -146,11 +146,15 @@ input[type="file"] { display: none; }
   margin-top: 12vh;
 }
 
-#login-form h1, #create-room-page h1, #edit-room-page h1 {
+#login-form h1, #create-room-page h1, #edit-room-page h1, #create-plant-page h1, #edit-plant-page h1, #plant-details-page h1 {
   margin-bottom: 30px;
 }
 
-#login-page input, #create-room-page input, #edit-room-page input {
+#login-page input, #create-room-page input, #create-plant-page input, #edit-plant-page input, #plant-details-page input {
+ width: 100%
+}
+
+#create-plant-page button, #edit-plant-page button, #plant-details-page button {
  width: 100%
 }
 
@@ -357,6 +361,7 @@ input[type="file"] { display: none; }
   text-transform: uppercase;
   letter-spacing: .8px;
   margin-right: 5px;
+  font-size: .9rem;
 }
 
 .filters-rooms * + * {
@@ -373,7 +378,7 @@ input[type="file"] { display: none; }
   color: #333;
   text-transform: uppercase;
   letter-spacing: 1.5px;
-  font-size: .7rem;
+  font-size: .8rem;
   font-weight: 600;
 }
 
@@ -387,6 +392,8 @@ input[type="file"] { display: none; }
   flex-wrap: wrap;
   margin: 0 -10px;
 }
+
+.plant *, .room * { cursor: pointer!important; }
 
 #plants .plant { width: 23.5%; }
 #plants > * { margin: 0 10px; }
@@ -490,7 +497,7 @@ input[type="file"] { display: none; }
 
 /* ROOMS */
 
-#create-room-page, #edit-room-page, #add-plant-page, #edit-plant-page {
+#create-room-page, #edit-room-page, #create-plant-page, #edit-plant-page, #plant-details-page {
   width: 500px;
 }
 
@@ -662,7 +669,7 @@ label {
   padding-bottom: 8px;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="date"], textarea {
+input[type="text"], input[type="password"], input[type="email"], input[type="date"], textarea, select {
   display: block;
   border: 0;
   padding: 15px;

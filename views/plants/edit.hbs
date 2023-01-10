@@ -1,29 +1,31 @@
-<h2>Change {{plant.nickname}}'s deetz</h2>
+<div id="edit-plant-page">
+  <h1>Change {{plant.nickname}}'s deetz</h1>
 
-<form action="/plants/edit/{{plant.id}}" method="POST">
+  <form action="/plants/edit/{{plant.id}}" method="POST">
 
-   <label>
-    <img src="{{plant.image_url}}" alt="planty" height="150px" width="150px">
+    <label>
+      <img src="{{plant.image_url}}" alt="planty" height="150px" width="150px">
     </label>
-        <button>Change avatar</button>
+    <button>Change avatar</button>
 
 
     <label> New nickname
       <input type="text" name="nickname" placeholder="{{plant.nickname}}" />
     </label>
 
-    <label for="room"> {{plant.nickname}}'s home    
+    <label for="room"> {{plant.nickname}}'s home
     </label>
     <select name="room">
-    {{#each allRooms}}
-    <option value="{{_id}}">{{name}}</option>
-    {{/each}}
+      {{#each allRooms}}
+      <option value="{{_id}}">{{name}}</option>
+      {{/each}}
     </select>
-<br>
-<br>
-    <button type="submit">Save changes</button>
+    <br>
+    <br>
+    <button type="submit" class="button">Save changes</button>
   </form>
   <br>
   <form action="/plants/delete/{{plant._id}}" method="post">
-    <button type="submit">Remove plant (RIP)</button>
-    </form>
+    <button type="submit" class="button button-delete">Remove plant (RIP)</button>
+  </form>
+</div>
