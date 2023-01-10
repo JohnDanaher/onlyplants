@@ -151,7 +151,7 @@ window.addEventListener('load', () => {
 
     button.addEventListener('click', () => {
       button.classList.toggle('selected');
-      if ( button.classList.contains('selected') ) { button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`; }
+      if ( button.classList.contains('selected') ) { button.innerHTML = `${ button.innerText.trim() }`; }
       else { button.innerHTML = `${ button.innerText.trim() }`; }
       filterPlants();
     })
@@ -176,8 +176,14 @@ window.addEventListener('load', () => {
     for ( i = 0 ; i < plantsEl.length ; i++ ) { if( plantsEl[i].style.display === 'block' ) { visiblePlants++; }}
     
     const plantsCountEl = document.querySelector('.plants-count');
-    if ( visiblePlants === 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plant`; } else if ( visiblePlants > 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plants`; } else { plantsCountEl.innerText = ''; }
+    
+    if ( !selectedFilters.length ) { plantsCountEl.innerText = 'No rooms selected.' }
+    else if ( visiblePlants === 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plant`; }
+    else if ( visiblePlants > 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plants`; }
+    else { plantsCountEl.innerText = 'There are no plants in the selected rooms.'; }
+
     if ( !visiblePlants ) { noPlantsMessage.style.display = 'block'; } else { noPlantsMessage.style.display = 'none'; }
+
   }
 
   filterPlants();
@@ -252,3 +258,15 @@ window.addEventListener('load', () => {
   
   }
 });
+
+
+/* DELETE MODALS */
+
+const myModal = document.getElementById('exampleModal')
+const myInput = document.getElementById('myInput')
+
+if (myModal) {
+  myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+  });
+}
