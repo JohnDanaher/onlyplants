@@ -62,7 +62,7 @@ router.post("/plants/create/:username", async (req, res) => {
             }}
     }
     })
-    res.redirect(`/profile/${username}`)
+    .then(() => res.redirect(`/profile/${username}`))
 
     });       
 
@@ -108,46 +108,3 @@ router.post("/plants/delete/:id", (req, res) => {
 });
 
 module.exports = router;
-
-
-// const {name, nickname, room} = req.body;
-//     apiService
-//     .findPlant()
-//     .then((result) => {
-//         for(let i = 0; i < result.data.length; i++){
-//             let details = result.data[i];
-//         if(details['Common name'][0] == name) {
-//                 console.log(details['Common name'][0])
-//             Plant.create({
-//                 commonName: details['Common name'],
-//                 nickname: nickname,
-//                 room: room,
-//                 image_url: details.img,
-//                 parent: req.session.user.id,
-//                 light: details['Light ideal'],
-//                 waterSchedule: details.Watering,
-//                 minTemp: details['Temperature max'].C,
-//                 maxTemp: details['Temperature min'].C,
-//                 toleratedLight: details['Light tolered'],
-//                 latinName: details['Latin name']
-//             })
-//             .then(newPlant => {
-//                 console.log(newPlant)
-//                 Room.findById(room)
-//                 .then(plantRoom => {
-//                     plantRoom.plants.push(newPlant);
-//                     plantRoom.save()
-//                     .then(() => {
-//                         User.findById(req.session.user.id)
-//                         .then(plantDaddy => {
-//                             plantDaddy.plants.push(newPlant);
-//                             plantDaddy.save()
-//                         })
-//                 })
-//             })
-//             })
-//             .catch(err => console.log(err))
-//         }
-//     break;
-// }          
-//     })
