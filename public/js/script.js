@@ -142,18 +142,35 @@ if (datalistEl) {
 window.addEventListener('load', () => {
 
   const filterButtons = document.querySelectorAll('.filter-button');
+  const plantsSection = document.getElementById('plants');
 
   filterButtons.forEach(button => {
+
+    // if ( button.classList.contains('selected') ) button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`;
+
     button.addEventListener('click', () => {
-      if ( button.innerHTML.startsWith('<i') ) {
-        button.innerHTML = button.innerText.trim();
-        button.style.border = '0';
-      } else {
-        button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`;
-        button.style.border = '1px solid #e98e5d';
-      }
+      button.classList.toggle('selected');
+      if ( button.classList.contains('selected') ) { button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`; }
+      else { button.innerHTML = `${ button.innerText.trim() }`; }
+      filterPlants();
     })
   })
+
+  const filterPlants = () => {
+
+    const selectedFilters = [...document.querySelectorAll('.filter-button.selected')].map(el => el.getAttribute('room-name'));
+    plantsSection.querySelectorAll('.plant').forEach(plant => {
+      const plantRoomSlug = plant.getAttribute('room-name');
+      console.log(plant, plantRoomSlug)
+      if ( selectedFilters.includes(plantRoomSlug) ) { // if this plant is in one of the selected rooms
+        plant.style.display = 'block';
+      } else {
+        plant.style.display = 'none';
+      }
+    });
+  }
+
+  filterPlants();
 
 })
 

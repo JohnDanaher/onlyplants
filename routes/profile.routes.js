@@ -5,6 +5,7 @@ const fileUploader = require('../config/cloudinary.config');
 const path = require('path');
 const WeatherApi = require('../services/weather.service');
 const Room = require('../models/Room.model');
+const { populate } = require('../models/User.model');
 
 const router = require('express').Router();
 
@@ -23,24 +24,41 @@ router.get('/:username', async (req, res, next) => {
 
     const user = await User.findOne({ username })
                 .populate('rooms')
-                .populate('plants')
-                .then(user => { if ( !user ) { res.redirect('/'); return; } return user; })
-                .catch((err => console.log(err)));
+                .populate({
+                    path: 'plants',
+                    populate: {
+                        path: 'room',
+                        model: 'Room'
+                    }
+                })
+                .catch(err => console.log(err));
+
+    if ( !user ) { res.redirect('/'); return; };
     
     if ( userOwnProfile ) {
+
+        // fetch weather data based on user's location - based on the params username / but only if own profile
         const weatherApi = new WeatherApi();
         weatherData = await weatherApi.getWeather(user.location);
         sessionSpecificData.weatherLocation = weatherData.data.location;
         sessionSpecificData.weatherConditions = weatherData.data.condition;
         sessionSpecificData.weatherIconUrl = weatherData.data.icon_url;
         sessionSpecificData.weatherTemperature = weatherData.data.feels_like_c;
+
+        // query all plants from rooms the logged in user is invited in to display on their profile under the tab "friends' rooms"
+        const myFriendsRooms = await Room.find({ ownerId: { $ne : req.session.user.id } , 'inviteesId' : { $in: [req.session.user.id] } })
+                                .populate('plants')
+                                .catch(err => console.log(err));
+        sessionSpecificData.friendsRooms = myFriendsRooms;
+
     }
     
     if ( !userOwnProfile ) {
-        console.log(user._id)
-        const roomsIAminvitedIn = await Room.find({ ownerId: user._id , 'inviteesId' : { $in: [req.session.user.id] } }).catch(err => console.log(err));
+        // get user's rooms - based on req params username - and only query rooms the logged in user is invited in
+        const roomsIAminvitedIn = await Room.find({ ownerId: user._id , 'inviteesId' : { $in: [req.session.user.id] } })
+                                    .populate('plants')
+                                    .catch(err => console.log(err));
         sessionSpecificData.allowedRooms = roomsIAminvitedIn;
-        console.log(sessionSpecificData.allowedRooms)
     }
 
     user.avatarUrl.startsWith('http') ? avatarUrl = user.avatarUrl : avatarUrl = `../${user.avatarUrl}`;
