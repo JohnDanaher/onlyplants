@@ -163,7 +163,7 @@ window.addEventListener('load', () => {
 
     plantsSection.querySelectorAll('.plant').forEach(plant => {
       const plantRoomSlug = plant.getAttribute('room-name');
-      console.log(plant, plantRoomSlug)
+      
       if ( selectedFilters.includes(plantRoomSlug) ) { // if this plant is in one of the selected rooms
         plant.style.display = 'block';
       } else {
@@ -171,7 +171,13 @@ window.addEventListener('load', () => {
       }
     });
 
-    if ( !selectedFilters.length ) { noPlantsMessage.style.display = 'block'; } else { noPlantsMessage.style.display = 'none'; }
+    let plantsEl = plantsSection.children;
+    let visiblePlants = 0;
+    for ( i = 0 ; i < plantsEl.length ; i++ ) { if( plantsEl[i].style.display === 'block' ) { visiblePlants++; }}
+    
+    const plantsCountEl = document.querySelector('.plants-count');
+    if ( visiblePlants === 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plant`; } else if ( visiblePlants > 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plants`; } else { plantsCountEl.innerText = ''; }
+    if ( !visiblePlants ) { noPlantsMessage.style.display = 'block'; } else { noPlantsMessage.style.display = 'none'; }
   }
 
   filterPlants();
