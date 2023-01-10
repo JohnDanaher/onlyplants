@@ -3,7 +3,7 @@
     <div class="weather-infobox">
         <img src="{{ sessionSpecificData.weatherIconUrl }}" />
         <p>
-            {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }}, today. The temperature will be {{ sessionSpecificData.weatherTemperature }}°C. Take good care of your plants!
+            {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }}, today. The temperature is {{ sessionSpecificData.weatherTemperature }}°C. Take good care of your plants!
         </p>
     </div>
 {{/if}}
@@ -48,6 +48,8 @@
                 </div>
             {{/if}}
         </div>
+
+        <p class="plants-count"></p>
 
         <div id="plants">
             <p class="no-plants" style="display:none;">No rooms selected!</p>

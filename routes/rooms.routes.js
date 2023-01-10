@@ -171,7 +171,8 @@ router.post('/:roomId/delete', isOwnRoom, async (req, res, next) => {
         res.render(`rooms/edit`, { room, errorMessage: `You only have one room, you can't delete it.`}); return; 
     };
 
-    await Room.findByIdAndDelete( roomId );
+    const deletedRoom = await Room.findByIdAndDelete( roomId ).catch(err => console.log(err));
+    await Plant.deleteMany({ 'room' : deletedRoom._id }).catch(err => console.log(err));
     await User.findByIdAndUpdate( req.session.user.id, { $pull: { rooms: ObjectId(roomId) }});
 
     res.redirect('/rooms');
