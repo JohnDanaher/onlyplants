@@ -2,6 +2,11 @@
 
 <form action="/plants/edit/{{plant.id}}" method="POST">
 
+   <label>
+    <img src="{{plant.image_url}}" alt="planty" height="150px" width="150px">
+    </label>
+        <button>Change avatar</button>
+
 
     <label> New nickname
       <input type="text" name="nickname" placeholder="{{plant.nickname}}" />
@@ -14,7 +19,8 @@
     <option value="{{_id}}">{{name}}</option>
     {{/each}}
     </select>
-
+<br>
+<br>
     <button type="submit">Save changes</button>
   </form>
   <br>

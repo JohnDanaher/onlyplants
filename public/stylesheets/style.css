@@ -57,7 +57,7 @@ ul {
 }
 
 nav {
-  margin-bottom: 20px;
+  margin-bottom: 30px;
   display: flex;
   justify-content: space-between;
 }
@@ -77,7 +77,6 @@ nav li + li {
 #edit-profile-page .flex-row { align-items: center; }
 
 .button {
-  background-color: #1caa53;
   padding: 12px 20px;
   color: white;
   text-decoration: none;
@@ -89,13 +88,11 @@ nav li + li {
 .button:hover {
   color: white;
   text-decoration: none;
-  background-color: #3ac084;
   cursor: pointer;
 }
 
 .secondary-button {
   display: inline-block;
-  background-color: #fbe882;
   padding: 12px 20px;
   color: #333;
   text-decoration: none;
@@ -106,29 +103,49 @@ nav li + li {
 .secondary-button:hover {
   color: #333;
   text-decoration: none;
-  background-color: #fbd83c;
   cursor: pointer;
 }
+
+
+.button { background-color: #1caa53; }
+.button:hover { background-color: #3ac084; }
+.button-delete { background-color: #f15d55; }
+.button-delete:hover { background-color: #ff766e; }
+.secondary-button { background-color: #fbe882; }
+.secondary-button:hover { background-color: #fbd83c; }
 
 label.secondary-button { display: inline-block; height: auto; width: 250px; text-align: center; margin-bottom: 20px; }
 label i.bi-upload { color: #000; padding-right: 12px; }
 input[type="file"] { display: none; }
 
+#logo {
+  width: 50px;
+  height : auto;
+}
+
 /* LOGIN */
 
-.login-form {
+#login-form .error-message { width: 350px; }
+
+#login-form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-content: center;
+  justify-content: center;
   text-align: center;
-  margin-top: 15vh;
+  margin-top: 12vh;
 }
 
-.login-form h1 {
+#login-form h1, #create-room-page h1, #edit-room-page h1 {
   margin-bottom: 30px;
 }
 
-.login-form input {
+#login-page input, #create-room-page input, #edit-room-page input {
+ width: 100%
+}
+
+#login-form input {
   min-width: 350px;
   text-align: center;
 }
@@ -136,15 +153,12 @@ input[type="file"] { display: none; }
 /* SIGNUP */
 
 .error-message {
-  max-width: 500px;
-  background-color: #f4a698;
+  width: fit-content;
+  background-color: #ff766e;
   padding: 20px;
   border-radius: 4px;
   color: white;
-  min-width: 500px;
   margin-top: 20px;
-  margin-bottom: 30px;
-  width: fit-content;
 }
 
 .signup-form {
@@ -341,28 +355,29 @@ input[type="file"] { display: none; }
 
 #filters .filter-button {
   padding: 10px 15px;
-  color: #f4a698;
+  color: #333;
   text-decoration: none;
   line-height: auto;
 }
 
-#plants {
-  display: flex;
-  flex-wrap: wrap;
+.filter-button.selected {
+  background-color: #e9e9e9;
 }
 
+#plants {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+#plants .plant { width: 31.4%; }
+#plants > * { margin: 0 15px; }
+
 #plants div {
-  width: 22.8%;
-  margin-right: 2vw;
-  margin-bottom: 2vw;
-  padding: 0 20px 20px;
   border-radius: 4px;
   background-color: white;
 }
-
-/* #plants div + div {
-  margin-left: 20px;
-} */
 
 .weather-infobox {
   display: flex;
@@ -392,23 +407,37 @@ input[type="file"] { display: none; }
 
 /* ROOMS */
 
+#create-room-page, #edit-room-page, #add-plant-page, #edit-plant-page {
+  width: 500px;
+}
+
 #rooms {
   display: flex;
   flex-wrap: wrap;
   margin-top: 30px;
 }
 
+#rooms > div + div, .plants > div + div {
+  margin-left: 30px;
+}
+
 #rooms .room, #plants .plant {
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   /* min-height: 350px; */
-  width: 22.8%;
-  margin-right: 2vw;
-  margin-bottom: 2vw;
   padding: 0 30px 30px;
   border-radius: 4px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px;
+  margin-bottom: 30px;
+}
+
+#rooms .room { width: 22.8%; }
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
 }
 
 #rooms .room.add-room, #plants .plant.add-plant  {
@@ -523,13 +552,13 @@ input[type="file"] { display: none; }
   margin-left: 30px;
 }
 
-.room-actions {
+.room-actions, .plant-actions {
   display: flex;
   align-items: baseline;
   margin-top: 23px;
 }
 
-.room-actions > a {
+.room-actions > a, .plant-actions > a {
   display: inline-block;
 }
 
@@ -539,7 +568,7 @@ input[type="file"] { display: none; }
   background-color: transparent;
 }
 
-.room-actions i {
+.room-actions i, .plant-actions i {
   font-size: 1.8rem;
 }
 
