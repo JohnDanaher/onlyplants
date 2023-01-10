@@ -84,13 +84,13 @@ router.post('/login', isLoggedOut, (req, res, next) => {
     User.findOne({ username })
         .then(user => {
             if ( !user ) {
-                res.render('auth/login', { errorMessage: `Wrong username and/or username. Please try again.` });
+                res.render('auth/login', { errorMessage: `Wrong username and/or username.<br/>Please try again.` });
                 return;
             } else if ( bcrypt.compare(user.passwordHash, password) ) {
                 req.session.user = { id: user._id, username: user.username };
                 res.redirect('/');
             } else {
-                res.render('auth/login', { errorMessage: `Wrong username and/or username. Please try again.` });
+                res.render('auth/login', { errorMessage: `Wrong username and/or username.<br/>Please try again.` });
                 return;
             }
         })
