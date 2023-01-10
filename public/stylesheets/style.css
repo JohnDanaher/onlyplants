@@ -73,7 +73,7 @@ nav li {
 }
 
 nav li + li {
-  padding-left: 15px;
+  padding-left: 25px;
 }
 
 .flex-row { display: flex; }
@@ -129,7 +129,7 @@ input[type="file"] { display: none; }
 #logo {
   width: auto;
   height : 30px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 /* LOGIN */
@@ -400,7 +400,6 @@ input[type="file"] { display: none; }
 .plant-actions i { color: white; }
 .plant-actions i:hover { color: lightgray; }
 
-
 .card-title {
   width: 100%;
   display: inline-flex;
@@ -438,15 +437,16 @@ input[type="file"] { display: none; }
 }
 
 #plants .card-invitee {
-  height: 35px;
-  width: 35px;
+  position: relative;
+  left: 3px;
+  height: 32px;
+  width: 32px;
 }
 
 #plants .plant-room {
-  line-height: 2rem;
   background-color: #e9f5ef;
   border-radius: 50px;
-  padding: 4px 14px;
+  padding: 8px 18px;
   color: #333;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -470,7 +470,7 @@ input[type="file"] { display: none; }
   margin-bottom: 30px;
   border-radius: 4px;
   padding: 8px 22px 8px 10px;
-  border: 3px solid #e9f5ef;
+  background-color: linen;
 }
 
 .weather-infobox img {
@@ -620,6 +620,10 @@ input[type="file"] { display: none; }
   margin-left: -20px;
 }
 
+#rooms .card-title {
+  margin-bottom: 0px;
+}
+
 .rooms-actions {
   display: flex;
   align-items: center;
@@ -632,7 +636,6 @@ input[type="file"] { display: none; }
 .room-actions {
   display: flex;
   align-items: baseline;
-  margin-top: 23px;
 }
 
 .room-actions > a {
