@@ -12,16 +12,14 @@
       <input type="text" name="nickname" placeholder="{{plant.nickname}}" />
     </label>
 
-    <label for="room"> {{plant.nickname}}'s home    
+    <label for="room"> New plant's home:    
     </label>
     <select name="room">
-    {{#each allRooms}}
-    <option value="{{_id}}">{{name}}</option>
+    {{#each rooms}}
+    <option value="{{id}}">{{name}}</option>
     {{/each}}
     </select>
-<br>
-<br>
-    <button type="submit">Save changes</button>
+  <button type="submit">Create plant</button>
   </form>
   <br>
   <form action="/plants/delete/{{plant._id}}" method="post">
