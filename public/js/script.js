@@ -12,7 +12,7 @@ if ( signupForm ) {
   const genderInput = document.querySelector('input#gender');
 
   const plantParentEl = signupForm.querySelector('.button-parent.parent');
-  plantParentEl.param = 'neutral';
+  plantParentEl.param = 'parent';
   const plantMumEl = signupForm.querySelector('.button-parent.mummy');
   plantMumEl.param = 'female';
   const plantDadEl = signupForm.querySelector('.button-parent.daddy');
@@ -26,7 +26,7 @@ if ( signupForm ) {
     e.target.closest('div.button-parent').classList.toggle('selected');
   }
 
-  plantParentEl.addEventListener('click', (e) => { selectGender('neutral'); changeColor(e); });
+  plantParentEl.addEventListener('click', (e) => { selectGender('parent'); changeColor(e); });
   plantMumEl.addEventListener('click', (e) => { selectGender('female'); changeColor(e); });
   plantDadEl.addEventListener('click', (e) => { selectGender('male'); changeColor(e); });
 

@@ -57,7 +57,7 @@ router.post('/signup', isLoggedOut, fileUploader.single('avatar'), async (req, r
         })
         .then(user => {
 
-            Room.create({ name: 'Home', ownerId: user._id })
+            Room.create({ name: 'Home', slug: 'home', ownerId: user._id })
                 .then(room => {
                     user.rooms.push(room._id);
                     user.save();
