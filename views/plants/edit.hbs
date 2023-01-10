@@ -1,17 +1,22 @@
-<h2>Move your plant/add another plant daddy</h2>
+<h2>Change {{plant.nickname}}'s deetz</h2>
 
-<form action="/room/edit/{{_id}}" method="POST">
+<form action="/plants/edit/{{plant.id}}" method="POST">
 
-    <label> Plant Parents
-      <input type="text" name="name" placeholder="" />
+    <label> New nickname
+      <input type="text" name="name" placeholder="{{plant.nickname}}" />
     </label>
 
-    <label> Room
-      <input type="text" name="description" placeholder="" />
+    <label for="room"> {{plant.nickname}}'s home    
     </label>
+    <select name="room">
+    {{#each allRooms}}
+    <option value="{{_id}}">{{name}}</option>
+    {{/each}}
+    </select>
 
     <button type="submit">Save changes</button>
   </form>
+  <br>
   <form action="/plants/delete/{{plant._id}}" method="post">
     <button type="submit">Remove plant (RIP)</button>
     </form>

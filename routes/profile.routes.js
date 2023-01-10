@@ -23,6 +23,7 @@ router.get('/:username', async (req, res, next) => {
 
     const user = await User.findOne({ username })
                 .populate('rooms')
+                .populate('plants')
                 .then(user => { if ( !user ) { res.redirect('/'); return; } return user; })
                 .catch((err => console.log(err)));
     
