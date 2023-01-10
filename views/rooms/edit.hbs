@@ -1,34 +1,38 @@
-<h1>Edit a room</h1>
+<div id="edit-room-page">
 
-{{#if errorMessage }}
-    <p class="error-message">{{ errorMessage }}</p>
-{{/if}}
+    <h1>Edit a room</h1>
 
-<form action="/rooms/{{ room._id }}/edit" method="POST">
-    <label for="name">Name of your room:</label>
-    <input type="text" name="name" id="name" value="{{ room.name }}"/>
+    {{#if errorMessage }}
+        <p class="error-message">{{ errorMessage }}</p>
+    {{/if}}
 
-    <div id="datalist-users">
-    <label for="invitee" class="invitee-label">Invitees:</label>
-        {{#each inviteesUsernames }}
-            <p class="invitee invitee-{{ this }}">{{ this }}<i class="bi bi-x"></i></p>
-        {{/each}}
-        <input type="hidden" id="inviteesList" name="inviteesList" value="{{ inviteesUsernames }}">
-        <input type="text" id="invitee" name="invitee" autocomplete="off">
-        <div id="datalist-users-list">
-                {{#each users}}
-                    <div class="datalist-user">
-                        <div style="background-image:url('{{ this.avatarUrl }}')" class="datalist-user-pic"></div>
-                        {{this.username}}<br/>
-                    </div>
-                {{/each}}
-        </div>
-    </div><br><br>
+    <form action="/rooms/{{ room._id }}/edit" method="POST">
+        <label for="name">Name of your room:</label>
+        <input type="text" name="name" id="name" value="{{ room.name }}"/>
 
-    <input type="submit" value="Update room" class="button">
-</form>
-<br/>
+        <div id="datalist-users">
+        <label for="invitee" class="invitee-label">Invitees:</label>
+            {{#each inviteesUsernames }}
+                <p class="invitee invitee-{{ this }}">{{ this }}<i class="bi bi-x"></i></p>
+            {{/each}}
+            <input type="hidden" id="inviteesList" name="inviteesList" value="{{ inviteesUsernames }}">
+            <input type="text" id="invitee" name="invitee" autocomplete="off">
+            <div id="datalist-users-list">
+                    {{#each users}}
+                        <div class="datalist-user">
+                            <div style="background-image:url('{{ this.avatarUrl }}')" class="datalist-user-pic"></div>
+                            {{this.username}}<br/>
+                        </div>
+                    {{/each}}
+            </div>
+        </div><br><br>
 
-<form action="/rooms/{{ room._id }}/delete" method="POST">
-    <input type="submit" value="Delete room" class="button">
-</form>
+        <input type="submit" value="Update room" class="button">
+    </form>
+    <br/>
+
+    <form action="/rooms/{{ room._id }}/delete" method="POST">
+        <input type="submit" value="Delete room" class="button button-delete">
+    </form>
+
+</div>

@@ -43,6 +43,7 @@ router.get('/create', isLoggedIn, async (req, res, next) => {
 
 router.post('/create', isLoggedIn, async (req, res, next) => {
     const { name, inviteesList } = req.body;
+    const slug = name.replace(/[^\w\s]/gi, '').toLowerCase();
     let { id } = req.session.user;
     let nameAlreadyTaken = false;
 
@@ -67,7 +68,7 @@ router.post('/create', isLoggedIn, async (req, res, next) => {
     
     const inviteesIds = await Promise.all(convertUsernamesToIds(inviteesList));
 
-    const room = await Room.create( { name, ownerId: id } )
+    const room = await Room.create( { name, slug, ownerId: id } )
                         .then(room => {
                             if (inviteesList != '') {
                                 inviteesIds.forEach(inviteeId => {
@@ -118,6 +119,7 @@ router.get('/:roomId/edit', isOwnRoom, async (req, res, next) => {
 
 router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     const { name, inviteesList } = req.body;
+    const slug = name.replace(/[^\w\s]/gi, '').toLowerCase();
     const { roomId } = req.params;
     const { id } = req.session.user;
     let nameAlreadyTaken = false;
@@ -145,7 +147,7 @@ router.post('/:roomId/edit', isOwnRoom, async (req, res, next) => {
     
     const inviteesIds = await Promise.all(convertUsernamesToIds(inviteesList));
 
-    await Room.findByIdAndUpdate( roomId, { name, $set: { inviteesId: [] } })
+    await Room.findByIdAndUpdate( roomId, { name, slug, $set: { inviteesId: [] } })
         .then(room => {
             if ( inviteesList !== '' ) {
                 inviteesIds.forEach(inviteeId => {

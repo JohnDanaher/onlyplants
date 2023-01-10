@@ -32,8 +32,9 @@
                 <p>Filter by rooms</p>
                 {{#if userOwnProfile}}
                     {{#each user.rooms}}
-                        <div class="filter-button">{{ this.name }}</div>
-                    {{/each}}
+                        <div class="filter-button selected" room-name="{{ this.slug }}"><i class="bi bi-check-lg"></i> {{ this.name }}</div>
+                    {{/each}}   
+                    <div class="filter-button selected" room-name="friends-rooms"><i class="bi bi-check-lg"></i> Friends' Rooms</div>
                 {{else}}
                     {{#each sessionSpecificData.allowedRooms }}
                         <div class="filter-button">{{ this.name }}</div>
@@ -49,24 +50,57 @@
         </div>
 
         <div id="plants">
+            <p class="no-plants" style="display:none;">No rooms selected!</p>
             {{#if userOwnProfile}}
-                <div class="plant add-plant">
-                    <a href="/plants/create">
-                        <i class="bi bi-plus-lg"></i>
-                        <h2>Add a Plant</h2>
-                    </a>
-                </div>
+                {{#each user.plants}}
+                    {{!-- {{this}} --}}
+                    <div class="plant" room-name="{{ this.room.slug }}">
+                        <div class="card-header">
+                            <h2>{{this.nickname}}</h2>
+                            <div class="plant-actions">
+                                <a href="/plants/edit/{{ this._id }}"><i class="bi bi-pencil-square"></i></a>
+                            </div>
+                        </div>
+                        <div>
+                            <p>{{ this.commonName }}</p>
+                            <img src="{{ this.image_url }}" alt="">
+                            <p>{{ this.light }}</p>
+                            <p>{{ this.toleratedLight }}</p>
+                            <p>{{ this.waterSchedule }}</p>
+                            <p>{{ this.minTemp }}</p>
+                            <p>{{ this.maxTemp }}</p>
+                            <p>{{ this.latinName }}</p>
+                        </div>
+                    </div>
+                {{/each}}
+                {{#each sessionSpecificData.friendsRooms }}
+                    {{#each this.plants }}
+                        <div class="plant" room-name="friends-rooms">
+                            <div class="card-header">
+                                <h2>{{this.nickname}}</h2>
+                                <div class="plant-actions">
+                                    <a href="/plants/edit/{{ this._id }}"><i class="bi bi-pencil-square"></i></a>
+                                </div>
+                            </div>
+                            <div>
+                                <p>{{ this.commonName }}</p>
+                                <img src="{{ this.image_url }}" alt="">
+                                <p>{{ this.light }}</p>
+                                <p>{{ this.toleratedLight }}</p>
+                                <p>{{ this.waterSchedule }}</p>
+                                <p>{{ this.minTemp }}</p>
+                                <p>{{ this.maxTemp }}</p>
+                                <p>{{ this.latinName }}</p>
+                            </div>
+                        </div>
+                    {{/each}}
+                {{/each}}
+            {{else}}
+                {{#each sessionSpecificData.allowedRooms }}
+                    <div class="filter-button">{{ this.name }}</div>
+                {{/each}}
             {{/if}}
-
-            {{#if userOwnProfile}}
-              {{#each user.plants}}
-              <div><h2>{{this.nickname}}</h2></div>
-              {{/each}}
-           {{/if}}
         </div>
-      </div>
-
-
 
     </div>
 

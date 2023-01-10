@@ -6,20 +6,19 @@
 <div id="rooms">
     {{#each user.rooms}}
         <div class="room">
-            <div>
+            <div class="card-header">
                 <h2>{{ this.name }}</h2>
-                <p class="stats">
-                    <span class="stats-plants">{{ this.plants.length }} plants</span>
-                </p>
-                <div id="card-invitees">
-                    {{#each this.inviteesId}}
-                        <div class="card-invitee" style="background-image:url('{{ this.avatarUrl }}"></div>
-                    {{/each}}
+                <div class="room-actions">
+                    <a href="/rooms/{{ this._id }}/edit"><i class="bi bi-pencil-square"></i></a>
                 </div>
             </div>
-            <div class="room-actions">
-                <a href="/rooms/{{ this._id }}/edit"><i class="bi bi-pencil-square"></i></a>
-                {{!-- <form action="/rooms/{{ this._id }}/delete" method="POST"><button><i class="bi bi-x-square"></i></button></form> --}}
+            <p class="stats">
+                <span class="stats-plants">{{ this.plants.length }} plants</span>
+            </p>
+            <div id="card-invitees">
+                {{#each this.inviteesId}}
+                    <div class="card-invitee" style="background-image:url('{{ this.avatarUrl }}"></div>
+                {{/each}}
             </div>
         </div>
     {{/each}}
