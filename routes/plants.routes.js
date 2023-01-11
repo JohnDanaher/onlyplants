@@ -78,40 +78,16 @@ router.get("/plants/details/:id", (req, res) => {
     .catch(err => console.log(err))
 });
 
-router.get("/plants/edit/:id", (req, res) => {
+router.get("/plants/edit/:id", async (req, res) => {
     const {id} = req.params;
-    const plant = Plant.findById(id)
-    
-    User.findById(req.session.user.id)
-    .populate('rooms')
-    .then( foundUser => {
-        res.render('plants/edit', {plant, foundUser})
-    })
-    .catch(error => console.log(error))
-    // Plant.findById(id)
-    // .then((plant) => {
-    //     Room.find()
-    //     .then((allRooms) => {
-    //     res.render("plants/edit", {plant, allRooms})
-    // })
-    // })
-    // .catch(err => console.log(err))
+    const plant = await Plant.findById(id)
+    const user = await User.findById(req.session.user.id).populate('rooms')
+        
+    res.render("plants/edit", {plant, rooms: user.rooms})
+
 });
 
 
-// router.get("/plants/edit/:id", (req, res) => {
-//     const {id} = req.params;
-//     Plant.findById(id)
-//     .then((plant) => {
-//         User.findById(req.session.user.id)
-//         .populate('rooms')
-//         .then( foundUser => {
-//             console.log(plant)
-//             res.render('plants/create', {plant, foundUser})
-//         })
-//     .catch(err => console.log(err))
-//     })
-// })
 
 router.post("/plants/edit/:id", (req, res) => {
     const {id} = req.params;
