@@ -76,10 +76,10 @@ nav li + li {
   padding-left: 25px;
 }
 
-.flex-row { display: flex; }
-.flex-row > div { width: 50%; }
-.flex-row > div + div { margin-left: 30px; }
-.flex-row > div > * { width: 100%; }
+.flex-row, .flex-row-responsive { display: flex; }
+.flex-row > div, .flex-row-responsive > div { width: 50%; }
+.flex-row > div + div, .flex-row-responsive > div + div { margin-left: 30px; }
+.flex-row  > div > *, .flex-row-responsive > div > * { width: 100%; }
 #edit-profile-page .flex-row { align-items: center; }
 
 .button {
@@ -130,6 +130,25 @@ input[type="file"] { display: none; }
   width: auto;
   height : 30px;
   margin-right: 20px;
+}
+
+/* HOME PAGE */
+
+.carousel {
+  background-color: black;
+
+}
+
+.carousel-caption h2 {
+  font-size: 30px;
+}
+
+.carousel-caption p {
+  font-size: 20px;
+}
+
+.image-overlay {
+  opacity: 0.5;
 }
 
 /* LOGIN */
@@ -243,7 +262,7 @@ input[type="file"] { display: none; }
 }
 
 .button-parent.parent .parent-picture { background-image: url('../images/signup/plant-parent.jpg'); }
-.button-parent.mummy .parent-picture { background-image: url('../images/signup/plant-mum.jpg'); }
+.button-parent.mommy .parent-picture { background-image: url('../images/signup/plant-mum.jpg'); }
 .button-parent.daddy .parent-picture { background-image: url('../images/signup/plant-dad.jpg'); }
 
 .button-parent.selected { background-color: #ff766e; color: white; }
@@ -278,6 +297,11 @@ input[type="file"] { display: none; }
 }
 
 .profile-infos h1 {
+  margin-bottom: 5px;
+}
+
+.profile-infos .tagline {
+  font-weight: 600;
   margin-bottom: 15px;
 }
 
@@ -342,10 +366,9 @@ input[type="file"] { display: none; }
 #filters {
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: baseline;
   color: #888;
   margin: 0 0 20px 0;
-  padding: 0 0 25px 0;
 }
 
 .filters-rooms {
@@ -353,20 +376,21 @@ input[type="file"] { display: none; }
   align-items: baseline;
 }
 
-.filters-rooms * + * {
-  margin-left: 30px;
-}
-
-#filters p {
+#filters p, p.plants-count {
   text-transform: uppercase;
   letter-spacing: .8px;
-  margin-right: 5px;
+  margin-right: 30px;
   font-size: .9rem;
 }
 
-.filters-rooms * + * {
-  margin-left: 20px;
+#filters .rooms {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -10px;
+  margin-bottom: 10px;
 }
+
+.filters-rooms .rooms > * + * { margin-left: 10px; }
 
 #filters .filter-button {
   display: flex;
@@ -380,6 +404,7 @@ input[type="file"] { display: none; }
   letter-spacing: 1.5px;
   font-size: .8rem;
   font-weight: 600;
+  margin-bottom: 10px;
 }
 
 #filters .filter-button.selected {
@@ -412,7 +437,7 @@ input[type="file"] { display: none; }
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
-  padding: 25px 20px 15px 20px;
+  padding: 20px 20px 0px 20px;
 }
 
 .card-title h2 {
@@ -437,7 +462,6 @@ input[type="file"] { display: none; }
 
 .card-label {
   text-transform: uppercase;
-  font-weight: 700;
   color: #888;
   font-size: .8rem;
   letter-spacing: 1px;
@@ -461,7 +485,7 @@ input[type="file"] { display: none; }
   font-weight: 600;
 }
 
-.card-content { padding: 0 20px 20px 20px; }
+.card-content { padding: 0 20px 10px 20px; }
 
 .card-content .bi-flower1 { color: green; }
 .card-content .bi-brightness-high { color: darkgoldenrod; }
@@ -491,31 +515,28 @@ input[type="file"] { display: none; }
   margin: 0;
 }
 
+.profile-actions-responsive { display: none; }
+
 .profile-actions > * + * {
   margin-left: 15px;
 }
 
 /* ROOMS */
 
-#create-room-page, #edit-room-page, #create-plant-page, #edit-plant-page, #plant-details-page {
+#create-room-page, #edit-room-page, #create-plant-page, #edit-plant-page {
   width: 500px;
 }
 
 #rooms {
   display: flex;
   flex-wrap: wrap;
+  margin: 0 -10px;
   margin-top: 30px;
-}
-
-#rooms > div + div, .plants > div + div {
-  margin-left: 30px;
 }
 
 #rooms .room, #plants .plant {
   display: flex;
   flex-direction: column;
-  /* min-height: 350px; */
-  /* padding: 0 30px 30px; */
   border-radius: 4px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px;
@@ -523,6 +544,7 @@ input[type="file"] { display: none; }
 }
 
 #rooms .room { width: 22.8%; }
+#rooms > * { margin: 0 10px; }
 
 #rooms .room.add-room, #plants .plant.add-plant  {
   background-color: transparent;
@@ -680,4 +702,80 @@ input[type="text"], input[type="password"], input[type="email"], input[type="dat
 textarea {
   height: 165px;
   width: 95%;
+}
+
+/* PLANT DETAILS */
+
+#plant-details-page { display: flex; justify-content: space-between; }
+#plant-details .flex-row, #plant-details .flex-row-responsive { width: 100%; } 
+#plant-details .flex-row-responsive > span { width: 100%; }
+#plant-details { display: flex; align-items: flex-start; width: 80%; }
+#plant-details .plant-details-content { width: 100%; }
+
+.plant-picture {
+  min-height: 250px;
+  min-width: 250px;
+  margin-right: 30px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-radius: 5px;
+}
+
+@media only screen and (max-width: 1700px) {
+  #plants .plant, #rooms .room { width: 23.1%; }
+}
+
+@media only screen and (max-width: 1400px) {
+  .flex-row-responsive { flex-direction: column!important; }
+  .flex-row-responsive > div { width: 100%; }
+  .flex-row > div + div { margin-left: 0; }
+  .flex-row-responsive > div + div { margin-left: 0; }
+  #plants .plant, #rooms .room { width: 30.9%; }
+}
+
+@media only screen and (max-width: 1200px) {
+  .button-parent { width: auto; min-width: 0; }
+  #plants .plant, #rooms .room { width: 46.8%; }
+  .filters-rooms { flex-direction: column; }
+  .filters-rooms * + * { margin-left: 0; }
+  #filters { align-items: flex-start; }
+  
+}
+
+@media only screen and (max-width: 992px) {
+  .signup-form { flex-direction: column; }
+  .signup-part-one { width: 100%; }
+  .signup-part-two { width: 100%; }
+  #plants .plant, #rooms .room { width: 100%; }
+  #filters { flex-direction: column-reverse; }
+  .filters-rooms { margin-top: 20px; }
+  .filters-rooms * + * { margin-left: 0; }
+  #profile-page { flex-direction: column; }
+  .profile { display: flex; flex-direction: row; width: 100%; }
+  .profile-pic { height: 150px; width: 150px; margin-right: 20px; }
+  .profile-infos { padding-top: 0;}
+  p.stats, p.location { display: inline-block; margin-right: 10px; }
+  #profile-page > div + div { margin: 0; }
+  .profile-content { width: 100%; }
+  #plant-details { flex-direction: column; width: 100%; }
+  #plant-details .plant-picture { margin-bottom: 20px; }
+  #plant-details-page { flex-direction: column; width: 100%; }
+  #plant-detail-page .plant-details-content { width: 100%; }
+  #plant-details-page .plant-actions { margin-bottom: 20px; }
+} 
+
+@media only screen and (max-width: 576px) {
+  .flex-row { flex-direction: column!important; }
+  .flex-row > div + div { margin-left: 0; }
+  .signup-parent { flex-direction: column; }
+  .button-parent { margin: 5px 0; }
+  .profile { flex-direction: column; align-items: center; }
+  .profile-infos { flex-direction: column; align-items: center; text-align: center; }
+  .profile-pic { height: 200px; width: 200px; margin-bottom: 20px; }
+  p.stats, p.location { display: block; margin-right: 0; }
+  .weather-infobox { padding: 8px 10px;}
+  #plant-details-page .plant-picture { width: 100%; height: 450px; }
+  #plant-details-page .flex-row, #plant-details-page .flex-row-responsive, #plant-details-page h1 { align-items: center; text-align: center; }
+  #plant-details-page .plant-actions { display: flex; justify-content: flex-end; justify-content: center; }
 }

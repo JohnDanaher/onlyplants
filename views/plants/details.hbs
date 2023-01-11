@@ -1,21 +1,36 @@
 <div id="plant-details-page">
 
-    <h1>Plant Details</h1>
-
-    <h3>{{plant.nickname}}</h3>
-    <img src="{{plant.image_url}}" alt="planty" height="150px" width="150px">
-    <br>
-    <br>
-    <ul>
-        <li>Common name: {{plant.commonName}}</li>
-        <li>Suggested amounts of light: {{plant.light}}</li>
-        <li>Type of light: {{plant.toleratedLight}}</li>
-        <li>Watering schedule: {{plant.waterSchedule}}</li>
-        <li>Minimum temperature (C): {{plant.minTemp}}</li>
-        <li>Maximum temperature (C): {{plant.maxTemp}}</li>
-        <li style="font-style: italic;">Latin name: {{plant.latinName}}</li>
-    </ul><br/>
-
-    <a href="/plants/edit/{{plant._id}}" class="button">Edit your babyz</a>
-
+    <div id="plant-details">
+        <div class="plant-picture" style="background-image:url('{{plant.image_url}}');"></div>
+        <div class="plant-details-content">
+            <h1>{{plant.nickname}}</h1>
+            <div class="flex-row">
+                <i class="bi bi-flower1 card-icon"></i>
+                <div class="flex-row-responsive">
+                    <span><span class="card-label">Common name</span><br/><b>{{plant.commonName}}</b></span><br/>
+                    <span><span class="card-label">Latin name</span><br/><b>{{plant.latinName}}</b></span>
+                </div>
+            </div><br />
+            <div class="flex-row">
+                <i class="bi bi-brightness-high card-icon"></i>
+                <div class="flex-row-responsive">
+                <span><span class="card-label">Suggested Amounts of Light</span><br/><b>{{plant.light}}</b></span><br/>
+                <span><span class="card-label">Type of Light</span><br/><b>{{plant.toleratedLight}}</b></span>
+                </div>
+            </div><br />
+            <p class="flex-row">
+                <i class="bi bi-droplet card-icon"></i>
+                <span><span class="card-label">Watering Schedule</span><br/><b>{{plant.waterSchedule}}</b></span>
+            </p>
+            <p class="flex-row">
+                <i class="bi bi-thermometer-half card-icon"></i>
+                <span><span class="card-label">Min/Max Temperature</span><br/><b>{{plant.minTemp}}°C / {{plant.maxTemp}}°C</b></span>
+            </p>
+            <br/>
+        </div>
+    </div>
+    <div class="plant-actions">
+        <a href="/plants/edit/{{plant._id}}" class="secondary-button">Edit your babyz</a>
+    </div>
+    
 </div>

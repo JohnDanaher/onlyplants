@@ -9,9 +9,9 @@
     <form action="/profile/{{ user.username }}/edit" method="POST" enctype="multipart/form-data" class="edit-profile-form">
         
 
-        <div class="flex-row">
+        <div class="flex-row-responsive">
             <div>
-                <div class="flex-row">
+                <div class="flex-row-responsive">
                     <div>
                         <label for="firstName">First Name:</label>
                         <input type="text" name="firstName" id="firstName" placeholder="First Name" value="{{ user.firstName }}" required /><br />

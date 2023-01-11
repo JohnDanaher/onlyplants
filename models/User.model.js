@@ -28,7 +28,7 @@ const userSchema = new Schema(
     },
     gender: {
       type: String,
-      enum: ['parent', 'male', 'female']
+      enum: ['parent', 'daddy', 'mommy']
     },
     avatarUrl: {
       type: String
