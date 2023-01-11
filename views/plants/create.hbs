@@ -1,18 +1,24 @@
 <h2>Add a plant</h2>
+<div id="create-plant-page">
 
   <form action="/plants/create" method="POST">
-  <label>
-    Name: <input type="text" name="name">
-  </label>
-  <label>
-   Nickname: <input type="text" name="nickname">
-  </label> 
-  <label for="room"> New plant's home:    
+    <label>
+      Name:
+      <input type="text" name="name" />
+    </label>
+    <label>
+      Nickname:
+      <input type="text" name="nickname" />
+    </label>
+    <label for="room">
+      New plant's home:
     </label>
     <select name="room">
-    {{#each rooms}}
-    <option value="{{id}}">{{name}}</option>
-    {{/each}}
-    </select>
-  <button type="submit">Add</button>
+      {{#each rooms}}
+        <option value="{{id}}">{{name}}</option>
+      {{/each}}
+    </select><br/>
+    <button type="submit" class="button">Add</button>
   </form>
+
+</div>

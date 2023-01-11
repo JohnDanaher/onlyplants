@@ -145,42 +145,51 @@ window.addEventListener('load', () => {
   const plantsSection = document.getElementById('plants');
   const noPlantsMessage = document.querySelector('.no-plants');
 
-  filterButtons.forEach(button => {
+  if (plantsSection) {
 
-    // if ( button.classList.contains('selected') ) button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`;
+    filterButtons.forEach(button => {
 
-    button.addEventListener('click', () => {
-      button.classList.toggle('selected');
-      if ( button.classList.contains('selected') ) { button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`; }
-      else { button.innerHTML = `${ button.innerText.trim() }`; }
-      filterPlants();
+      // if ( button.classList.contains('selected') ) button.innerHTML = `<i class="bi bi-check-lg"></i> ${ button.innerText.trim() }`;
+
+      button.addEventListener('click', () => {
+        button.classList.toggle('selected');
+        if ( button.classList.contains('selected') ) { button.innerHTML = `${ button.innerText.trim() }`; }
+        else { button.innerHTML = `${ button.innerText.trim() }`; }
+        filterPlants();
+      })
     })
-  })
 
-  const filterPlants = () => {
+    const filterPlants = () => {
 
-    const selectedFilters = [...document.querySelectorAll('.filter-button.selected')].map(el => el.getAttribute('room-name'));
+      const selectedFilters = [...document.querySelectorAll('.filter-button.selected')].map(el => el.getAttribute('room-name'));
 
-    plantsSection.querySelectorAll('.plant').forEach(plant => {
-      const plantRoomSlug = plant.getAttribute('room-name');
+      plantsSection.querySelectorAll('.plant').forEach(plant => {
+        const plantRoomSlug = plant.getAttribute('room-name');
+        
+        if ( selectedFilters.includes(plantRoomSlug) ) { // if this plant is in one of the selected rooms
+          plant.style.display = 'block';
+        } else {
+          plant.style.display = 'none';
+        }
+      });
+
+      let plantsEl = plantsSection.children;
+      let visiblePlants = 0;
+      for ( i = 0 ; i < plantsEl.length ; i++ ) { if( plantsEl[i].style.display === 'block' ) { visiblePlants++; }}
       
-      if ( selectedFilters.includes(plantRoomSlug) ) { // if this plant is in one of the selected rooms
-        plant.style.display = 'block';
-      } else {
-        plant.style.display = 'none';
-      }
-    });
+      const plantsCountEl = document.querySelector('.plants-count');
+      
+      if ( !selectedFilters.length ) { plantsCountEl.innerText = 'No rooms selected.' }
+      else if ( visiblePlants === 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plant`; }
+      else if ( visiblePlants > 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plants`; }
+      else { plantsCountEl.innerText = 'There are no plants in the selected rooms.'; }
 
-    let plantsEl = plantsSection.children;
-    let visiblePlants = 0;
-    for ( i = 0 ; i < plantsEl.length ; i++ ) { if( plantsEl[i].style.display === 'block' ) { visiblePlants++; }}
-    
-    const plantsCountEl = document.querySelector('.plants-count');
-    if ( visiblePlants === 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plant`; } else if ( visiblePlants > 1 ) { plantsCountEl.innerText = `Showing ${visiblePlants} plants`; } else { plantsCountEl.innerText = ''; }
-    if ( !visiblePlants ) { noPlantsMessage.style.display = 'block'; } else { noPlantsMessage.style.display = 'none'; }
+      if ( !visiblePlants ) { noPlantsMessage.style.display = 'block'; } else { noPlantsMessage.style.display = 'none'; }
+
+    }
+
+    filterPlants();
   }
-
-  filterPlants();
 
 })
 
@@ -252,3 +261,15 @@ window.addEventListener('load', () => {
   
   }
 });
+
+
+/* DELETE MODALS */
+
+const myModal = document.getElementById('exampleModal')
+const myInput = document.getElementById('myInput')
+
+if (myModal) {
+  myModal.addEventListener('shown.bs.modal', () => {
+    myInput.focus()
+  });
+}
