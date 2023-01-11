@@ -9,13 +9,15 @@ const apiService = new ApiService();
 
 
 router.get("/plants/create", (req, res) => {
-    const {username} = req.session.user;
-    Room.find()
-    .then(rooms => {
-  res.render("plants/create", {rooms, username});
-})
-.catch(err => console.log(err))
+    User.findById(req.session.user.id)
+    .populate('rooms')
+    .then( foundUser => {
+        console.log('User', foundUser)
+        res.render('plants/create', foundUser)
+    })
+    .catch(error => console.log(error))
 });
+
 
 router.post("/plants/create", async (req, res) => {
     const {username} = req.session.user;
@@ -76,18 +78,16 @@ router.get("/plants/details/:id", (req, res) => {
     .catch(err => console.log(err))
 });
 
-
-router.get("/plants/edit/:id", (req, res) => {
+router.get("/plants/edit/:id", async (req, res) => {
     const {id} = req.params;
-    Plant.findById(id)
-    .then((plant) => {
-        Room.find()
-        .then((allRooms) => {
-        res.render("plants/edit", {plant, allRooms})
-    })
-    })
-    .catch(err => console.log(err))
+    const plant = await Plant.findById(id)
+    const user = await User.findById(req.session.user.id).populate('rooms')
+        
+    res.render("plants/edit", {plant, rooms: user.rooms})
+
 });
+
+
 
 router.post("/plants/edit/:id", (req, res) => {
     const {id} = req.params;
