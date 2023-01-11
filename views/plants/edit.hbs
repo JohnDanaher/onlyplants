@@ -1,7 +1,7 @@
 <div id="edit-plant-page">
   <h1>Change {{plant.nickname}}'s deetz</h1>
 
-  <form action="/plants/edit/{{plant.id}}" method="POST">
+  <form action="/plants/edit/{{plant.id}}" method="POST" enctype="multipart/form-data">
 
     <label>
       <img src="{{plant.image_url}}" alt="planty" height="500px" width="500px">
@@ -12,7 +12,7 @@
     <input type="file" name="avatar" id="avatar" /><br />
     </div>
     <label> New nickname
-      <input type="text" name="nickname" placeholder="{{plant.nickname}}" />
+      <input type="text" name="nickname" value="{{plant.nickname}}" />
     </label>
 
     <label for="room"> {{plant.nickname}}'s home

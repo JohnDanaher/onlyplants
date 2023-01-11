@@ -132,6 +132,25 @@ input[type="file"] { display: none; }
   margin-right: 20px;
 }
 
+/* HOME PAGE */
+
+.carousel {
+  background-color: black;
+
+}
+
+.carousel-caption h2 {
+  font-size: 30px;
+}
+
+.carousel-caption p {
+  font-size: 20px;
+}
+
+.image-overlay {
+  opacity: 0.5;
+}
+
 /* LOGIN */
 
 #login-form .error-message { width: 350px; }
