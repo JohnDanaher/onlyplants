@@ -4,11 +4,13 @@
   <form action="/plants/edit/{{plant.id}}" method="POST">
 
     <label>
-      <img src="{{plant.image_url}}" alt="planty" height="150px" width="150px">
+      <img src="{{plant.image_url}}" alt="planty" height="500px" width="500px">
     </label>
-    <button>Change avatar</button>
-
-
+   <div>
+    <label for="avatar">Change plant avatar:</label>
+    <label for="avatar" class="button" style="text-align: center;"><i class="bi bi-upload"></i> Upload</label>
+    <input type="file" name="avatar" id="avatar" /><br />
+    </div>
     <label> New nickname
       <input type="text" name="nickname" placeholder="{{plant.nickname}}" />
     </label>
@@ -16,7 +18,7 @@
     <label for="room"> {{plant.nickname}}'s home
     </label>
     <select name="room">
-      {{#each allRooms}}
+      {{#each rooms}}
       <option value="{{_id}}">{{name}}</option>
       {{/each}}
     </select>

@@ -1,6 +1,7 @@
 const { isLoggedIn, isOwnProfile } = require('../middlewares/routes.guard');
 const express = require('express');
 const router = express.Router();
+const fileUploader = require('../config/cloudinary.config');
 const Plant = require("../models/Plant.model");
 const Room = require('../models/Room.model');
 const User = require('../models/User.model');
@@ -12,16 +13,16 @@ router.get("/plants/create", (req, res) => {
     User.findById(req.session.user.id)
     .populate('rooms')
     .then( foundUser => {
-        console.log('User', foundUser)
         res.render('plants/create', foundUser)
     })
     .catch(error => console.log(error))
 });
 
 
-router.post("/plants/create", async (req, res) => {
+router.post("/plants/create", fileUploader.single('avatar'), async (req, res) => {
     const {username} = req.session.user;
     const {name, nickname, room} = req.body;
+    let plantAvatar;
 
     await apiService
     .findPlant()
@@ -30,12 +31,12 @@ router.post("/plants/create", async (req, res) => {
             let details = result.data[i]
             if(details['Common name']){
                 if(details['Common name'].includes(name)){
-                console.log(details['Common name'][0]);
+                req.file ? plantAvatar = req.file.path : plantAvatar = details.img;
                 Plant.create({
                 commonName: details['Common name'][0],
                 nickname: nickname,
                 room: room,
-                image_url: details.img,
+                image_url: plantAvatar,
                 parent: req.session.user.id,
                 light: details['Light ideal'],
                 waterSchedule: details.Watering,
@@ -89,10 +90,11 @@ router.get("/plants/edit/:id", async (req, res) => {
 
 
 
-router.post("/plants/edit/:id", (req, res) => {
+router.post("/plants/edit/:id", fileUploader.single('avatar'), (req, res) => {
     const {id} = req.params;
     const {nickname, room} = req.body;
-    Plant.findByIdAndUpdate(id, {nickname, room})
+    if (req.file) req.body.avatar = req.file.path;
+    Plant.findByIdAndUpdate(id, req.body)
     .then(updatedPlant => {
         console.log(updatedPlant);
         res.redirect(`/plants/details/${id}`)
