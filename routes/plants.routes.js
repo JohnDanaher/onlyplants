@@ -40,8 +40,8 @@ router.post("/plants/create", fileUploader.single('avatar'), async (req, res) =>
                 parent: req.session.user.id,
                 light: details['Light ideal'],
                 waterSchedule: details.Watering,
-                minTemp: details['Temperature max'].C,
-                maxTemp: details['Temperature min'].C,
+                minTemp: details['Temperature min'].C,
+                maxTemp: details['Temperature max'].C,
                 toleratedLight: details['Light tolered'],
                 latinName: details['Latin name']
             })
@@ -93,7 +93,8 @@ router.get("/plants/edit/:id", async (req, res) => {
 router.post("/plants/edit/:id", fileUploader.single('avatar'), (req, res) => {
     const {id} = req.params;
     const {nickname, room} = req.body;
-    if (req.file) req.body.avatar = req.file.path;
+    if (req.file) req.body.image_url = req.file.path;
+
     Plant.findByIdAndUpdate(id, req.body)
     .then(updatedPlant => {
         console.log(updatedPlant);
