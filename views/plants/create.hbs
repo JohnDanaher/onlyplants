@@ -1,7 +1,7 @@
 <h2>Add a plant</h2>
 <div id="create-plant-page">
 
-  <form action="/plants/create" method="POST">
+  <form action="/plants/create" method="POST" enctype="multipart/form-data">
     <label>
       Name:
       <input type="text" name="name" />
@@ -17,7 +17,14 @@
       {{#each rooms}}
         <option value="{{id}}">{{name}}</option>
       {{/each}}
-    </select><br/>
+    </select>
+    <br>
+   <div>
+    <label for="avatar">Add a picture of your plant:</label>
+    <label for="avatar" class="button" style="text-align: center;"><i class="bi bi-upload"></i> Upload</label>
+    <input type="file" name="avatar" id="avatar" /><br />
+    </div>
+    <br/>
     <button type="submit" class="button">Add</button>
   </form>
 
