@@ -19,19 +19,19 @@
          <ul>
             <li><a href="/"><img src="{{ __dirname }}/images/plant-parenhood_logo.png" alt="" id="logo" /></a></li>
             {{#if loggedin}}
-               <li><a href="/profile">My Profile</a></li>
-               <li><a href="/plants/create">Add a plant</a></li>
-               <li><a href="/rooms">My Rooms</a></li>
+               <li class="menu-link"><a href="/profile">My Profile</a></li>
+               <li class="menu-link"><a href="/plants/create">Add a plant</a></li>
+               <li class="menu-link"><a href="/rooms">My Rooms</a></li>
             {{else}}
             {{/if}}
          </ul> 
          <ul>
             {{#if loggedin}}
-               <li><a href="/profile/{{ loggedInUsername }}/edit">Edit profile</a></li>
-               <li><form action="/auth/logout" method="POST"><input type="submit" value="Logout" class="button"></form></li>
+               <li class="menu-link"><a href="/profile/{{ loggedInUsername }}/edit">Edit profile</a></li>
+               <li class="menu-link"><form action="/auth/logout" method="POST"><input type="submit" value="Logout" class="button"></form></li>
             {{else}}
-               <li><a href="/auth/signup" class="button">Signup</a></li>
-               <li><a href="/auth/login" class="button">Login</a></li>
+               <li class="menu-link"><a href="/auth/signup" class="button">Signup</a></li>
+               <li class="menu-link"><a href="/auth/login" class="button">Login</a></li>
             {{/if}}
          </ul>
       </nav>

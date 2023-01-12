@@ -6,7 +6,7 @@
         </div>
         <div class="profile-infos">
             <h1>{{ user.username }}</h1>
-            <p class="tagline">Proud plant-{{ user.gender }} based in {{ user.location }}</p>
+            <p class="tagline">Proud plant-{{ user.gender }}<br/>based in {{ user.location }}</p>
             <p class="stats">
                 <span class="stats-rooms">{{ roomsCount }}</span>
                 <span class="stats-plants">{{ plantsCount }}</span>
@@ -22,7 +22,7 @@
             <div class="weather-infobox">
                 <img src="{{ sessionSpecificData.weatherIconUrl }}" />
                 <p>
-                    <b>Hello, {{ loggedInUsername }}!</b> Today, {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }}, today (the temperature is {{ sessionSpecificData.weatherTemperature }}°C). Take good care of your plants! 🌺🌿
+                    <b>Hello, {{ loggedInUsername }}!</b> Today, {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }} (the temperature is {{ sessionSpecificData.weatherTemperature }}°C). Take good care of your plants! 🌺🌿
                 </p>
             </div>
         {{/if}}

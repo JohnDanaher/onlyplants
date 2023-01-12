@@ -270,3 +270,26 @@ if (myModal) {
     myInput.focus()
   });
 }
+
+/* COLLAPSABLE MENU */
+
+window.addEventListener('load', () => {
+  
+const avatarInput = document.querySelector('input#avatar');
+const profilePicLabel = document.querySelector('p.uploaded-file');
+const existingProfilePic = document.querySelector('#edit-profile-page .profile-pic');
+
+  avatarInput.addEventListener('input', () => {
+
+    if (avatarInput) {
+
+      if ( avatarInput.files.length !== 0 ) {
+        profilePicLabel.innerHTML = `<i class="bi bi-check-lg"></i> ${avatarInput.files[0].name}`;
+        if ( existingProfilePic ) { existingProfilePic.style.opacity = '0.5'; }      
+      }      
+
+    }
+
+  })
+
+})
