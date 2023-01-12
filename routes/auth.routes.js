@@ -41,11 +41,12 @@ router.post('/signup', isLoggedOut, fileUploader.single('avatar'), async (req, r
         return;
     }
     
-    const usernameRegex = /^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/;
+    // const usernameRegex = /^[_A-z0-9]*((-|\s)*[_A-z0-9])*$/;
+    const usernameRegex = /^\S+\w\S{1,}/;
     if (!usernameRegex.test(username)) {
         res
         .status(500)
-        .render('auth/signup', { errorMessage: `Usernames can't contains special characters.` });
+        .render('auth/signup', { errorMessage: `Usernames can't contain special characters or spaces.` });
         return;
     }
     
