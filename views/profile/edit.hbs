@@ -10,9 +10,11 @@
         <div>
             <div class="flex-row">
                 <div style="background-image:url('{{ avatarUrl }}')" class="profile-pic"></div>
-                    <label for="avatar" class="secondary-button"><i class="bi bi-upload"></i> Upload a profile picture</label>
-                    <p class="uploaded-file"></p>
-                    <input type="file" name="avatar" id="avatar" />
+                    <div>
+                        <label for="avatar" class="secondary-button"><i class="bi bi-upload"></i> Upload</label>
+                        <input type="file" name="avatar" id="avatar" />
+                        <p class="uploaded-file"></p>
+                    </div>
                 </div><br />
                 <label for="bio">Bio:</label>
                 <textarea name="bio" id="bio" placeholder="Bio">{{ user.bio }}</textarea /><br />
@@ -39,9 +41,11 @@
                     <div class="autocomplete"></div><br />
                 </div>
             </div>
-        </div>
 
-        <input type="submit" value="Save changes" class="button" />
+            <br/><br/>
+            <input type="submit" value="Save changes" class="button primary-button" />
+
+        </div>
     </form>
 
 </div>

@@ -2,30 +2,33 @@
   <h1>Change {{plant.nickname}}'s deetz</h1>
 
   <form action="/plants/edit/{{plant.id}}" method="POST" enctype="multipart/form-data">
+    <div>
+      <div class="flex-row">
+        <label>
+          <img src="{{plant.image_url}}" class="plant-picture">
+        </label>
+        <div>
+          <label for="avatar">Change plant avatar:</label>
+          <label for="avatar" class="secondary-button" style="text-align: center;"><i class="bi bi-upload"></i> Upload</label>
+          <input type="file" name="avatar" id="avatar" /><br />
+          <p class="uploaded-file"></p>
+        </div>
+      </div>
+      <label> New nickname
+        <input type="text" name="nickname" value="{{plant.nickname}}" />
+      </label>
 
-    <label>
-      <img src="{{plant.image_url}}" alt="planty" height="500px" width="500px">
-    </label>
-   <div>
-    <label for="avatar">Change plant avatar:</label>
-    <label for="avatar" class="button" style="text-align: center;"><i class="bi bi-upload"></i> Upload</label>
-    <input type="file" name="avatar" id="avatar" /><br />
+      <label for="room"> {{plant.nickname}}'s home
+      </label>
+      <select name="room">
+        {{#each rooms}}
+        <option value="{{_id}}">{{name}}</option>
+        {{/each}}
+      </select>
+      <br>
+      <br>
+      <button type="submit" class="button primary-button">Save changes</button>
     </div>
-    <label> New nickname
-      <input type="text" name="nickname" value="{{plant.nickname}}" />
-    </label>
-
-    <label for="room"> {{plant.nickname}}'s home
-    </label>
-    <select name="room">
-      {{#each rooms}}
-      <option value="{{_id}}">{{name}}</option>
-      {{/each}}
-    </select>
-    <br>
-    <br>
-    <button type="submit" class="button">Save changes</button>
-
   </form>
   <br>
   <form action="/plants/delete/{{plant._id}}" method="post">

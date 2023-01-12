@@ -1,77 +1,80 @@
-<h1>Signup</h1>
+<div id="signup-page">
+    <h1>Signup</h1>
 
-{{#if errorMessage }}
-    <p class="error-message">{{ errorMessage }}</p>
-{{/if}}
+    {{#if errorMessage }}
+        <p class="error-message">{{ errorMessage }}</p>
+    {{/if}}
 
-<form action="/auth/signup" method="POST" enctype="multipart/form-data">
-    <div class="signup-form">
-        <div class="signup-part-one">
-            <p class="signup-question">About you</p>
+    <form action="/auth/signup" method="POST" enctype="multipart/form-data">
+        <div class="signup-form">
+            <div class="signup-part-one">
+                <p class="signup-question">About you</p>
 
-            <div class="flex-row-responsive">
-                <div>
-                    <label for="firstName">First Name</label>
-                    <input type="text" name="firstName" id="firstName" required /><br />
+                <div class="flex-row-responsive">
+                    <div>
+                        <label for="firstName">First Name</label>
+                        <input type="text" name="firstName" id="firstName" required /><br />
+                    </div>
+                    <div>
+                        <label for="lastName">Last Name</label>
+                        <input type="text" name="lastName" id="lastName" required /><br />
+                    </div>
                 </div>
-                <div>
-                    <label for="lastName">Last Name</label>
-                    <input type="text" name="lastName" id="lastName" required /><br />
+
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" required /><br />
+
+                <label for="location">Location:</label>
+                <input type="text" name="location" id="location" autocomplete="off" required />
+                <div class="autocomplete">
+                </div><br />
+
+                <label for="dateOfBirth">Date of Birth</label>
+                <input type="date" name="dateOfBirth" id="dateOfBirth" required /><br />
+
+                <div class="flex-row-responsive">
+                    <div>
+                        <label for="password">Password</label>
+                        <input type="password" name="password" id="password" required /><br />
+                    </div>
+                    <div>
+                        <label for="passwordCheck">Repeat password</label>
+                        <input type="password" name="passwordCheck" id="passwordCheck" required /><br />
+                    </div>
                 </div>
             </div>
 
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" required /><br />
-
-            <label for="location">Location:</label>
-            <input type="text" name="location" id="location" autocomplete="off" required />
-            <div class="autocomplete">
-            </div><br />
-
-            <label for="dateOfBirth">Date of Birth</label>
-            <input type="date" name="dateOfBirth" id="dateOfBirth" required /><br />
-
-            <div class="flex-row-responsive">
-                <div>
-                    <label for="password">Password</label>
-                    <input type="password" name="password" id="password" required /><br />
+            <div class="signup-part-two">
+                <p class="signup-question">Your profile</p>
+                
+                <input type="hidden" name="gender" id="gender" />
+                <div class="signup-parent">
+                    <div class="button-parent parent"><div class="parent-picture"></div>Plant Parent</div>
+                    <div class="button-parent mommy"><div class="parent-picture"></div>Plant Mommy</div>
+                    <div class="button-parent daddy"><div class="parent-picture"></div>Plant Daddy</div>
                 </div>
-                <div>
-                    <label for="passwordCheck">Repeat password</label>
-                    <input type="password" name="passwordCheck" id="passwordCheck" required /><br />
+
+                <div class="flex-row-responsive">
+                    <div>
+                        <label for="username">Username</label>
+                        <input type="text" name="username" id="username" required /><br />
+                    </div>
+                    <div>
+                        <label for="avatar">Profile picture</label>
+                        <label for="avatar" class="secondary-button"><i class="bi bi-upload"></i> Upload</label>
+                        <p class="uploaded-file"></p>
+                        <input type="file" name="avatar" id="avatar" /><br />
+                    </div>
                 </div>
+
+                <label for="bio">Bio</label>
+                <textarea name="bio" id="bio"></textarea /><br />
             </div>
         </div>
 
-        <div class="signup-part-two">
-            <p class="signup-question">Your profile</p>
-            
-            <input type="hidden" name="gender" id="gender" />
-            <div class="signup-parent">
-                <div class="button-parent parent"><div class="parent-picture"></div>Plant Parent</div>
-                <div class="button-parent mommy"><div class="parent-picture"></div>Plant Mommy</div>
-                <div class="button-parent daddy"><div class="parent-picture"></div>Plant Daddy</div>
-            </div>
+        <br/><br/>
+        <input type="submit" value="Signup" class="button primary-button"/>
 
-            <div class="flex-row-responsive">
-                <div>
-                    <label for="username">Username</label>
-                    <input type="text" name="username" id="username" required /><br />
-                </div>
-                <div>
-                    <label for="avatar">Profile picture</label>
-                    <label for="avatar" class="secondary-button"><i class="bi bi-upload"></i> Upload</label>
-                    <p class="uploaded-file"></p>
-                    <input type="file" name="avatar" id="avatar" /><br />
-                </div>
-            </div>
+    </form>
 
-            <label for="bio">Bio</label>
-            <textarea name="bio" id="bio"></textarea /><br />
-        </div>
-    </div>
-
-        
-    <input type="submit" value="Signup" class="button"/>
-
-</form>
+</div>

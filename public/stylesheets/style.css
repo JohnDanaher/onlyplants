@@ -12,8 +12,8 @@ a, a > *, button, button > *, input, .room-actions > * {
 }
 
 body {
-  padding: 50px;
-  background-color: #fff;
+  background-color: #f0f2f5;
+  padding: 50px 30px;
 }
 
 h1 {
@@ -44,18 +44,18 @@ i {
 
 i.bi {
   display: inline-block;
-  color: #f4a698;
+  color: #aeee00;
   font-size: 1.2rem;
 }
 
 a {
-  color: #1caa53;
+  color: #a3df00;
   text-decoration: none;
 }
 
 a:hover {
-  color: #3ac084;
-  text-decoration: underline;
+  color: #83b300;
+  /* text-decoration: underline; */
 }
 
 ul {
@@ -63,10 +63,22 @@ ul {
 }
 
 nav {
-  margin-bottom: 30px;
+  width: 100%;
+  margin: -50px -30px;
+  padding: 30px 40px 15px 40px;
+  margin-bottom: 10px;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
+  border-bottom: 1px solid rgb(241, 241, 241);
+  /* background-color: white; */
+}
+
+nav a {
+  text-transform: uppercase;
+  font-weight: 600;
+  letter-spacing: .5px;
+  font-size: .9rem;
 }
 
 nav li {
@@ -77,6 +89,19 @@ nav li + li {
   padding-left: 25px;
 }
 
+header + div {
+  margin: auto;
+  min-width: 60vw;
+  min-height: 35vh;
+  /* width: fit-content; */
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0 1px 3px;
+  padding: 30px;
+  width: 100%;
+}
+
+#login-form, #create-plant-page, #create-room-page, #edit-room-page, #edit-plant-page { min-width: 35vw; }
+
 .flex-row, .flex-row-responsive { display: flex; }
 .flex-row > div, .flex-row-responsive > div { width: 50%; }
 .flex-row > div + div, .flex-row-responsive > div + div { margin-left: 30px; }
@@ -84,27 +109,33 @@ nav li + li {
 #edit-profile-page .flex-row { align-items: center; }
 
 .button {
+  display: inline-block;
   padding: 12px 20px;
-  color: white;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  font-size: .9rem;
+  color: #333;
   text-decoration: none;
   line-height: auto;
   border: 0;
-  border-radius: 4px;
+  border-radius: 50px;
 }
 
 .button:hover {
-  color: white;
+  color: #333;
   text-decoration: none;
   cursor: pointer;
 }
 
 .secondary-button {
   display: inline-block;
-  padding: 12px 20px;
+  padding: 9px 18px 7px 18px;
   color: #333;
   text-decoration: none;
   border: 0;
-  border-radius: 4px;
+  font-size: .9rem;
+  border-radius: 50px;
 }
 
 .secondary-button:hover {
@@ -113,19 +144,23 @@ nav li + li {
   cursor: pointer;
 }
 
-
-.button { background-color: #1caa53; }
-.button:hover { background-color: #3ac084; }
-.button-delete { background-color: #f15d55; }
+.primary-button { background-image: linear-gradient(160deg, #aeee00, #ddee00); box-shadow: rgba(133, 179, 28, 0.5) 0 2px 5px; }
+.primary-button:hover { background-image: linear-gradient(160deg, #a9e604, #ddee00);  box-shadow: none; }
+.secondary-button { background-color: #fbff01; }
+.secondary-button:hover { background-color: #ffe601; }
+.button-delete { background-color: #ee5700; color: white; width: 100%; }
 .button-delete:hover { background-color: #ff766e; }
-.secondary-button { background-color: #fbe882; }
-.secondary-button:hover { background-color: #fbd83c; }
 .grey-button { background-color: #999; }
 .grey-button:hover { background-color: #666; }
 
 label.secondary-button { display: inline-block; height: auto; width: fit-content; text-align: center; margin-bottom: 20px; margin-top: 0; padding-left: 50px; padding-right: 50px; }
 label i.bi-upload { color: #000; padding-right: 12px; }
 input[type="file"] { display: none; }
+
+header {
+  display: flex;
+  align-items: baseline;
+}
 
 #logo {
   width: auto;
@@ -157,6 +192,7 @@ input[type="file"] { display: none; }
 #login-form .error-message { width: 350px; }
 
 #login-form {
+  width:fit-content;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -164,6 +200,7 @@ input[type="file"] { display: none; }
   justify-content: center;
   text-align: center;
   margin-top: 12vh;
+  padding: 50px 0;
 }
 
 #login-form h1, #create-room-page h1, #edit-room-page h1, #create-plant-page h1, #edit-plant-page h1, #plant-details-page h1 {
@@ -187,15 +224,14 @@ input[type="file"] { display: none; }
 
 .error-message {
   width: fit-content;
-  background-color: #ff766e;
+  background-color: #ee5700;
   padding: 20px;
   border-radius: 4px;
   color: white;
   margin-top: 20px;
 }
 
-p.uploaded-file { margin: 0; }
-
+p.uploaded-file { margin: 0; padding-left: 20px; }
 .signup-form {
   display: flex;
 }
@@ -228,7 +264,7 @@ p.uploaded-file { margin: 0; }
 
 .button-parent {
   text-align: center;
-  background-color: #fbe882;
+  background-color: #fbff01;
   display: inline-flex;
   flex-direction: column;
   justify-content: center;
@@ -250,7 +286,7 @@ p.uploaded-file { margin: 0; }
 .button-parent:hover {
   color: white;
   text-decoration: none;
-  background-color: #ff766e;
+  background-color: #e2e617;
   cursor: pointer;
 }
 
@@ -268,22 +304,27 @@ p.uploaded-file { margin: 0; }
 .button-parent.mommy .parent-picture { background-image: url('../images/signup/plant-mum.jpg'); }
 .button-parent.daddy .parent-picture { background-image: url('../images/signup/plant-dad.jpg'); }
 
-.button-parent.selected { background-color: #ff766e; color: white; }
+.button-parent.selected { background-color: #aeee00; color: white; }
 
 /* PROFILE */
 
 #profile-page {
+  min-height: calc(100vh - 180px);
   display: flex;
   justify-content: space-between;
   width: 100%;
 }
 
-#profile-page > div + div {
-  margin-left: 50px;
-}
+/* #profile-page > div + div {
+  margin-left: 30px;
+} */
 
 .profile {
-  width: 220px;
+  width: 350px;
+  border-radius: 5px;
+  padding-right: 40px;
+  height: fit-content;
+  margin-bottom: 20px;
   /* padding-right: 50px; */
   /* display: flex; */
   /* align-items: flex-start; */
@@ -291,12 +332,14 @@ p.uploaded-file { margin: 0; }
 
 .profile-content {
   width: 80vw;
+  padding-left: 30px;
+  border-radius: 5px;
+  border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 .profile-infos {
   width: 100%;
-  padding: 30px 0;
-  text-align: justify;
+  text-align: left;
 }
 
 .profile-infos h1 {
@@ -304,9 +347,11 @@ p.uploaded-file { margin: 0; }
 }
 
 .profile-infos .tagline {
-  font-weight: 800;
-  margin-bottom: 20px;
-  color: #1caa53;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  width: fit-content;
+  background-color: #f7ffde;
 }
 
 #edit-profile-page {
@@ -351,25 +396,34 @@ p.uploaded-file { margin: 0; }
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center center;
-  width: 220px;
-  height: 220px;
+  width: 180px;
+  height: 180px;
   padding: 0;
-  margin: 0;
+  /* margin: 0; */
+  margin-bottom: 20px;
   border-radius: 50%;
   /* border-radius: 50%; */
   /* background-color: white; */
 }
 
-.stats {
+#profile-page .stats {
+  display: flex;
+  justify-content: space-around;
   margin-bottom: 18px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  text-align: center;
+  padding: 10px 0 15px 0;
 }
 
-.stats .stats-plants, .stats .stats-rooms {
+#profile-page .stats > span > span { font-size: 2rem; }
+
+/* .stats .stats-plants, .stats .stats-rooms {
   background-color: #ff766e;
   border-radius: 4px;
   padding: 4px 8px;
-  color: white  ;
-}
+  color: white  ; */
+/* } */
 
 #filters {
   display: flex;
@@ -404,19 +458,21 @@ p.uploaded-file { margin: 0; }
   display: flex;
   align-items: center;
   line-height: 2rem;
-  background-color: transparent;
-  border-radius: 50px;
-  padding: 4px 14px;
+  background-color: #e9f5ef;
+  border-radius: 5px;
+  padding: 2px 10px 0 10px;
   color: #333;
   text-transform: uppercase;
-  letter-spacing: 1.5px;
-  font-size: .8rem;
+  letter-spacing: 1px;
+  font-size: .7rem;
   font-weight: 600;
   margin-bottom: 10px;
+  cursor: pointer;
+  opacity: .35;
 }
 
 #filters .filter-button.selected {
-  background-color: #e9f5ef;
+  opacity: 1;
 }
 
 #plants {
@@ -426,9 +482,14 @@ p.uploaded-file { margin: 0; }
   margin: 0 -10px;
 }
 
-.plant *, .room * { cursor: pointer!important; }
+.plant *, .room * { cursor: pointer; }
 
-#plants .plant { width: 23.5%; }
+
+#plant .friends {
+  cursor: default;
+}
+
+#plants .plant { width: 23.4%; }
 #plants > * { margin: 0 10px; }
 
 #plants > div {
@@ -436,7 +497,9 @@ p.uploaded-file { margin: 0; }
   background-color: white;
 }
 
-.plant-actions { padding: 10px 15px 0 0; }
+#plant-details-page .plant-actions { width: 100%; display: flex; align-items: flex-start; justify-content: space-between; }
+#profile-page .plant-actions { width: 100%; display: flex; justify-content: flex-end; padding: 10px 15px 0 0; }
+.plant-actions h1 { margin: 0; padding: 0; }
 .plant-actions i { color: white; }
 .plant-actions i:hover { color: lightgray; }
 
@@ -477,15 +540,17 @@ p.uploaded-file { margin: 0; }
 
 #plants .card-invitee {
   position: relative;
-  left: 3px;
+  left: -10px;
   height: 32px;
   width: 32px;
+  border-width: 2px;
 }
 
 #plants .plant-room {
   background-color: #e9f5ef;
-  border-radius: 50px;
-  padding: 8px 18px;
+  /* background-color: #dadada; */
+  border-radius: 4px;
+  padding: 7px 12px;
   color: #333;
   text-transform: uppercase;
   letter-spacing: 1.5px;
@@ -506,21 +571,40 @@ p.uploaded-file { margin: 0; }
   align-items: center;
   align-content: center;
   width: fit-content;
+  padding: 0;
+  margin: 0;
   margin-bottom: 30px;
   border-radius: 4px;
-  padding: 8px 22px 8px 10px;
-  background-color: linen;
+  /* border: 1px solid #dadada; */
+  background-color: #f7ffde;
+  box-sizing: border-box;
+  /* color: white; */
+  /* border: 1px solid rgba(0, 0, 0, .2);
+  padding: 10px 5px 15px 5px; */
 }
 
 .weather-infobox img {
-  margin-right: 8px;
   height: 40px;
   width: auto;
 }
 
+.weather-pic {
+  background-color: white;
+  padding: 0 10px 5px 10px;
+  border: 2px solid #f7ffde;
+  border-radius: 4px 0 0 4px;
+}
+
 .weather-infobox p {
-  padding-top: 5px;
+  display: flex;
+  align-items: center;
+  align-content: center;
   margin: 0;
+  padding: 0 15px;
+  /* background-color: #7799e3; */
+  min-height: 45px;
+  border-radius: 0 4px 4px 0;
+  color: #333;
 }
 
 .profile-actions-responsive { display: none; }
@@ -547,7 +631,8 @@ p.uploaded-file { margin: 0; }
   flex-direction: column;
   border-radius: 4px;
   background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px;
+  /* box-shadow: rgba(0, 0, 0, 0.2) 0 1px 5px; */
+  border: 1px solid #eaeaea;
   margin-bottom: 30px;
 }
 
@@ -590,9 +675,10 @@ p.uploaded-file { margin: 0; }
 }
 
 #datalist-users-list {
+  position: absolute;
   background-color: white;
   margin-top: 0;
-  width: 500px;
+  width: 440px;
   box-shadow: rgba(0, 0, 0, 0.2) 0 0 2px;
 }
 
@@ -621,7 +707,7 @@ p.uploaded-file { margin: 0; }
   margin-top: 10px;
   padding: 6px 12px;
   color: #333;
-  background-color: #b0cec2;
+  background-color: #dadada;
   border-radius: 50px;
   display: inline-flex;
   align-items: center;
@@ -640,10 +726,18 @@ p.uploaded-file { margin: 0; }
   margin: 0;
 }
 
-#card-invitees {
-  margin-top: 20px;
-  margin-left: 20px;
+#rooms .card-content { display: flex; padding-bottom: 30px; }
+#rooms .card-content > * + * { padding-left: 40px; }
+#rooms p.stats { width: 20%; display: flex; flex-direction: column; align-items: center; }
+#rooms .card-invitees { width: 80%; display: flex; flex-direction: column; }
+#rooms .stats-plants { font-size: 2rem; }
+#rooms .no-invitees { padding-top: 8px; font-style: italic; }
+
+#rooms .label { 
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
+
 
 .card-invitee {
   display: inline-block;
@@ -653,12 +747,17 @@ p.uploaded-file { margin: 0; }
   width: 65px;
   height: 65px;
   border-radius: 50%;
-  border: 3px solid white;
+  border: 3px solid white; 
+}
+
+#rooms .card-invitee + .card-invitee {
   margin-left: -20px;
 }
 
 #rooms .card-title {
-  margin-bottom: 0px;
+  padding-bottom: 15px;
+  margin-bottom: 25px;
+  border-bottom: 1px solid rgba(0, 0, 0, .1);
 }
 
 .rooms-actions {
@@ -701,11 +800,22 @@ label {
 
 input[type="text"], input[type="password"], input[type="email"], input[type="date"], textarea, select {
   display: block;
+  width: 100%;
   border: 0;
   padding: 15px;
   border-radius: 4px;
   background-color: #f0f0f0;
 }
+
+input[type="submit"] {
+  width: 100%;
+}
+
+#signup-page input[type="submit"] {
+  width: fit-content;
+  min-width: 200px;
+}
+
 
 textarea {
   height: 165px;
@@ -714,10 +824,10 @@ textarea {
 
 /* PLANT DETAILS */
 
-#plant-details-page { display: flex; justify-content: space-between; }
+#plant-details-page { display: flex; justify-content: space-between; width:fit-content; }
 #plant-details .flex-row, #plant-details .flex-row-responsive { width: 100%; } 
 #plant-details .flex-row-responsive > span { width: 100%; }
-#plant-details { display: flex; align-items: flex-start; width: 80%; }
+#plant-details { display: flex; align-items: flex-start; }
 #plant-details .plant-details-content { width: 100%; }
 
 .plant-picture {
@@ -730,21 +840,34 @@ textarea {
   border-radius: 5px;
 }
 
+/* PLANT EDIT */
+#edit-plant-page .plant-picture { 
+  width: 100%; 
+  max-width: 200px;
+  height: auto;
+  border-radius: 4px; 
+}
+
 @media only screen and (max-width: 1700px) {
-  #plants .plant, #rooms .room { width: 23.1%; }
+  header + div { min-width: 60vw; }
+  #rooms .room { width: 23.1%; }
+  #plants .plant { width: 22.8%; }
 }
 
 @media only screen and (max-width: 1400px) {
-  .flex-row-responsive { flex-direction: column!important; }
-  .flex-row-responsive > div { width: 100%; }
-  .flex-row > div + div { margin-left: 0; }
-  .flex-row-responsive > div + div { margin-left: 0; }
-  #plants .plant, #rooms .room { width: 30.9%; }
+  header + div { min-width: 70vw; }
+  #signup-page .flex-row-responsive { flex-direction: column!important; }
+  #signup-page .flex-row-responsive > div { width: 100%; }
+  #signup-page .flex-row > div + div { margin-left: 0; }
+  #signup-page .flex-row-responsive > div + div { margin-left: 0; }
+  #rooms .room { width: 30.9%; }
+  #plants .plant { width: 30.7%; }
 }
 
 @media only screen and (max-width: 1200px) {
   .button-parent { width: auto; min-width: 0; }
-  #plants .plant, #rooms .room { width: 46.8%; }
+  #rooms .room { width: 46.8%; }
+  #plants .plant { width: 46.5%; }
   .filters-rooms { flex-direction: column; }
   .filters-rooms * + * { margin-left: 0; }
   #filters { align-items: flex-start; }
@@ -752,6 +875,13 @@ textarea {
 }
 
 @media only screen and (max-width: 992px) {
+  #logo { display: block; margin-bottom: 30px; }
+  header { flex-direction: column; }
+  nav { padding: 40px 0 0px 0;}
+  .flex-row-responsive { flex-direction: column!important; }
+  .flex-row-responsive > div { width: 100%; }
+  .flex-row > div + div { margin-left: 0; }
+  .flex-row-responsive > div + div { margin-left: 0; }
   .signup-form { flex-direction: column; }
   .signup-part-one { width: 100%; }
   .signup-part-two { width: 100%; }
@@ -761,7 +891,7 @@ textarea {
   .filters-rooms * + * { margin-left: 0; }
   #profile-page { flex-direction: column; }
   .profile { display: flex; flex-direction: row; width: 100%; }
-  .profile-pic { height: 150px; width: 150px; margin-right: 20px; }
+  .profile-pic { height: 150px; width: 150px; }
   .profile-infos { padding-top: 0;}
   p.stats, p.location { display: inline-block; margin-right: 10px; }
   #profile-page > div + div { margin: 0; }
@@ -774,6 +904,7 @@ textarea {
 } 
 
 @media only screen and (max-width: 576px) {
+  #login-form, #create-plant-page, #create-room-page, #edit-room-page, #edit-plant-page { min-width: unset; width: 100%; }
   .flex-row { flex-direction: column!important; }
   .flex-row > div + div { margin-left: 0; }
   .signup-parent { flex-direction: column; }
