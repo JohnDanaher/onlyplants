@@ -1,5 +1,6 @@
-<h2>Add a plant</h2>
 <div id="create-plant-page">
+
+  <h1>Add a plant</h1>
 
   <form action="/plants/create" method="POST" enctype="multipart/form-data">
     <label>
@@ -20,12 +21,12 @@
     </select>
     <br>
    <div>
-    <label for="avatar">Add a picture of your plant:</label>
-    <label for="avatar" class="button" style="text-align: center;"><i class="bi bi-upload"></i> Upload</label>
+    <label for="avatar">Add a picture of your plant:</label><br/>
+    <label for="avatar" class="secondary-button" style="text-align: center;"><i class="bi bi-upload"></i> Upload</label>
     <input type="file" name="avatar" id="avatar" /><br />
     </div>
     <br/>
-    <button type="submit" class="button">Add</button>
+    <button type="submit" class="button primary-button">Add Plant</button>
   </form>
 
 </div>

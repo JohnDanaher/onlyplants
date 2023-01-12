@@ -6,12 +6,18 @@
         </div>
         <div class="profile-infos">
             <h1>{{ user.username }}</h1>
-            <p class="tagline">Proud plant-{{ user.gender }}<br/>based in {{ user.location }}</p>
-            <p class="stats">
-                <span class="stats-rooms">{{ roomsCount }}</span>
-                <span class="stats-plants">{{ plantsCount }}</span>
-            </p>
+            <p class="tagline">Plant-{{ user.gender }} 💚</p>
             <p class="location"><i class="bi bi-geo-alt-fill"></i> <b>{{ user.location }}</b></p>
+            <p class="stats">
+                <span>
+                    <label>Plants</label>
+                    <span class="stats-plants">{{ user.plants.length }}</span>
+                </span>
+                <span>
+                    <label>Rooms</label>
+                    <span class="stats-rooms">{{ user.rooms.length }}</span>
+                </span>
+            </p>
             <p>{{ user.bio }}</p>
         </div>
     </div>
@@ -20,10 +26,8 @@
 
         {{#if userOwnProfile}}
             <div class="weather-infobox">
-                <img src="{{ sessionSpecificData.weatherIconUrl }}" />
-                <p>
-                    <b>Hello, {{ loggedInUsername }}!</b> Today, {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }} (the temperature is {{ sessionSpecificData.weatherTemperature }}°C). Take good care of your plants! 🌺🌿
-                </p>
+                <div class="weather-pic"><img src="{{ sessionSpecificData.weatherIconUrl }}" /></div>
+                <p>Hello, {{ loggedInUsername }}! Today, {{ sessionSpecificData.weatherConditions }} in {{ sessionSpecificData.weatherLocation }} (the temperature is {{ sessionSpecificData.weatherTemperature }}°C). Take good care of your plants! 🌺🌿</p>
             </div>
         {{/if}}
 
@@ -78,15 +82,15 @@
                 {{/each}}
                 {{#each sessionSpecificData.friendsRooms }}
                     {{#each this.plants }}
-                        <div class="plant" room-name="friends-rooms" onclick="location.href = '/plants/details/{{ this._id }}';">
+                        <div class="plant" room-name="friends-rooms" onclick="location.href = '/profile/{{ this.parent.username }}';">
                             <div class="card-image" style="background-image:url('{{ this.image_url }}')">
                                 <div class="plant-actions">
-                                    <a href="/plants/edit/{{ this._id }}"><i class="bi bi-pencil-square"></i></a>
+                                    <a href="/profile/{{ this.parent.username }}"><i class="bi bi-person"></i></a>
                                 </div>
                             </div>
                             <div class="card-title">
                                 <h2>{{this.nickname}}</h2>
-                                <span>
+                                <span style="margin-right:-10px">
                                     <span class="plant-room">{{ this.parent.username }}</span>
                                     <img src="{{ this.parent.avatarUrl }}" alt="" class="card-invitee" /> 
                                 </span>
@@ -102,11 +106,8 @@
             {{else}}
                 {{#each sessionSpecificData.allowedRooms }}
                     {{#each this.plants }}
-                        <div class="plant" room-name="{{ ../this.slug }}" onclick="location.href = '/plants/details/{{ this._id }}';">
+                        <div class="plant" room-name="{{ ../this.slug }}">
                             <div class="card-image" style="background-image:url('{{ this.image_url }}')">
-                                <div class="plant-actions">
-                                    <a href="/plants/edit/{{ this._id }}"><i class="bi bi-pencil-square"></i></a>
-                                </div>
                             </div>
                             <div class="card-title">
                                 <h2>{{this.nickname}}</h2>

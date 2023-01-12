@@ -27,12 +27,12 @@
             </div>
         </div><br><br>
 
-        <input type="submit" value="Update room" class="button">
+        <input type="submit" value="Update room" class="button primary-button">
     </form>
     <br/>
 
     {{#if room.plants.length }}
-        <button type="button" class="button button-delete" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width:100%">
+        <button type="button" class="button button-delete" data-bs-toggle="modal" data-bs-target="#exampleModal">
             Delete room
         </button>
     {{else}}
@@ -44,33 +44,28 @@
 
 
 
-<!-- Button trigger modal -->
+  <!-- Button trigger modal -->
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Delete room – "{{ room.name }}"</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        This room contains <b>{{ room.plants.length }} plants.</b><br/><br/>
-        If you confirm, your room and all the plants it contains will be deleted.
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-grey" data-bs-dismiss="modal">Close</button>
-        <form action="/rooms/{{ room._id }}/delete" method="POST">
-            <input type="submit" value="Confirm" class="button button-delete">
-        </form>
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Delete room – "{{ room.name }}"</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          This room contains <b>{{ room.plants.length }} plants.</b><br/><br/>
+          If you confirm, your room and all the plants it contains will be deleted.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-grey" data-bs-dismiss="modal">Close</button>
+          <form action="/rooms/{{ room._id }}/delete" method="POST">
+              <input type="submit" value="Confirm" class="button button-delete">
+          </form>
+        </div>
       </div>
     </div>
   </div>
-</div>
-
-
-
-
-
-
+  
 </div>

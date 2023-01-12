@@ -271,17 +271,20 @@ if (myModal) {
   });
 }
 
-/* COLLAPSABLE MENU */
+/* EDIT PICTURE FEEDBACK */
 
 window.addEventListener('load', () => {
   
 const avatarInput = document.querySelector('input#avatar');
 const profilePicLabel = document.querySelector('p.uploaded-file');
-const existingProfilePic = document.querySelector('#edit-profile-page .profile-pic');
+const editProfilePage = document.querySelector('#edit-profile-page');
+const editPlantPage = document.querySelector('#edit-plant-page');
 
   avatarInput.addEventListener('input', () => {
 
     if (avatarInput) {
+      
+      editProfilePage ? existingProfilePic = editProfilePage.querySelector('.profile-pic') : existingProfilePic = editPlantPage.querySelector('.plant-picture');
 
       if ( avatarInput.files.length !== 0 ) {
         profilePicLabel.innerHTML = `<i class="bi bi-check-lg"></i> ${avatarInput.files[0].name}`;
