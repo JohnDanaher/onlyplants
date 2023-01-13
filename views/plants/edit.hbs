@@ -31,33 +31,7 @@
     </div>
   </form>
   <br>
-  <button type="button" class="button button-delete" data-bs-toggle="modal" data-bs-target="#exampleModal">
-      Remove plant (RIP)
-  </button>
-</div>
-
-  <!-- Button trigger modal -->
-
-  <!-- Modal -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Remove plant – "{{ plant.nickname }}"</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to remove this plant?<br/>
-          You can undo this action.
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-grey" data-bs-dismiss="modal">Close</button>
-          <form action="/plants/delete/{{plant._id}}" method="post">
-              <input type="submit" value="Confirm" class="button button-delete">
-          </form>
-        </div>
-      </div>
-    </div>
-  </div>
-  
+  <form action="/plants/delete/{{plant._id}}" method="post">
+    <button type="submit" class="button button-delete">Remove plant (RIP)</button>
+  </form>
 </div>
