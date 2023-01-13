@@ -827,7 +827,7 @@ textarea {
 #plant-details-page { display: flex; justify-content: space-between; width:fit-content; }
 #plant-details .flex-row, #plant-details .flex-row-responsive { width: 100%; } 
 #plant-details .flex-row-responsive > span { width: 100%; }
-#plant-details { display: flex; align-items: flex-start; }
+#plant-details { display: flex; align-items: flex-start; width: 100%; }
 #plant-details .plant-details-content { width: 100%; }
 
 .plant-picture {
