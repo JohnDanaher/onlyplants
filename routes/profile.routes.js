@@ -54,7 +54,7 @@ router.get('/:username', async (req, res, next) => {
                                     }
                                 })
                                 .catch(err => console.log(err));
-           console.log(myFriendsRooms[0].plants)                     
+                                                  
         myFriendsRooms.forEach(room => {
             room.plants.forEach(plant => {
                 if (plant.parent.avatarUrl.startsWith('image')) {
